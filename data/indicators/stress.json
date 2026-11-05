@@ -1,12 +1,12 @@
 {
- "generated": "2026-11-05T05:37Z",
+ "generated": "2026-11-05T05:39Z",
  "baseline": {
   "cpi_yoy": 4.02,
-  "wage_yoy": null,
+  "wage_yoy": 3.02,
   "fed_funds": 3.88,
-  "y10": 5.13,
-  "mortgage30": null,
-  "hy_oas": null,
+  "y10": 4.95,
+  "mortgage30": 7.24,
+  "hy_oas": 3.4,
   "unemployment": 4.2
  },
  "betas": [
@@ -17,17 +17,17 @@
     "oil_pct"
    ],
    "coef": [
-    -0.7833,
-    0.0318
+    -0.1085,
+    0.0598
    ],
    "t": [
-    -0.88,
-    1.5
+    -0.14,
+    3.17
    ],
-   "alpha_monthly": 0.8001,
-   "r2": 0.0051,
-   "n": 490,
-   "period": "1986-01 to 2026-10",
+   "alpha_monthly": 0.7483,
+   "r2": 0.023,
+   "n": 441,
+   "period": "1990-02 to 2026-10",
    "source": "estimated"
   },
   {
@@ -37,16 +37,16 @@
     "oil_pct"
    ],
    "coef": [
-    0.0443,
-    0.0344
+    1.456,
+    0.0694
    ],
    "t": [
-    0.05,
-    1.54
+    1.73,
+    3.5
    ],
-   "alpha_monthly": 0.7971,
-   "r2": 0.0061,
-   "n": 432,
+   "alpha_monthly": 0.7542,
+   "r2": 0.0454,
+   "n": 383,
    "period": "1986-2021",
    "source": "estimated"
   },
@@ -57,17 +57,57 @@
     "oil_pct"
    ],
    "coef": [
-    -7.7139,
-    0.0109
+    -8.0779,
+    0.0079
    ],
    "t": [
-    -2.93,
-    0.17
+    -4.4,
+    0.16
    ],
-   "alpha_monthly": 1.3786,
-   "r2": 0.1416,
+   "alpha_monthly": 1.3698,
+   "r2": 0.2695,
    "n": 58,
    "period": "2022-now",
+   "source": "estimated"
+  },
+  {
+   "target": "Regional banks (KRE)",
+   "factors": [
+    "d10y_pp",
+    "oil_pct"
+   ],
+   "coef": [
+    3.8472,
+    0.1249
+   ],
+   "t": [
+    1.95,
+    2.96
+   ],
+   "alpha_monthly": 0.3635,
+   "r2": 0.069,
+   "n": 244,
+   "period": "2006-07 to 2026-10",
+   "source": "estimated"
+  },
+  {
+   "target": "REITs (VNQ)",
+   "factors": [
+    "d10y_pp",
+    "oil_pct"
+   ],
+   "coef": [
+    -4.5938,
+    0.1107
+   ],
+   "t": [
+    -2.92,
+    3.28
+   ],
+   "alpha_monthly": 0.3441,
+   "r2": 0.0538,
+   "n": 265,
+   "period": "2004-10 to 2026-10",
    "source": "estimated"
   }
  ],
@@ -79,7 +119,12 @@
   "n": 487,
   "source": "estimated"
  },
- "mortgage_beta": null,
+ "mortgage_beta": {
+  "coef": 0.639,
+  "r2": 0.534,
+  "n": 441,
+  "source": "estimated"
+ },
  "priors": {
   "spx": {
    "d10y_pp": -2.5,
