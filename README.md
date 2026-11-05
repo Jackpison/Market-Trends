@@ -4,6 +4,8 @@ A research dataset and analysis project on how markets, technologies and policy 
 
 > Research and education only. Not financial advice. Entries are curated summaries; verify against primary sources before relying on any figure.
 
+Live site: https://jackpison.github.io/Market-Trends/
+
 ## Status
 | Layer | Coverage | State |
 |---|---|---|
