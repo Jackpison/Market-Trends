@@ -46,7 +46,7 @@ function render(root) {
   if (HM) {
     drawHeatmap($('#hm'), HM);
     const pts = HM.months.map((m, i) => [m, HM.composite[i]]).filter(p => p[1] != null);
-    lineChart($('#comp'), pts, { lines: [{ y: 25, cls: 'ok' }, { y: 45, cls: 'warn' }, { y: 65, cls: 'bad' }], fmt: v => v.toFixed(0), height: 200 });
+    lineChart($('#comp'), pts, { lines: [{ y: 25, cls: 'ok' }, { y: 45, cls: 'warn' }, { y: 65, cls: 'bad' }], fmt: v => String(Math.round(v) || 0), height: 200 });
   }
 }
 
