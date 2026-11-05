@@ -7,15 +7,22 @@ independently and is reported at the end. NOTE: not yet tested against the live
 endpoints - check the output before trusting it.
 """
 import csv, io, json, os, sys, time, urllib.request
+from concurrent.futures import ThreadPoolExecutor
 
 OUT = os.path.join(os.path.dirname(__file__), "..", "data", "market")
 os.makedirs(OUT, exist_ok=True)
 UA = {"User-Agent": "Mozilla/5.0 (Market-Trends research script)"}
 
-def get(url):
-    req = urllib.request.Request(url, headers=UA)
-    with urllib.request.urlopen(req, timeout=60) as r:
-        return r.read().decode("utf-8", "replace")
+def get(url, timeout=20, tries=2):
+    last = None
+    for _ in range(tries):
+        try:
+            req = urllib.request.Request(url, headers=UA)
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return r.read().decode("utf-8", "replace")
+        except Exception as e:
+            last = e
+    raise last
 
 # --- FRED (no API key needed for fredgraph.csv) ---
 FRED = {
@@ -28,6 +35,14 @@ FRED = {
     "recession_flag": "USREC",         # NBER recession indicator, 1854+
 }
 def fred(name, sid):
+    key = os.environ.get("FRED_API_KEY", "").strip()
+    if key:  # official API: reliable from cloud servers (free key at fred.stlouisfed.org)
+        d = json.loads(get("https://api.stlouisfed.org/fred/series/observations"
+                           f"?series_id={sid}&api_key={key}&file_type=json"))
+        rows = [(o["date"], o["value"]) for o in d["observations"] if o["value"] != "."]
+        with open(os.path.join(OUT, f"{name}.csv"), "w", newline="") as f:
+            w = csv.writer(f); w.writerow(["DATE", "VALUE"]); w.writerows(rows)
+        return len(rows)
     txt = get(f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={sid}")
     open(os.path.join(OUT, f"{name}.csv"), "w").write(txt)
     return len(txt.splitlines()) - 1
@@ -65,12 +80,15 @@ jobs += [(n, lambda n=n, s=s: yahoo(n, s)) for n, s in YAHOO.items()]
 jobs += [("dow_jones_long", lambda: stooq("dow_jones_long", "^dji"))]
 
 ok, bad = [], []
-for name, fn in jobs:
+def run(job):
+    name, fn = job
     try:
-        n = fn(); ok.append((name, n)); print(f"ok   {name}: {n} rows")
+        n = fn(); print(f"ok   {name}: {n} rows", flush=True); return (name, n, None)
     except Exception as e:
-        bad.append((name, str(e))); print(f"FAIL {name}: {e}", file=sys.stderr)
-    time.sleep(1)
+        print(f"FAIL {name}: {e}", file=sys.stderr, flush=True); return (name, 0, str(e))
+with ThreadPoolExecutor(max_workers=6) as ex:
+    for name, n, err in ex.map(run, jobs):
+        (bad if err else ok).append((name, err or n))
 json.dump({"series": [n for n, _ in ok], "updated": time.strftime("%Y-%m-%d")},
           open(os.path.join(OUT, "index.json"), "w"))
 print(f"\n{len(ok)} succeeded, {len(bad)} failed")
