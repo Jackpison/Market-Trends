@@ -1,0 +1,1246 @@
+[
+ {
+  "year": 1926,
+  "headline": "Florida land bubble bursts; US boom continues on autos, radio and consumer credit",
+  "regime": "Late-1920s euphoria",
+  "impact": 2,
+  "tags": [
+   "real-estate",
+   "autos",
+   "radio"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1927,
+  "headline": "Fed eases credit (Long Island conference) and speculation builds; Lindbergh flight lifts aviation interest",
+  "regime": "Euphoria building",
+  "impact": 3,
+  "tags": [
+   "monetary-policy",
+   "aviation",
+   "radio"
+  ],
+  "confidence": "medium",
+  "metrics": null
+ },
+ {
+  "year": 1928,
+  "headline": "Margin lending and broker loans surge; RCA and other radio/utility stocks soar; Fed starts tightening",
+  "regime": "Euphoria",
+  "impact": 3,
+  "tags": [
+   "margin",
+   "utilities",
+   "radio"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1929,
+  "headline": "Dow peaks 3 Sep (381); Black Thursday 24 Oct and Black Tuesday 29 Oct crash; start of an ~89% peak-to-trough fall by 1932",
+  "regime": "Bubble peak and panic",
+  "impact": 5,
+  "tags": [
+   "crash",
+   "margin",
+   "bank-failures"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1930,
+  "headline": "Smoot-Hawley tariff signed; first waves of US bank failures; partial rally fades",
+  "regime": "Depression begins",
+  "impact": 5,
+  "tags": [
+   "tariffs",
+   "banks",
+   "deflation"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1931,
+  "headline": "Credit-Anstalt collapse in Austria spreads banking panic; Britain leaves gold standard in September",
+  "regime": "Global banking crisis",
+  "impact": 5,
+  "tags": [
+   "gold-standard",
+   "banks",
+   "europe"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1932,
+  "headline": "Dow bottoms 8 Jul (~41); unemployment near 24%; Reconstruction Finance Corporation created",
+  "regime": "Market bottom",
+  "impact": 5,
+  "tags": [
+   "depression",
+   "unemployment"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1933,
+  "headline": "Bank holiday in March; Glass-Steagall and Securities Act; US leaves gold standard; strong rebound from lows",
+  "regime": "Reform and reflation",
+  "impact": 5,
+  "tags": [
+   "regulation",
+   "gold",
+   "banking"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1934,
+  "headline": "SEC created; Gold Reserve Act sets gold at $35/oz; recovery continues",
+  "regime": "Reform",
+  "impact": 4,
+  "tags": [
+   "regulation",
+   "gold",
+   "SEC"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1935,
+  "headline": "Social Security Act; Banking Act reshapes the Fed; steady recovery",
+  "regime": "Recovery",
+  "impact": 3,
+  "tags": [
+   "policy",
+   "banking"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1936,
+  "headline": "Strong economic recovery; Dow rises through the year",
+  "regime": "Recovery",
+  "impact": 2,
+  "tags": [
+   "recovery"
+  ],
+  "confidence": "medium",
+  "metrics": null
+ },
+ {
+  "year": 1937,
+  "headline": "Reserve requirements doubled and fiscal tightening; sharp recession and market drop of ~50% from March peak",
+  "regime": "Policy-error recession",
+  "impact": 4,
+  "tags": [
+   "recession",
+   "monetary-policy"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1938,
+  "headline": "Market trough in March; recovery and rearmament begin",
+  "regime": "Recovery",
+  "impact": 3,
+  "tags": [
+   "recession",
+   "rearmament"
+  ],
+  "confidence": "medium",
+  "metrics": null
+ },
+ {
+  "year": 1939,
+  "headline": "WWII begins in September; brief war-scare rally then fade",
+  "regime": "War start",
+  "impact": 3,
+  "tags": [
+   "war"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1940,
+  "headline": "Fall of France in May hits markets; defense spending ramps",
+  "regime": "War shock",
+  "impact": 3,
+  "tags": [
+   "war",
+   "defense"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1941,
+  "headline": "Pearl Harbor 7 Dec; markets fall; war mobilisation",
+  "regime": "War shock",
+  "impact": 4,
+  "tags": [
+   "war",
+   "mobilisation"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1942,
+  "headline": "Price controls and war production; Dow low in April; long wartime bull begins",
+  "regime": "Market bottom",
+  "impact": 4,
+  "tags": [
+   "war",
+   "controls"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1943,
+  "headline": "War bonds and industrial output; steady gains",
+  "regime": "War economy",
+  "impact": 2,
+  "tags": [
+   "war",
+   "bonds"
+  ],
+  "confidence": "medium",
+  "metrics": null
+ },
+ {
+  "year": 1944,
+  "headline": "Bretton Woods conference (July) sets post-war monetary order",
+  "regime": "New monetary order",
+  "impact": 4,
+  "tags": [
+   "bretton-woods",
+   "currencies"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1945,
+  "headline": "War ends; Bretton Woods agreements take effect in December",
+  "regime": "Post-war transition",
+  "impact": 4,
+  "tags": [
+   "bretton-woods",
+   "peace"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1946,
+  "headline": "Price controls lifted, inflation jumps; market peaks in May then falls; baby-boom era starts",
+  "regime": "Post-war inflation",
+  "impact": 3,
+  "tags": [
+   "inflation",
+   "demobilisation"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1947,
+  "headline": "Truman Doctrine and Marshall Plan announced; Cold War begins",
+  "regime": "Cold War onset",
+  "impact": 3,
+  "tags": [
+   "geopolitics",
+   "europe"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1948,
+  "headline": "Berlin blockade; mild recession late in year",
+  "regime": "Cold War",
+  "impact": 2,
+  "tags": [
+   "geopolitics",
+   "recession"
+  ],
+  "confidence": "medium",
+  "metrics": null
+ },
+ {
+  "year": 1949,
+  "headline": "Market low in June starts a long bull run; sterling devalued in September",
+  "regime": "Bull market starts",
+  "impact": 3,
+  "tags": [
+   "devaluation",
+   "bull-market"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1950,
+  "headline": "Korean War begins in June; brief sell-off then rally",
+  "regime": "War shock",
+  "impact": 3,
+  "tags": [
+   "war"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1951,
+  "headline": "Fed-Treasury Accord (March) restores Fed independence from bond-yield pegging",
+  "regime": "Monetary independence",
+  "impact": 4,
+  "tags": [
+   "monetary-policy",
+   "bonds"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1952,
+  "headline": "Eisenhower elected; strong equity gains",
+  "regime": "Bull market",
+  "impact": 2,
+  "tags": [
+   "politics"
+  ],
+  "confidence": "medium",
+  "metrics": null
+ },
+ {
+  "year": 1953,
+  "headline": "Korean armistice; mild recession",
+  "regime": "Bull market pause",
+  "impact": 2,
+  "tags": [
+   "recession"
+  ],
+  "confidence": "medium",
+  "metrics": null
+ },
+ {
+  "year": 1954,
+  "headline": "Dow regains its 1929 peak in November (25 years later); strong rally",
+  "regime": "Bull market",
+  "impact": 4,
+  "tags": [
+   "recovery",
+   "1929"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1955,
+  "headline": "Strong bull; Eisenhower's heart attack triggers a ~6.5% one-day drop in September",
+  "regime": "Bull market",
+  "impact": 3,
+  "tags": [
+   "bull-market"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1956,
+  "headline": "Suez crisis; Interstate Highway Act",
+  "regime": "Bull market",
+  "impact": 3,
+  "tags": [
+   "geopolitics",
+   "infrastructure"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1957,
+  "headline": "Sputnik launch (Oct); recession 1957-58; space race starts",
+  "regime": "Recession",
+  "impact": 3,
+  "tags": [
+   "technology",
+   "space",
+   "recession"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1958,
+  "headline": "Strong rebound; stock dividend yield falls below bond yield for first time",
+  "regime": "Bull market",
+  "impact": 3,
+  "tags": [
+   "valuation",
+   "bull-market"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1959,
+  "headline": "Steady expansion; growth-stock enthusiasm",
+  "regime": "Bull market",
+  "impact": 2,
+  "tags": [
+   "growth-stocks"
+  ],
+  "confidence": "medium",
+  "metrics": null
+ },
+ {
+  "year": 1960,
+  "headline": "Recession; Kennedy elected",
+  "regime": "Recession",
+  "impact": 2,
+  "tags": [
+   "recession",
+   "politics"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1961,
+  "headline": "Bay of Pigs; Berlin Wall; electronics 'glamour' stocks boom",
+  "regime": "Bull market",
+  "impact": 3,
+  "tags": [
+   "electronics",
+   "geopolitics"
+  ],
+  "confidence": "medium",
+  "metrics": null
+ },
+ {
+  "year": 1962,
+  "headline": "Kennedy Slide (market fell ~27% to June low); Cuban missile crisis in October",
+  "regime": "Bear then recovery",
+  "impact": 4,
+  "tags": [
+   "bear-market",
+   "cold-war"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1963,
+  "headline": "Kennedy assassinated 22 Nov; markets closed early; rebound afterwards",
+  "regime": "Shock and rebound",
+  "impact": 3,
+  "tags": [
+   "politics"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1964,
+  "headline": "Tax cut; Civil Rights Act; strong expansion",
+  "regime": "Bull market",
+  "impact": 3,
+  "tags": [
+   "fiscal-policy"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1965,
+  "headline": "Vietnam escalation; 'go-go' investing era begins",
+  "regime": "Go-go era",
+  "impact": 3,
+  "tags": [
+   "war",
+   "growth-stocks"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1966,
+  "headline": "Credit crunch and equity bear market (~22%)",
+  "regime": "Credit crunch",
+  "impact": 3,
+  "tags": [
+   "credit",
+   "inflation"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1967,
+  "headline": "Rally resumes; conglomerates and performance funds in vogue",
+  "regime": "Speculation",
+  "impact": 3,
+  "tags": [
+   "conglomerates",
+   "mutual-funds"
+  ],
+  "confidence": "medium",
+  "metrics": null
+ },
+ {
+  "year": 1968,
+  "headline": "Tet Offensive; London gold pool ends in March; Dow peaks Dec 1968 near 985",
+  "regime": "Peak",
+  "impact": 4,
+  "tags": [
+   "gold",
+   "vietnam"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1969,
+  "headline": "Bear market begins; Moon landing; inflation rises",
+  "regime": "Bear market",
+  "impact": 3,
+  "tags": [
+   "inflation",
+   "bear-market"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1970,
+  "headline": "Penn Central bankruptcy (June); recession; market low in May",
+  "regime": "Recession",
+  "impact": 3,
+  "tags": [
+   "credit",
+   "bankruptcy"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1971,
+  "headline": "Nixon ends dollar-gold convertibility (15 Aug); Nasdaq launches 8 Feb",
+  "regime": "Bretton Woods ends",
+  "impact": 5,
+  "tags": [
+   "currencies",
+   "gold",
+   "nasdaq"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1972,
+  "headline": "Dow first closes above 1,000 (14 Nov); 'Nifty Fifty' era; Soviet grain deal",
+  "regime": "Nifty Fifty euphoria",
+  "impact": 3,
+  "tags": [
+   "nifty-fifty",
+   "valuation"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1973,
+  "headline": "OPEC oil embargo (Oct); bear market begins; Black-Scholes published",
+  "regime": "Oil shock",
+  "impact": 5,
+  "tags": [
+   "oil",
+   "stagflation",
+   "options"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1974,
+  "headline": "Nixon resigns; S&P falls ~48% peak-to-trough ending Oct-Dec; severe stagflation",
+  "regime": "Bear market",
+  "impact": 5,
+  "tags": [
+   "stagflation",
+   "bear-market"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1975,
+  "headline": "NYC fiscal crisis; fixed brokerage commissions abolished on 1 May; sharp rebound",
+  "regime": "Rebound",
+  "impact": 4,
+  "tags": [
+   "market-structure",
+   "municipal-debt"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1976,
+  "headline": "Apple founded; recovery continues",
+  "regime": "Recovery",
+  "impact": 2,
+  "tags": [
+   "technology"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1977,
+  "headline": "Stagflation persists; personal computer era starts (Apple II, Commodore PET, TRS-80)",
+  "regime": "Stagflation",
+  "impact": 3,
+  "tags": [
+   "technology",
+   "inflation"
+  ],
+  "confidence": "medium",
+  "metrics": null
+ },
+ {
+  "year": 1978,
+  "headline": "Inflation climbs; dollar weak; Fed under Miller",
+  "regime": "Inflation rising",
+  "impact": 3,
+  "tags": [
+   "inflation",
+   "dollar"
+  ],
+  "confidence": "medium",
+  "metrics": null
+ },
+ {
+  "year": 1979,
+  "headline": "Volcker becomes Fed chair (Aug); Oct 6 policy shift to money-supply targeting; Iranian revolution oil shock",
+  "regime": "Policy regime change",
+  "impact": 5,
+  "tags": [
+   "fed",
+   "oil",
+   "inflation"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1980,
+  "headline": "Fed funds near 20%; Silver Thursday (27 Mar); gold ~$850 in Jan; Apple IPO in Dec",
+  "regime": "Rate shock",
+  "impact": 5,
+  "tags": [
+   "rates",
+   "gold",
+   "silver"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1981,
+  "headline": "Prime rate ~21.5%; Reaganomics tax cuts; recession begins",
+  "regime": "Rate peak",
+  "impact": 5,
+  "tags": [
+   "rates",
+   "recession",
+   "fiscal-policy"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1982,
+  "headline": "Severe recession; Mexico debt crisis (Aug); Dow bottoms ~777 on 12 Aug, starting the 1982-2000 bull market",
+  "regime": "Secular bull begins",
+  "impact": 5,
+  "tags": [
+   "bull-market",
+   "debt-crisis",
+   "disinflation"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1983,
+  "headline": "Strong recovery; PC and tech boom; AT&T break-up agreed",
+  "regime": "Recovery",
+  "impact": 3,
+  "tags": [
+   "technology",
+   "antitrust"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1984,
+  "headline": "AT&T break-up executes (Jan); Continental Illinois rescue; Apple Macintosh",
+  "regime": "Bull market",
+  "impact": 3,
+  "tags": [
+   "banks",
+   "technology"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1985,
+  "headline": "Plaza Accord (Sep) to weaken the dollar",
+  "regime": "Currency policy",
+  "impact": 4,
+  "tags": [
+   "currencies",
+   "accord"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1986,
+  "headline": "Tax Reform Act; oil price collapse; 'Big Bang' in London (Oct)",
+  "regime": "Deregulation",
+  "impact": 3,
+  "tags": [
+   "oil",
+   "deregulation"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1987,
+  "headline": "Black Monday 19 Oct: Dow -22.6% in a day; portfolio insurance and program trading blamed",
+  "regime": "Crash",
+  "impact": 5,
+  "tags": [
+   "crash",
+   "program-trading"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1988,
+  "headline": "Market recovers; Japan asset bubble inflates",
+  "regime": "Recovery and Japan bubble",
+  "impact": 3,
+  "tags": [
+   "japan",
+   "real-estate"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1989,
+  "headline": "Berlin Wall falls (Nov); Nikkei peaks 29 Dec near 38,900; mini-crash 13 Oct; S&L crisis",
+  "regime": "Japan peak",
+  "impact": 4,
+  "tags": [
+   "japan",
+   "savings-and-loan"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1990,
+  "headline": "Japan bubble bursts; Gulf crisis and oil spike; US recession; Drexel bankrupt",
+  "regime": "Bust",
+  "impact": 4,
+  "tags": [
+   "japan",
+   "oil",
+   "recession"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1991,
+  "headline": "Gulf War rally (Jan); Soviet Union dissolves (Dec); World Wide Web goes public",
+  "regime": "Technology seed",
+  "impact": 4,
+  "tags": [
+   "www",
+   "war",
+   "soviet"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1992,
+  "headline": "Black Wednesday (16 Sep): UK exits ERM, Soros profits ~$1bn",
+  "regime": "Currency crisis",
+  "impact": 4,
+  "tags": [
+   "currencies",
+   "europe"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1993,
+  "headline": "Mosaic browser; Fed holds low; bond rally",
+  "regime": "Early internet",
+  "impact": 3,
+  "tags": [
+   "internet",
+   "bonds"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1994,
+  "headline": "'Great bond massacre': Fed doubles rates 3% to 5.5% by Feb 1995; Orange County bankruptcy (Dec); Mexican peso crisis (Dec)",
+  "regime": "Rate shock",
+  "impact": 4,
+  "tags": [
+   "bonds",
+   "derivatives",
+   "emerging-markets"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1995,
+  "headline": "Netscape IPO (9 Aug) is seen as the internet-boom starting gun; Windows 95; Dow crosses 5,000",
+  "regime": "Internet displacement",
+  "impact": 4,
+  "tags": [
+   "internet",
+   "ipo"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1996,
+  "headline": "Greenspan 'irrational exuberance' speech (5 Dec); Yahoo IPO; Dow crosses 6,000",
+  "regime": "Boom",
+  "impact": 4,
+  "tags": [
+   "internet",
+   "valuation"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1997,
+  "headline": "Asian financial crisis begins (Thai baht, 2 Jul); Amazon IPO (May); mini-crash 27 Oct",
+  "regime": "Boom with warning",
+  "impact": 4,
+  "tags": [
+   "asia",
+   "internet",
+   "crisis"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1998,
+  "headline": "Russian default (Aug) and LTCM rescue (Sep); Fed cuts three times; Google founded",
+  "regime": "Shock then reflation",
+  "impact": 4,
+  "tags": [
+   "ltcm",
+   "russia",
+   "fed"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 1999,
+  "headline": "Nasdaq +85.6%; Dow passes 10,000; Glass-Steagall repealed (Nov); Fed hikes 3 times",
+  "regime": "Euphoria",
+  "impact": 5,
+  "tags": [
+   "dotcom",
+   "ipo",
+   "euphoria"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2000,
+  "headline": "Nasdaq peaks 10 Mar (5,048) and ends year -39%; AOL-Time Warner; Fed last hike in May",
+  "regime": "Bubble burst",
+  "impact": 5,
+  "tags": [
+   "dotcom",
+   "crash"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2001,
+  "headline": "11 Fed cuts to 1.75%; recession; 9/11 closes NYSE for 4 sessions; Enron; China joins WTO",
+  "regime": "Recession and shock",
+  "impact": 5,
+  "tags": [
+   "recession",
+   "terror",
+   "china",
+   "fraud"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2002,
+  "headline": "WorldCom, Sarbanes-Oxley; bear market low on 9 Oct (S&P ~777)",
+  "regime": "Bear market bottom",
+  "impact": 4,
+  "tags": [
+   "fraud",
+   "regulation"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2003,
+  "headline": "Iraq War starts (Mar); market low 11 Mar then strong rally; Fed cuts to 1.0%",
+  "regime": "Recovery",
+  "impact": 4,
+  "tags": [
+   "war",
+   "reflation"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2004,
+  "headline": "Fed begins 17 consecutive hikes (30 Jun); Google IPO (19 Aug); Facebook founded",
+  "regime": "Tightening start",
+  "impact": 3,
+  "tags": [
+   "fed",
+   "google",
+   "social-media"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2005,
+  "headline": "Housing boom builds; Greenspan 'conundrum'; China ends hard yuan peg (21 Jul); Katrina",
+  "regime": "Housing boom",
+  "impact": 4,
+  "tags": [
+   "housing",
+   "china",
+   "bonds"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2006,
+  "headline": "US house prices peak mid-year; Bernanke becomes Fed chair; Fed ends hikes at 5.25%",
+  "regime": "Housing peak",
+  "impact": 4,
+  "tags": [
+   "housing",
+   "fed"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2007,
+  "headline": "BNP Paribas freezes funds (9 Aug); Northern Rock run; iPhone launches; Dow peaks 9 Oct (~14,164)",
+  "regime": "Credit crunch begins",
+  "impact": 5,
+  "tags": [
+   "subprime",
+   "credit",
+   "iphone"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2008,
+  "headline": "Bear Stearns (Mar); Lehman fails 15 Sep; AIG; TARP; S&P ~-38%",
+  "regime": "Global financial crisis",
+  "impact": 5,
+  "tags": [
+   "gfc",
+   "banks",
+   "crash"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2009,
+  "headline": "S&P low 9 Mar (666); Bitcoin genesis block 3 Jan; QE1; stimulus; rebound begins",
+  "regime": "Bottom and recovery",
+  "impact": 5,
+  "tags": [
+   "qe",
+   "bitcoin",
+   "recovery"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2010,
+  "headline": "Flash Crash (6 May); Greek crisis; QE2 announced in Nov",
+  "regime": "Eurozone crisis",
+  "impact": 4,
+  "tags": [
+   "euro",
+   "flash-crash",
+   "qe"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2011,
+  "headline": "US credit rating cut by S&P (5 Aug); gold peaks ~$1,900 (Sep); Japan quake; Arab Spring",
+  "regime": "Sovereign stress",
+  "impact": 4,
+  "tags": [
+   "sovereign-debt",
+   "gold"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2012,
+  "headline": "Draghi 'whatever it takes' (26 Jul); Facebook IPO (18 May)",
+  "regime": "Eurozone stabilises",
+  "impact": 4,
+  "tags": [
+   "ecb",
+   "ipo"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2013,
+  "headline": "Taper tantrum (May-Jun); Bitcoin tops $1,000 in Nov",
+  "regime": "Rate shock",
+  "impact": 3,
+  "tags": [
+   "fed",
+   "bitcoin",
+   "emerging-markets"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2014,
+  "headline": "Oil collapses from June; Mt. Gox fails (Feb); Alibaba IPO; QE3 ends in Oct",
+  "regime": "Oil bust",
+  "impact": 3,
+  "tags": [
+   "oil",
+   "crypto",
+   "china"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2015,
+  "headline": "China devalues yuan (11 Aug) and global volatility; Fed first hike since 2006 (16 Dec)",
+  "regime": "China scare",
+  "impact": 3,
+  "tags": [
+   "china",
+   "fed"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2016,
+  "headline": "Brexit vote (23 Jun); Trump elected (8 Nov); oil low in Feb; ICO boom starts",
+  "regime": "Political shocks",
+  "impact": 4,
+  "tags": [
+   "brexit",
+   "election",
+   "ico"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2017,
+  "headline": "Bitcoin ~$20k in Dec; US tax cuts; record-low volatility",
+  "regime": "Crypto euphoria",
+  "impact": 4,
+  "tags": [
+   "bitcoin",
+   "volatility",
+   "tax"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2018,
+  "headline": "Volmageddon (5 Feb); trade war; Q4 sell-off (~-20% peak-to-trough)",
+  "regime": "Volatility return",
+  "impact": 3,
+  "tags": [
+   "volatility",
+   "tariffs",
+   "crypto-bust"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2019,
+  "headline": "Fed pivots and cuts; WeWork IPO collapses; repo spike (Sep)",
+  "regime": "Late-cycle",
+  "impact": 3,
+  "tags": [
+   "fed",
+   "unicorns"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2020,
+  "headline": "COVID crash Feb 19 to Mar 23 (~-34%); oil futures negative (Apr 20); massive stimulus; fastest-ever recovery",
+  "regime": "Pandemic shock",
+  "impact": 5,
+  "tags": [
+   "pandemic",
+   "stimulus",
+   "oil",
+   "retail-trading"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2021,
+  "headline": "Meme stocks (GameStop, Jan); SPACs; NFTs; Bitcoin ~$69k (Nov); inflation rises",
+  "regime": "Liquidity euphoria",
+  "impact": 4,
+  "tags": [
+   "meme",
+   "spac",
+   "nft",
+   "inflation"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2022,
+  "headline": "Russia invades Ukraine (Feb); fastest Fed hikes in decades; Terra/Luna (May) and FTX (Nov) collapse; ChatGPT launched 30 Nov",
+  "regime": "Rate shock and crypto bust",
+  "impact": 5,
+  "tags": [
+   "rates",
+   "war",
+   "crypto-bust",
+   "ai"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2023,
+  "headline": "SVB fails (10 Mar) then Credit Suisse; AI boom led by Nvidia; GPT-4 released",
+  "regime": "AI boom begins",
+  "impact": 4,
+  "tags": [
+   "banks",
+   "ai",
+   "semiconductors"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2024,
+  "headline": "US spot Bitcoin ETFs (Jan); Nvidia passes $3T (Jun); yen carry unwind (5 Aug); Fed cuts (Sep); Bitcoin >$100k (Dec)",
+  "regime": "AI and crypto expansion",
+  "impact": 4,
+  "tags": [
+   "ai",
+   "bitcoin",
+   "etf",
+   "fed"
+  ],
+  "confidence": "high",
+  "metrics": null
+ },
+ {
+  "year": 2025,
+  "headline": "DeepSeek shock (27 Jan); 'Liberation Day' tariffs (2 Apr) and rebound; Nvidia ~$4-5T; Bitcoin record ~$126k (Oct); gold >$4,000",
+  "regime": "Tariffs and AI capex",
+  "impact": 4,
+  "tags": [
+   "tariffs",
+   "ai",
+   "gold",
+   "bitcoin"
+  ],
+  "confidence": "medium",
+  "metrics": null
+ },
+ {
+  "year": 2026,
+  "headline": "Partial year - to be completed with sourced research",
+  "regime": "In progress",
+  "impact": 0,
+  "tags": [],
+  "confidence": "low",
+  "metrics": null
+ }
+]

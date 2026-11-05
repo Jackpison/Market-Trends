@@ -1,0 +1,86 @@
+[
+ {
+  "month": "1999-01",
+  "event": "Euro launches (1 Jan); Brazil devalues the real",
+  "market_effect": "European integration milestone; emerging-market scare",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1999-02",
+  "event": null,
+  "market_effect": "IPO activity accelerates",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "1999-03",
+  "event": "Dow closes above 10,000 for the first time (29 Mar)",
+  "market_effect": "Round-number milestone widely celebrated",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1999-04",
+  "event": null,
+  "market_effect": "Online brokerage and day trading surge",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "1999-05",
+  "event": null,
+  "market_effect": "Internet IPOs double on first day",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "1999-06",
+  "event": "Fed hikes 25bp to 5.00% (30 Jun); Napster launches",
+  "market_effect": "Start of tightening that precedes the 2000 peak",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1999-07",
+  "event": null,
+  "market_effect": "Tech leadership narrows to a few names",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "1999-08",
+  "event": "Fed hikes to 5.25% (24 Aug)",
+  "market_effect": "Tech stocks keep rising despite tightening",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1999-09",
+  "event": null,
+  "market_effect": "Y2K preparation spending lifts IT",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "1999-10",
+  "event": "Microsoft added to Dow (1 Nov)",
+  "market_effect": "Tech enters the blue-chip index (Intel, Microsoft, Home Depot, SBC)",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1999-11",
+  "event": "Gramm-Leach-Bliley Act repeals Glass-Steagall (12 Nov); Fed hikes to 5.50% (16 Nov)",
+  "market_effect": "Deregulation; late-stage euphoria",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1999-12",
+  "event": "Y2K passes quietly; Nasdaq ends 1999 +85.6% (close ~4,069)",
+  "market_effect": "Year-end melt-up",
+  "metrics": null,
+  "confidence": "high"
+ }
+]

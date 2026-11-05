@@ -1,0 +1,86 @@
+[
+ {
+  "month": "2003-01",
+  "event": "Bush dividend tax-cut plan (7 Jan)",
+  "market_effect": "Supports equities",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2003-02",
+  "event": "Columbia shuttle disaster (1 Feb); Iraq war tension",
+  "market_effect": "Risk-off",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2003-03",
+  "event": "Market retests low (11 Mar); Iraq War begins (20 Mar)",
+  "market_effect": "Classic 'sell the rumour, buy the news' rally begins",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2003-04",
+  "event": null,
+  "market_effect": "Strong rally",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2003-05",
+  "event": "Jobs and Growth Tax Relief Act signed (28 May); dividend and capital-gains tax cut",
+  "market_effect": "Supports equity valuations",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2003-06",
+  "event": "Fed cuts to 1.0% (25 Jun)",
+  "market_effect": "Multi-decade low in policy rate",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2003-07",
+  "event": null,
+  "market_effect": "Rally continues",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2003-08",
+  "event": "Northeast blackout (14 Aug)",
+  "market_effect": "Brief impact",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2003-09",
+  "event": null,
+  "market_effect": "WTO Cancun talks collapse",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2003-10",
+  "event": null,
+  "market_effect": "Housing and credit growth accelerate",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2003-11",
+  "event": null,
+  "market_effect": "Bull market extends",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2003-12",
+  "event": "Saddam Hussein captured (13 Dec); Nasdaq ends 2003 up ~50%",
+  "market_effect": "Strong year-end",
+  "metrics": null,
+  "confidence": "high"
+ }
+]

@@ -1,0 +1,86 @@
+[
+ {
+  "month": "2002-01",
+  "event": "Euro notes and coins arrive (1 Jan); Global Crossing bankruptcy (28 Jan)",
+  "market_effect": "Telecom bust deepens",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2002-02",
+  "event": null,
+  "market_effect": "Bear market continues",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2002-03",
+  "event": "Arthur Andersen indicted (7 Mar)",
+  "market_effect": "Audit-firm collapse",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2002-04",
+  "event": null,
+  "market_effect": "Equities weaken",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2002-05",
+  "event": null,
+  "market_effect": "Equities weaken",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2002-06",
+  "event": "WorldCom discloses $3.8bn accounting fraud (25 Jun)",
+  "market_effect": "Confidence in corporate governance collapses",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2002-07",
+  "event": "WorldCom files for bankruptcy (21 Jul); Sarbanes-Oxley signed (30 Jul)",
+  "market_effect": "Major regulatory response",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2002-08",
+  "event": null,
+  "market_effect": "Volatile",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2002-09",
+  "event": null,
+  "market_effect": "Equities fall toward the low",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2002-10",
+  "event": "S&P 500 closes ~777 (9 Oct): bear-market low; Nasdaq ~1,114",
+  "market_effect": "Market bottom; rebound follows",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2002-11",
+  "event": "Fed cuts to 1.25% (6 Nov)",
+  "market_effect": "Rally continues",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2002-12",
+  "event": null,
+  "market_effect": "Housing and mortgage refinancing boom starts",
+  "metrics": null,
+  "confidence": "context-only"
+ }
+]

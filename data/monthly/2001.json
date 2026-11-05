@@ -1,0 +1,86 @@
+[
+ {
+  "month": "2001-01",
+  "event": "Surprise Fed cut 50bp (3 Jan)",
+  "market_effect": "First of 11 cuts in 2001 to 1.75%",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2001-02",
+  "event": null,
+  "market_effect": "Nasdaq slides; telecom capex collapses",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2001-03",
+  "event": "US recession begins (NBER peak month)",
+  "market_effect": "Earnings recession deepens",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2001-04",
+  "event": "Nasdaq intraday low ~1,638 (4 Apr)",
+  "market_effect": "Retest of lows",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2001-05",
+  "event": null,
+  "market_effect": "Fed continues cutting",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2001-06",
+  "event": "Bush tax cut signed (7 Jun)",
+  "market_effect": "Fiscal stimulus",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2001-07",
+  "event": null,
+  "market_effect": "Weak earnings; Fed on hold-ish",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2001-08",
+  "event": null,
+  "market_effect": "Pre-9/11 weakness",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2001-09",
+  "event": "9/11 attacks (11 Sep); NYSE closed to 17 Sep; Dow -684 on reopening (-7.1%)",
+  "market_effect": "Largest short-term shock; Fed cuts and liquidity injections",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2001-10",
+  "event": "Afghanistan campaign begins (7 Oct); Enron discloses $1.2bn equity charge (16 Oct)",
+  "market_effect": "Start of accounting-fraud revelations",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2001-11",
+  "event": "Recession ends (NBER trough month)",
+  "market_effect": "Markets recover from September lows",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2001-12",
+  "event": "Enron files Chapter 11 (2 Dec); China joins WTO (11 Dec); Argentina crisis (corralito, default later in month)",
+  "market_effect": "Corporate fraud and a major sovereign crisis",
+  "metrics": null,
+  "confidence": "high"
+ }
+]

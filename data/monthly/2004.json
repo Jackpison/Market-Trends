@@ -1,0 +1,86 @@
+[
+ {
+  "month": "2004-01",
+  "event": null,
+  "market_effect": "Bull market continues",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2004-02",
+  "event": "Facebook launched (4 Feb)",
+  "market_effect": "Beginning of social-media era",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2004-03",
+  "event": "Madrid train bombings (11 Mar)",
+  "market_effect": "Brief risk-off",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2004-04",
+  "event": null,
+  "market_effect": "Equities choppy",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2004-05",
+  "event": null,
+  "market_effect": "Tightening expectations rise",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2004-06",
+  "event": "Fed starts a run of 17 straight hikes (30 Jun) to 1.25%",
+  "market_effect": "Beginning of the tightening cycle that ended in 2006",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2004-07",
+  "event": null,
+  "market_effect": "Oil rising",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2004-08",
+  "event": "Google IPO at $85 (19 Aug)",
+  "market_effect": "Landmark tech IPO via auction",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2004-09",
+  "event": null,
+  "market_effect": "Fed hike to 1.75%",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2004-10",
+  "event": "Crude oil passes $50",
+  "market_effect": "Energy-price spike",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2004-11",
+  "event": "Bush re-elected (2 Nov)",
+  "market_effect": "Equities rise",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2004-12",
+  "event": "Indian Ocean tsunami (26 Dec)",
+  "market_effect": "Humanitarian disaster",
+  "metrics": null,
+  "confidence": "high"
+ }
+]

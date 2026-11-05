@@ -1,0 +1,86 @@
+[
+ {
+  "month": "2005-01",
+  "event": null,
+  "market_effect": "Equities flat; housing booming",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2005-02",
+  "event": "Greenspan 'conundrum' on low long-term yields (16 Feb); YouTube founded (14 Feb)",
+  "market_effect": "Debate over global savings glut",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2005-03",
+  "event": null,
+  "market_effect": "Fed continues hiking",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2005-04",
+  "event": null,
+  "market_effect": "Equity wobble",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2005-05",
+  "event": "GM and Ford cut to junk by S&P (5 May)",
+  "market_effect": "Credit-market jolt for autos",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2005-06",
+  "event": "Greenspan notes 'froth' in some local housing markets (9 Jun)",
+  "market_effect": "Housing-bubble warnings",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2005-07",
+  "event": "China revalues yuan, ending hard peg (21 Jul)",
+  "market_effect": "Gradual yuan appreciation begins",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2005-08",
+  "event": "Hurricane Katrina (29 Aug)",
+  "market_effect": "Energy-supply disruption; oil spikes",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2005-09",
+  "event": "Hurricane Rita",
+  "market_effect": "Energy disruption",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2005-10",
+  "event": "Bernanke nominated Fed chair (24 Oct)",
+  "market_effect": "Smooth transition from Greenspan",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2005-11",
+  "event": null,
+  "market_effect": "Housing near peak",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2005-12",
+  "event": "Fed hikes to 4.25% (13 Dec)",
+  "market_effect": "Tightening continues; housing nears a turning point in 2006",
+  "metrics": null,
+  "confidence": "high"
+ }
+]

@@ -1,0 +1,86 @@
+[
+ {
+  "month": "2000-01",
+  "event": "AOL-Time Warner merger announced (10 Jan)",
+  "market_effect": "Often cited as the deal that marks the bubble's peak",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2000-02",
+  "event": "Pets.com IPO (Feb); 'dot-com' Super Bowl ads (30 Jan)",
+  "market_effect": "Peak speculative excess in consumer internet",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2000-03",
+  "event": "Nasdaq peaks 10 Mar (close ~5,049); Fed hikes to 6.0% (21 Mar)",
+  "market_effect": "Bubble top",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2000-04",
+  "event": "Microsoft antitrust ruling (3 Apr); Nasdaq -9.7% on 14 Apr",
+  "market_effect": "Nasdaq falls over a third from peak",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2000-05",
+  "event": "Fed final hike to 6.5% (16 May)",
+  "market_effect": "Tightening ends; tech bear market continues",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2000-06",
+  "event": null,
+  "market_effect": "Tech rebounds partially",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2000-07",
+  "event": null,
+  "market_effect": "Tech weakness; profit warnings begin",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2000-08",
+  "event": null,
+  "market_effect": "Rebound in Nasdaq near 4,000",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2000-09",
+  "event": "Intel profit warning (21 Sep); G7/ECB support euro (22 Sep)",
+  "market_effect": "Earnings reality hits; crude oil elevated",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2000-10",
+  "event": null,
+  "market_effect": "Nasdaq down ~40% from peak; dot-com failures mount",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "2000-11",
+  "event": "Election deadlock (7 Nov); Pets.com liquidates (Nov)",
+  "market_effect": "Political uncertainty plus dot-com collapses",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "2000-12",
+  "event": "Fed signals easing bias (19 Dec); Nasdaq ends 2000 -39%",
+  "market_effect": "Policy pivot comes too late for tech",
+  "metrics": null,
+  "confidence": "high"
+ }
+]

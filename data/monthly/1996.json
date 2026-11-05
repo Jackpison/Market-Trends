@@ -1,0 +1,86 @@
+[
+ {
+  "month": "1996-01",
+  "event": "Fed cuts rates 25bp to 5.25% (31 Jan)",
+  "market_effect": "Supports equities; soft-landing narrative",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1996-02",
+  "event": null,
+  "market_effect": "Bull market continues",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "1996-03",
+  "event": null,
+  "market_effect": "Bull market continues",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "1996-04",
+  "event": "Yahoo IPO (12 Apr)",
+  "market_effect": "Signals investor appetite for internet companies after Netscape",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1996-05",
+  "event": null,
+  "market_effect": "Bull market continues",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "1996-06",
+  "event": null,
+  "market_effect": "Mid-year correction in tech stocks",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "1996-07",
+  "event": null,
+  "market_effect": "Tech correction (summer) then recovery",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "1996-08",
+  "event": null,
+  "market_effect": "Recovery in equities",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "1996-09",
+  "event": null,
+  "market_effect": "Rally resumes",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "1996-10",
+  "event": "Dow closes above 6,000 (14 Oct)",
+  "market_effect": "Milestone; momentum builds",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1996-11",
+  "event": "Clinton re-elected (5 Nov)",
+  "market_effect": "Policy continuity; equities rise",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1996-12",
+  "event": "Greenspan 'irrational exuberance' speech (5 Dec)",
+  "market_effect": "Brief global sell-off; becomes the canonical early bubble warning",
+  "metrics": null,
+  "confidence": "high"
+ }
+]

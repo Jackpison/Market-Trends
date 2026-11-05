@@ -1,0 +1,86 @@
+[
+ {
+  "month": "1997-01",
+  "event": null,
+  "market_effect": "Bull market extends",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "1997-02",
+  "event": "Dow closes above 7,000 (13 Feb)",
+  "market_effect": "Milestone",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1997-03",
+  "event": "Fed raises rates 25bp to 5.50% (25 Mar)",
+  "market_effect": "Only tightening of the cycle; markets shrug",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1997-04",
+  "event": null,
+  "market_effect": "Strong rebound",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "1997-05",
+  "event": "Amazon IPO at $18 (15 May)",
+  "market_effect": "E-commerce enters public markets",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1997-06",
+  "event": null,
+  "market_effect": "Records continue",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "1997-07",
+  "event": "Thai baht floated (2 Jul); Dow closes above 8,000 (16 Jul)",
+  "market_effect": "Start of the Asian financial crisis; US markets largely unaffected at first",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1997-08",
+  "event": "Microsoft invests $150m in Apple (announced 6 Aug)",
+  "market_effect": "Rescue of Apple signals shifting tech landscape",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1997-09",
+  "event": null,
+  "market_effect": "Asian currencies weaken further",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "1997-10",
+  "event": "Mini-crash (27 Oct): Dow -7.2%, circuit breakers triggered",
+  "market_effect": "Hong Kong contagion; quick rebound next day",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1997-11",
+  "event": "Japan's Yamaichi Securities collapses (24 Nov)",
+  "market_effect": "Asian contagion deepens",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1997-12",
+  "event": "IMF $57bn rescue for South Korea (Dec)",
+  "market_effect": "Global contagion fears; emerging-market stress",
+  "metrics": null,
+  "confidence": "high"
+ }
+]

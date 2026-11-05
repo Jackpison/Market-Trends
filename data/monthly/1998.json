@@ -1,0 +1,86 @@
+[
+ {
+  "month": "1998-01",
+  "event": "Indonesian rupiah collapses (Jan)",
+  "market_effect": "Asian crisis deepens",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1998-02",
+  "event": null,
+  "market_effect": "US equities rally",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "1998-03",
+  "event": null,
+  "market_effect": "US equities rally",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "1998-04",
+  "event": "Dow passes 9,000 (6 Apr); Travelers-Citicorp merger announced",
+  "market_effect": "Financial-sector consolidation",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1998-05",
+  "event": "Suharto resigns (21 May)",
+  "market_effect": "Political change in Indonesia",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1998-06",
+  "event": null,
+  "market_effect": "Japan recession and yen weakness weigh on Asia",
+  "metrics": null,
+  "confidence": "context-only"
+ },
+ {
+  "month": "1998-07",
+  "event": "Dow record close 9,337 (17 Jul)",
+  "market_effect": "Peak before summer crash",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1998-08",
+  "event": "Russia devalues and defaults on domestic debt (17 Aug); Dow -512 (31 Aug)",
+  "market_effect": "Flight to quality; credit spreads blow out",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1998-09",
+  "event": "LTCM bailout organised by NY Fed (23 Sep); Fed cut (29 Sep); Google incorporated (4 Sep); eBay IPO (24 Sep)",
+  "market_effect": "Systemic-risk scare; liquidity restored",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1998-10",
+  "event": "Fed cuts again (15 Oct)",
+  "market_effect": "Equities recover sharply",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1998-11",
+  "event": "Fed third cut (17 Nov) to 4.75%",
+  "market_effect": "Dow back above 9,000; internet stocks surge",
+  "metrics": null,
+  "confidence": "high"
+ },
+ {
+  "month": "1998-12",
+  "event": "Clinton impeached (19 Dec)",
+  "market_effect": "Little market impact",
+  "metrics": null,
+  "confidence": "high"
+ }
+]
