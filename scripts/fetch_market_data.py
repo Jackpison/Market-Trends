@@ -71,4 +71,8 @@ for name, fn in jobs:
     except Exception as e:
         bad.append((name, str(e))); print(f"FAIL {name}: {e}", file=sys.stderr)
     time.sleep(1)
+json.dump({"series": [n for n, _ in ok], "updated": time.strftime("%Y-%m-%d")},
+          open(os.path.join(OUT, "index.json"), "w"))
 print(f"\n{len(ok)} succeeded, {len(bad)} failed")
+if not ok:
+    sys.exit(1)

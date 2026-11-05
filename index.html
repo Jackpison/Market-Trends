@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Market Trends: 100 Years of Cycles</title>
+<meta name="description" content="Interactive 100-year timeline of market cycles, bubbles, crashes and technology waves (1926-2026).">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><span class="logo">&#128200;</span><div><h1>Market Trends</h1><p>100 years of cycles, bubbles and technology waves</p></div></div>
+    <nav id="tabs">
+      <button data-tab="timeline">Timeline</button>
+      <button data-tab="months">Monthly</button>
+      <button data-tab="markets">Markets</button>
+      <button data-tab="learn">Learn</button>
+      <button data-tab="about">Data</button>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+  <div class="stats" id="stats"></div>
+
+  <section id="view-timeline" class="view">
+    <div class="panel">
+      <div class="controls">
+        <input id="q" type="search" placeholder="Search events, e.g. oil, Fed, Bitcoin, 1987">
+        <label>Min impact <select id="minImpact"><option value="0">All</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option><option value="5">5 only</option></select></label>
+        <label>Decade <select id="decade"><option value="">All</option></select></label>
+        <button id="reset" class="ghost">Reset</button>
+      </div>
+      <div id="chips" class="chips"></div>
+      <div class="chartbox"><svg id="bars" viewBox="0 0 1010 190" preserveAspectRatio="none" role="img" aria-label="Impact by year"></svg></div>
+      <div class="legend"><span>Impact:</span><i class="l1"></i>1<i class="l2"></i>2<i class="l3"></i>3<i class="l4"></i>4<i class="l5"></i>5<span class="muted">Subjective 1-5 score. Click a bar.</span></div>
+    </div>
+    <div class="split">
+      <div id="detail" class="panel detail"></div>
+      <div class="panel"><div class="listhead"><h3>Years <span id="count" class="muted"></span></h3></div><div id="list" class="list"></div></div>
+    </div>
+  </section>
+
+  <section id="view-months" class="view">
+    <div class="panel">
+      <h2>Monthly explorer</h2>
+      <p class="muted">Squares show which years have month-by-month detail. More decades are being added.</p>
+      <div id="strip" class="strip"></div>
+      <div class="controls">
+        <button id="prevY" class="ghost">&larr;</button>
+        <select id="monthYear"></select>
+        <button id="nextY" class="ghost">&rarr;</button>
+        <span id="monthHead" class="muted"></span>
+      </div>
+      <div id="monthGrid" class="grid"></div>
+    </div>
+  </section>
+
+  <section id="view-markets" class="view">
+    <div class="panel">
+      <h2>Market series with event markers</h2>
+      <div class="controls">
+        <label>Series <select id="series"></select></label>
+        <label>From <input id="from" type="number" min="1900" max="2030" value="1926"></label>
+        <label>To <input id="to" type="number" min="1900" max="2030" value="2026"></label>
+        <label><input id="log" type="checkbox" checked> Log scale</label>
+        <label>Events <select id="evt"><option value="5" selected>Impact 5</option><option value="4">Impact 4+</option><option value="0">Off</option></select></label>
+        <label><input id="rec" type="checkbox" checked> Recessions</label>
+      </div>
+      <div id="mkMsg" class="notice"></div>
+      <div class="chartbox"><svg id="line" viewBox="0 0 1000 400" role="img" aria-label="Market series chart"></svg></div>
+    </div>
+  </section>
+
+  <section id="view-learn" class="view">
+    <div class="split learn">
+      <div class="panel docnav" id="docnav"></div>
+      <div class="panel prose" id="doc">Loading...</div>
+    </div>
+  </section>
+
+  <section id="view-about" class="view">
+    <div class="panel prose" id="about"></div>
+  </section>
+</main>
+<footer class="wrap foot">Research and education only. Not financial advice. Entries are curated summaries; verify against primary sources. <a href="https://github.com/Jackpison/Market-Trends" target="_blank" rel="noopener">Source on GitHub</a></footer>
+<div id="tip" class="tip" hidden></div>
+<script src="assets/app.js"></script>
+</body>
+</html>
