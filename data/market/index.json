@@ -1,1 +1,1 @@
-{"series": ["sp500", "nasdaq_composite", "dow_jones_yahoo", "gold_futures", "bitcoin_usd", "dow_jones_long"], "updated": "2026-11-05"}
+{"series": ["fed_funds_rate", "cpi_all_items", "unemployment_rate", "treasury_10y", "wti_oil", "industrial_production", "recession_flag", "sp500", "nasdaq_composite", "dow_jones_yahoo", "gold_futures", "bitcoin_usd", "dow_jones_long"], "updated": "2026-11-05"}
