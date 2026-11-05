@@ -1,0 +1,109 @@
+{
+ "generated": "2026-11-05T05:37Z",
+ "baseline": {
+  "cpi_yoy": 4.02,
+  "wage_yoy": null,
+  "fed_funds": 3.88,
+  "y10": 5.13,
+  "mortgage30": null,
+  "hy_oas": null,
+  "unemployment": 4.2
+ },
+ "betas": [
+  {
+   "target": "S&P 500",
+   "factors": [
+    "d10y_pp",
+    "oil_pct"
+   ],
+   "coef": [
+    -0.7833,
+    0.0318
+   ],
+   "t": [
+    -0.88,
+    1.5
+   ],
+   "alpha_monthly": 0.8001,
+   "r2": 0.0051,
+   "n": 490,
+   "period": "1986-01 to 2026-10",
+   "source": "estimated"
+  },
+  {
+   "target": "S&P 500 (1986-2021)",
+   "factors": [
+    "d10y_pp",
+    "oil_pct"
+   ],
+   "coef": [
+    0.0443,
+    0.0344
+   ],
+   "t": [
+    0.05,
+    1.54
+   ],
+   "alpha_monthly": 0.7971,
+   "r2": 0.0061,
+   "n": 432,
+   "period": "1986-2021",
+   "source": "estimated"
+  },
+  {
+   "target": "S&P 500 (2022-now)",
+   "factors": [
+    "d10y_pp",
+    "oil_pct"
+   ],
+   "coef": [
+    -7.7139,
+    0.0109
+   ],
+   "t": [
+    -2.93,
+    0.17
+   ],
+   "alpha_monthly": 1.3786,
+   "r2": 0.1416,
+   "n": 58,
+   "period": "2022-now",
+   "source": "estimated"
+  }
+ ],
+ "cpi_passthrough": {
+  "target": "CPI pass-through (pp CPI level per 1% oil, cumulative 3 months)",
+  "coef": 0.0233,
+  "t": 15.25,
+  "r2": 0.37,
+  "n": 487,
+  "source": "estimated"
+ },
+ "mortgage_beta": null,
+ "priors": {
+  "spx": {
+   "d10y_pp": -2.5,
+   "oil_pct": -0.02,
+   "hy_per_100bp": -4.0
+  },
+  "banks": {
+   "d10y_pp": -1.0,
+   "oil_pct": -0.02,
+   "hy_per_100bp": -6.0
+  },
+  "reits": {
+   "d10y_pp": -6.0,
+   "oil_pct": 0.0,
+   "hy_per_100bp": -4.5
+  },
+  "cpi_passthrough": 0.035,
+  "mortgage_beta": 0.9
+ },
+ "transmission": {
+  "fed_to_10y": 0.35,
+  "infl_to_10y": 0.5,
+  "wage_stickiness": 0.4,
+  "bank_securities_duration": 5.0,
+  "loan": 400000
+ }
+}

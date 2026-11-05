@@ -5,7 +5,7 @@ const MONTHS = ['January','February','March','April','May','June','July','August
 const LABELS = {sp500:'S&P 500',nasdaq_composite:'Nasdaq Composite',dow_jones_long:'Dow Jones (long history)',dow_jones_yahoo:'Dow Jones (Yahoo)',
   fed_funds_rate:'Fed funds rate (%)',cpi_all_items:'CPI, all items',unemployment_rate:'Unemployment rate (%)',treasury_10y:'10-year Treasury yield (%)',
   wti_oil:'WTI crude oil ($)',industrial_production:'Industrial production',gold_futures:'Gold futures ($)',bitcoin_usd:'Bitcoin (USD)'};
-const DOCS = [['docs/01-cycle-frameworks.md','Cycle frameworks'],['docs/02-signals-checklist.md','Signals checklist'],['docs/03-case-studies.md','Case studies']];
+const DOCS = [['docs/04-indicator-framework.md','Indicator framework'],['docs/05-transmission-channels.md','Transmission channels'],['docs/06-impact-horizons.md','Impact by horizon'],['docs/01-cycle-frameworks.md','Cycle frameworks'],['docs/02-signals-checklist.md','Signals checklist'],['docs/03-case-studies.md','Case studies']];
 const S = {years:[], monthIdx:[], months:{}, tags:new Set(), q:'', minImpact:0, decade:0, sel:null, series:[], cache:{}, recession:null};
 
 /* ---------- tiny markdown renderer ---------- */
@@ -210,11 +210,16 @@ function buildAbout(){
 }
 
 /* ---------- routing ---------- */
+const TABS = ['radar','yield','stress','timeline','months','markets','learn','about'];
 function route(){
-  const t = (location.hash||'#timeline').slice(1), tab = ['timeline','months','markets','learn','about'].includes(t) ? t : 'timeline';
+  const t = (location.hash||'#radar').slice(1), tab = TABS.includes(t) ? t : 'radar';
   $$('.view').forEach(v=>v.classList.toggle('on', v.id==='view-'+tab)); $$('#tabs button').forEach(b=>b.classList.toggle('on', b.dataset.tab===tab));
+  $('#stats').style.display = ['timeline','months','markets'].includes(tab) ? '' : 'none';
   if (tab==='markets') plot();
+  document.dispatchEvent(new CustomEvent('tabchange', {detail: tab}));
 }
 $('#tabs').onclick = e => { const t = e.target.dataset?.tab; if (t) location.hash = '#'+t; };
 addEventListener('hashchange', route);
 init();
+addEventListener('DOMContentLoaded', route);
+route();

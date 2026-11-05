@@ -1,30 +1,43 @@
-name: Fetch market data
+name: Update data
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 6 1 * *'
+    - cron: '30 22 * * 1-5'   # weekdays, after the US close (UTC)
 
 permissions:
   contents: write
 
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
 jobs:
-  fetch:
+  update:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Download series
+      - name: Long-history market series
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
         run: python scripts/fetch_market_data.py
+        continue-on-error: true
+      - name: Daily macro series
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: python scripts/fetch_macro.py
+        continue-on-error: true
+      - name: Compute indicators, heatmap, yield curve, stress betas
+        run: python scripts/build_indicators.py
       - name: Commit results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/market
-          git diff --staged --quiet || git commit -m "Update market data"
+          git add data
+          git diff --staged --quiet || git commit -m "Update data $(date -u +%F)"
+          git pull --rebase -q
           git push

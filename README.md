@@ -12,10 +12,27 @@ Live site: https://jackpison.github.io/Market-Trends/
 | Yearly overview | 1926-2026 | Drafted (2026 partial) |
 | Monthly detail | 1996-2005 | Drafted (sample decade) |
 | Monthly detail | 1926-1995, 2006-2026 | To do |
-| Quantitative series | FRED, Yahoo, Stooq | Script written, not yet run |
+| Market + macro series | FRED, Yahoo (daily, automated) | Runs via GitHub Actions |
+| Early-warning system | 17 indicators, radar, heatmap, yield curve, stress test | Live (see Radar tab) |
 | Cycle analysis | Frameworks, signals, case studies | First pass |
 
+## Architecture
+```
+GitHub Actions (weekdays, UTC evening)            Static site (GitHub Pages, no build step)
+  scripts/fetch_market_data.py  -> data/market/*.csv        index.html + css/ + js/ (ES modules)
+  scripts/fetch_macro.py        -> data/macro/*.csv           js/widgets: earlyWarning, yieldCurve, stressTest
+  scripts/build_indicators.py   -> data/indicators/*.json     js/charts: radar, heatmap, linechart, yieldchart, spark
+        reads config/indicators.json (thresholds)             assets/app.js: 100-year history, monthly, markets, learn
+```
+
 ## Layout
+- `config/indicators.json`: the 17 indicators, thresholds and historical notes (generated from `scripts/_indicator_defs.py`)
+- `data/indicators/`: `latest.json`, `heatmap.json`, `yield_curve.json`, `stress.json` (computed)
+- `data/macro/`, `data/market/`: raw downloaded series
+- `data/yearly`, `data/monthly`: curated 100-year history
+- `docs/04-06`: indicator framework, transmission channels (Mermaid), impact by horizon
+- `js/`, `css/`: modular frontend; `assets/`: legacy history views
+
 - `data/yearly/overview.json`: one row per year
 - `data/monthly/YYYY.json`: 12 rows per year
 - `data/market/*.csv`: downloaded series (run the script)
@@ -25,7 +42,10 @@ Live site: https://jackpison.github.io/Market-Trends/
 
 ## Quick start
 ```bash
-python3 scripts/fetch_market_data.py   # downloads real monthly series
+python3 scripts/fetch_market_data.py   # long-history monthly series
+python3 scripts/fetch_macro.py         # daily macro series (FRED, Yahoo)
+python3 scripts/build_indicators.py    # indicators, heatmap, yield curve, stress betas
+python3 -m http.server                 # then open http://localhost:8000
 python3 scripts/build_yearly.py        # rebuilds data/yearly/overview.json
 python3 scripts/build_monthly.py       # rebuilds monthly files
 ```

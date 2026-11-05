@@ -6,22 +6,31 @@
 <title>Market Trends: 100 Years of Cycles</title>
 <meta name="description" content="Interactive 100-year timeline of market cycles, bubbles, crashes and technology waves (1926-2026).">
 <link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="css/terminal.css">
 </head>
 <body>
 <header class="top">
   <div class="wrap">
-    <div class="brand"><span class="logo">&#128200;</span><div><h1>Market Trends</h1><p>100 years of cycles, bubbles and technology waves</p></div></div>
+    <div class="brand"><span class="logo">&#128200;</span><div><h1>Market Trends</h1><p>Early-warning macro intelligence + 100 years of cycles</p></div></div>
     <nav id="tabs">
-      <button data-tab="timeline">Timeline</button>
+      <button data-tab="radar">Radar</button>
+      <button data-tab="yield">Yield curve</button>
+      <button data-tab="stress">Stress test</button>
+      <button data-tab="timeline">History</button>
       <button data-tab="months">Monthly</button>
       <button data-tab="markets">Markets</button>
       <button data-tab="learn">Learn</button>
       <button data-tab="about">Data</button>
     </nav>
+    <button id="themeBtn" class="ghost" title="Toggle light / dark">Theme</button>
   </div>
 </header>
 <main class="wrap">
   <div class="stats" id="stats"></div>
+
+  <section id="view-radar" class="view"><div class="panel">Loading...</div></section>
+  <section id="view-yield" class="view"><div class="panel">Loading...</div></section>
+  <section id="view-stress" class="view"><div class="panel">Loading...</div></section>
 
   <section id="view-timeline" class="view">
     <div class="panel">
@@ -86,5 +95,6 @@
 <footer class="wrap foot">Research and education only. Not financial advice. Entries are curated summaries; verify against primary sources. <a href="https://github.com/Jackpison/Market-Trends" target="_blank" rel="noopener">Source on GitHub</a></footer>
 <div id="tip" class="tip" hidden></div>
 <script src="assets/app.js"></script>
+<script type="module" src="js/main.js"></script>
 </body>
 </html>
