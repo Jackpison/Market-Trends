@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" data-theme="dark" class="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Market Trends — Early-Warning Macro Intelligence</title>
+  <meta name="description" content="Early-warning dashboard for structural market shifts: yield curve, liquidity, credit, volatility, with a scenario stress-test simulator.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script>tailwind.config = { darkMode: 'class', corePlugins: { preflight: true } }</script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap flex items-center justify-between gap-3 flex-wrap">
+    <a href="#top" class="brand"><span class="logo">MT</span> MARKET&nbsp;TRENDS <span class="muted tag">EARLY-WARNING TERMINAL</span></a>
+    <nav class="flex gap-4 text-sm flex-wrap" aria-label="Sections">
+      <a href="#framework">Framework</a><a href="#radar">Radar</a><a href="#yield">Yield curve</a>
+      <a href="#heatmap">Heatmap</a><a href="#stress">Stress test</a><a href="#impact">Impact</a><a href="#cascade">Cascade</a>
+    </nav>
+    <button id="theme-toggle" class="btn" aria-label="Toggle colour theme">☀ Light</button>
+  </div>
+</header>
+
+<main id="top" class="wrap">
+  <section class="hero">
+    <h1>Structural-shift detection, 1–20 year horizon</h1>
+    <p>Fifteen leading indicators across curve, liquidity, credit, FX/commodities and volatility; the channels through which shocks propagate; and what they mean for banks, asset prices and households.</p>
+    <p class="notice" role="note"><b>Demo data.</b> Every number on this page is simulated or stylized for illustration. Not investment advice. Wire in real feeds via the “Going live” section of <a href="docs/BLUEPRINT.md">the blueprint</a>.</p>
+  </section>
+
+  <section id="framework">
+    <h2>Framework: four pillars</h2>
+    <div class="grid4">
+      <article class="card"><h3>1 · Leading signals</h3><p>Yield-curve velocity, net liquidity, credit spreads, USD/commodities, vol microstructure. Each carries explicit warn/crit triggers.</p></article>
+      <article class="card"><h3>2 · Transmission</h3><p>Liquidity cascade (central bank → banks → prime brokers → funds → retail), forced-liquidation contagion, counterparty and leverage unwinds.</p></article>
+      <article class="card"><h3>3 · Multi-layer impact</h3><p>Financial institutions, asset prices, and the household balance sheet, each at 1, 5, 10 and 20 years.</p></article>
+      <article class="card"><h3>4 · Scenario engine</h3><p>Shock sliders mapped through sensitivities to SPY, banks, REITs and consumer metrics.</p></article>
+    </div>
+  </section>
+
+  <section id="radar">
+    <div class="sec-h"><h2>Early-warning radar</h2>
+      <div class="flex gap-2 flex-wrap">
+        <button id="sim-toggle" class="btn" aria-pressed="false">▶ Simulate live ticks</button>
+        <button id="sim-stress" class="btn">⚠ Force stress regime</button>
+        <button id="sim-reset" class="btn">↺ Reset</button>
+      </div></div>
+    <div class="grid-radar">
+      <div class="card"><h3>Composite regime</h3><div id="composite" class="composite"></div>
+        <div class="chart-box h-72"><canvas id="radarChart" aria-label="Category stress radar chart" role="img"></canvas></div></div>
+      <div id="indicator-grid" class="ind-grid"></div>
+    </div>
+    <p class="legend"><span class="chip green"><i></i>OK</span> <span class="chip yellow"><i></i>WATCH ≥ warn</span> <span class="chip red"><i></i>ALERT ≥ crit</span> — status is also conveyed by text, not colour alone.</p>
+  </section>
+
+  <section id="yield">
+    <div class="sec-h"><h2>Yield-curve time machine</h2>
+      <button id="yc-play" class="btn">▶ Play history</button></div>
+    <div class="card">
+      <div class="yc-readout"><span id="yc-label"></span>
+        <span>10Y–2Y <b id="yc-2s10"></b></span><span>10Y–3M <b id="yc-3m10"></b></span></div>
+      <div class="chart-box h-80"><canvas id="ycChart" role="img" aria-label="US Treasury yield curve"></canvas></div>
+      <input id="yc-slider" type="range" min="0" max="6" step="0.01" value="6" class="w-full" aria-label="Scrub through historical yield curves">
+      <p class="muted small">Curves are stylized shapes of each regime (linear interpolation between snapshots), not exact daily prints. Red = inverted.</p>
+    </div>
+  </section>
+
+  <section id="heatmap">
+    <div class="sec-h"><h2>Cross-asset macro heatmap</h2><button id="hm-reseed" class="btn">⟳ New simulated draw</button></div>
+    <div class="card overflow-x-auto"><div id="hm-grid" class="hm"></div>
+      <p class="muted small">Simulated returns (%) with a common market factor. Replace <code>generate()</code> in <code>heatmap.js</code> with real data.</p></div>
+  </section>
+
+  <section id="stress">
+    <div class="sec-h"><h2>Macro stress-test simulator</h2>
+      <label class="small muted">Horizon <select id="stress-horizon" class="btn"><option value="1">1 year</option><option value="5">5 years</option><option value="10">10 years</option><option value="20">20 years</option></select></label></div>
+    <div class="grid-stress">
+      <div class="card"><h3>Shocks</h3><div id="stress-presets" class="flex gap-2 flex-wrap mb-3"></div><div id="stress-sliders"></div></div>
+      <div class="card"><h3>Projected impact</h3><div id="stress-kpis" class="kpis"></div>
+        <div class="chart-box h-64"><canvas id="stressChart" role="img" aria-label="Projected impact bar chart"></canvas></div>
+        <p class="muted small">Stylized elasticities with tail convexity; illustrates direction and relative magnitude, not a forecast. Baseline: CPI 3.0%, wages 3.8%, mortgage 6.5%, 10Y 4.2%.</p></div>
+    </div>
+  </section>
+
+  <section id="impact">
+    <h2>Impact analysis: 1 → 20 years</h2>
+    <div class="card"><div id="impact-tabs" class="tabs" role="tablist"></div><div id="impact-body" class="overflow-x-auto"></div></div>
+  </section>
+
+  <section id="cascade">
+    <h2>Cascading impact matrix</h2>
+    <div class="card overflow-x-auto"><div id="cascade" class="cascade">Loading diagram…</div></div>
+  </section>
+</main>
+
+<footer class="wrap foot">© <span id="year"></span> Market Trends · Educational use only · Not investment advice.</footer>
+<script type="module" src="assets/js/main.js"></script>
+</body>
+</html>
