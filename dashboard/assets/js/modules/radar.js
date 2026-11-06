@@ -2,8 +2,7 @@ import { INDICATORS, CATEGORIES, stress, status, clamp } from './data.js';
 import { cssVar, onThemeChange, chartDefaults } from './theme.js';
 
 const LABEL = { green: 'OK', yellow: 'WATCH', red: 'ALERT' };
-const BASE = INDICATORS.map((i) => i.value);
-let chart, timer;
+let BASE = [], chart, timer;
 
 const fmt = (i) => `${i.value.toFixed(i.dec)}${i.unit && i.unit !== '$bn' ? i.unit : ''}${i.unit === '$bn' ? ' $bn' : ''}`;
 const catScore = (c) => {
@@ -48,8 +47,8 @@ function renderChart() {
       type: 'radar',
       data: { labels: CATEGORIES, datasets: [{ label: 'Category stress (0–100)', data, borderWidth: 2, pointRadius: 3 }] },
       options: {
-        maintainAspectRatio: false, animation: { duration: 400 },
-        scales: { r: { min: 0, max: 100, ticks: { stepSize: 25, backdropColor: 'transparent' }, grid: { color: cssVar('--border') }, angleLines: { color: cssVar('--border') }, pointLabels: { color: cssVar('--text'), font: { size: 11 } } } },
+        maintainAspectRatio: false, animation: { duration: 400 }, layout: { padding: { left: 34, right: 34, top: 6, bottom: 6 } },
+        scales: { r: { min: 0, max: 100, ticks: { stepSize: 25, backdropColor: 'transparent' }, grid: { color: cssVar('--border') }, angleLines: { color: cssVar('--border') }, pointLabels: { color: cssVar('--text'), font: { size: 10 }, callback: (l) => (l.length > 14 ? l.split(/,\s*|\s+(?=&)/) : l) } } },
         plugins: { legend: { display: false } },
       },
     });
@@ -78,6 +77,7 @@ function jitter() {
 }
 
 export function initRadar() {
+  BASE = INDICATORS.map((i) => i.value);   // snapshot after live data (if any) has been loaded
   refresh();
   onThemeChange(() => chart && renderChart());
   const sim = document.getElementById('sim-toggle');
