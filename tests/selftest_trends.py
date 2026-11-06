@@ -24,6 +24,7 @@ def fake_get(url, headers=None, timeout=25, tries=2, opener=None):
     if "hn.algolia" in url: 
         n = random.randint(5, 60); return json.dumps({"nbHits": n, "hits": [{"created_at_i": int((NOW - dt.timedelta(days=random.randint(1, 30))).timestamp())} for _ in range(n)] + [{"created_at_i": int((NOW - dt.timedelta(days=1)).timestamp())} for _ in range(40)]})
     if "reddit.com" in url: raise RuntimeError("HTTP 403 (simulated block)")
+    if "revenue" in url and "efts.sec.gov" in url: return json.dumps({"hits": {"total": {"value": 5000}}})
     if "api.github.com/search" in url: return json.dumps({"items": [{"created_at": (NOW - dt.timedelta(days=random.randint(1, 30))).isoformat()} for _ in range(random.randint(3, 60))]})
     if "export.arxiv" in url: return "<feed xmlns='http://www.w3.org/2005/Atom'>" + "".join("<entry><published>%s</published></entry>" % (NOW - dt.timedelta(days=random.randint(1, 30))).isoformat() for _ in range(80)) + "</feed>"
     if "wikimedia" in url: 
@@ -31,7 +32,9 @@ def fake_get(url, headers=None, timeout=25, tries=2, opener=None):
     if "gdeltproject" in url:
         base = NOW.date() - dt.timedelta(days=34); mode = "tone" if "timelinetone" in url else "vol"
         return json.dumps({"timeline": [{"series": "x", "data": [{"date": (base + dt.timedelta(days=i)).strftime("%Y%m%dT000000Z"), "value": (random.gauss(2.0, .5) if mode == "tone" else 0.02 + random.random() * .004 + (0.01 if i == 34 else 0))} for i in range(35)]}]})
-    if "efts.sec.gov" in url: return json.dumps({"hits": {"total": {"value": random.randint(20, 60) + (80 if "startdt=%s" % (F.END - dt.timedelta(days=6)) in url else 0)}}})
+    if "efts.sec.gov" in url:
+        if "forms=D" in url: return json.dumps({"hits": {"total": {"value": 0}}})
+        return json.dumps({"hits": {"total": {"value": random.randint(20, 60) + (80 if "startdt=%s" % (F.END - dt.timedelta(days=6)) in url else 0)}}})
     if "fc.yahoo.com" in url: return ""
     if "getcrumb" in url: return "abc123XYZ"
     if "/v7/finance/options/" in url: return json.dumps({"optionChain": {"result": [{"options": [{"calls": [{"volume": random.randint(500, 3000)} for _ in range(20)], "puts": [{"volume": random.randint(200, 1500)} for _ in range(20)]}]}]}})
@@ -46,9 +49,9 @@ def fake_get(url, headers=None, timeout=25, tries=2, opener=None):
     if "overview/dexs" in url: return json.dumps({"total24h": 5e9, "change_1d": 12.0, "change_7d": 5.0, "change_1m": 20.0, "totalDataChart": [[int((NOW - dt.timedelta(days=90 - i)).timestamp()), 4e9 + random.random() * 1e9] for i in range(90)]})
     if "yc-oss" in url:
         seasons = ["Winter", "Spring", "Summer", "Fall"]; co = []
-        for y in (2022, 2023, 2024, 2025):
+        for y in (2022, 2023, 2024, 2025, 2027):
             for s in seasons:
-                for i in range(40): co.append({"name": "c", "batch": "%s %d" % (s, y), "one_liner": "AI agents for ops" if (y == 2025 and i < 14) or i < 2 else "marketplace for stuff", "long_description": "", "tags": []})
+                for i in range(60): co.append({"name": "c", "batch": "%s %d" % (s, y), "one_liner": "AI agents for ops" if (y == 2025 and i < 14) or i < 2 else "marketplace for stuff", "long_description": "", "tags": []})
         return json.dumps(co)
     raise RuntimeError("unmocked url " + url[:80])
 F.get = fake_get; F.main()

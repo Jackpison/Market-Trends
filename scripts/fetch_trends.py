@@ -30,7 +30,7 @@ class Throttle:
             d = s.t + s.i - time.time()
             if d > 0: time.sleep(d)
             s.t = time.time()
-TH = {"gdelt": Throttle(5.5), "arxiv": Throttle(3.2), "github": Throttle(2.2), "sec": Throttle(0.2), "reddit": Throttle(2.0)}
+TH = {"gdelt": Throttle(7.0), "arxiv": Throttle(3.2), "github": Throttle(2.2), "sec": Throttle(0.2), "reddit": Throttle(2.0)}
 
 def get(url, headers=None, timeout=25, tries=2, opener=None):
     last = None
@@ -47,10 +47,11 @@ Q = urllib.parse.quote
 
 # ------------------------------------------------------------------ statistics
 def clamp(x, lo=0.0, hi=100.0): return max(lo, min(hi, x))
-def zstat(series, kind="count"):
+def zstat(series, kind="count", min_len=20):
     """series: 31 daily values oldest->newest. z of last day vs the prior 30 (per the NVS formula)."""
-    if not series or len(series) < 20 or all(v is None for v in series): return None
+    if not series or len(series) < min_len or all(v is None for v in series): return None
     s = [0.0 if v is None else float(v) for v in series]; base, last = s[:-1], s[-1]
+    if len(base) < 2: return None
     mean = sum(base) / len(base); sd = statistics.stdev(base) if len(base) > 1 else 0.0
     floor = math.sqrt(max(mean, 0.25)) if kind == "count" else max(0.05 * abs(mean), 1e-9)
     z = max(-5.0, min(8.0, (last - mean) / max(sd, floor)))
@@ -65,7 +66,8 @@ def parse_day(s): return dt.date.fromisoformat(s[:10])
 # ------------------------------------------------------------------ narrative sources (per trend -> zstat dict or None)
 def src_hn(t):
     start = int(dt.datetime.combine(DAYS31[0], dt.time()).replace(tzinfo=dt.timezone.utc).timestamp()); end = start + 31 * 86400
-    base = "https://hn.algolia.com/api/v1/search_by_date?query=%s&tags=(story,comment)&advancedSyntax=true" % Q(t["query"])
+    hq = t["query"] if '"' in t["query"] else '"%s"' % t["query"]     # quoted = exact word/phrase (Algolia otherwise prefix-matches, e.g. DeFi -> define)
+    base = "https://hn.algolia.com/api/v1/search_by_date?query=%s&tags=(story,comment)&advancedSyntax=true" % Q(hq)
     d = jget(base + "&numericFilters=created_at_i>=%d,created_at_i<%d&hitsPerPage=1000" % (start, end))
     if d.get("nbHits", 0) <= 1000:
         days = [dt.datetime.fromtimestamp(h["created_at_i"], dt.timezone.utc).date() for h in d["hits"]]; return zstat(bucket(days))
@@ -75,9 +77,18 @@ def src_hn(t):
         out.append(jget(base + "&numericFilters=created_at_i>=%d,created_at_i<%d&hitsPerPage=0" % (a, a + 86400)).get("nbHits", 0))
     return zstat(out)
 
+_rtok = {}
+def reddit_token():
+    cid, sec = os.environ.get("REDDIT_CLIENT_ID"), os.environ.get("REDDIT_CLIENT_SECRET")
+    if not cid or not sec: raise RuntimeError("no REDDIT_CLIENT_ID/SECRET set (unauthenticated requests are blocked from cloud servers)")
+    if "t" not in _rtok:
+        import base64
+        req = urllib.request.Request("https://www.reddit.com/api/v1/access_token", data=b"grant_type=client_credentials", headers={"User-Agent": UA, "Authorization": "Basic " + base64.b64encode(("%s:%s" % (cid, sec)).encode()).decode()})
+        _rtok["t"] = json.loads(urllib.request.urlopen(req, timeout=25).read().decode())["access_token"]
+    return _rtok["t"]
 def src_reddit(t):
-    TH["reddit"].wait()
-    d = jget("https://www.reddit.com/search.json?q=%s&sort=new&t=month&limit=100" % Q(t["query"].replace('"', "")))
+    tok = reddit_token(); TH["reddit"].wait()
+    d = jget("https://oauth.reddit.com/search?q=%s&sort=new&t=month&limit=100" % Q(t["query"].replace('"', "")), headers={"Authorization": "Bearer " + tok})
     ch = d["data"]["children"]
     days = [dt.datetime.fromtimestamp(c["data"]["created_utc"], dt.timezone.utc).date() for c in ch]
     if len(ch) >= 100 and min(days) > DAYS31[0]: raise RuntimeError("result cap hit (volume understated)")
@@ -102,21 +113,30 @@ def src_arxiv(t):
     return zstat(bucket(days))
 
 def src_wiki(t):
-    a, b = DAYS31[0].strftime("%Y%m%d00"), END.strftime("%Y%m%d00"); tot = [0] * 31; got = 0
+    WD = [d - dt.timedelta(days=1) for d in DAYS31]    # Wikimedia publishes daily pageviews about a day late
+    a, b = WD[0].strftime("%Y%m%d00"), WD[-1].strftime("%Y%m%d00"); tot = [0] * 31; got = 0
     for art in t["wiki"]:
         try:
             d = jget("https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/%s/daily/%s/%s" % (Q(art, safe=""), a, b))
             for it in d["items"]:
                 day = dt.datetime.strptime(it["timestamp"][:8], "%Y%m%d").date()
-                if day in DAYS31: tot[DAYS31.index(day)] += it["views"]
+                if day in WD: tot[WD.index(day)] += it["views"]
             got += 1
         except Exception as e: note("wiki_article", False, "%s: %s" % (art, e))
     if not got: raise RuntimeError("no article returned data")
     return zstat(tot, "count")
 
-def _gdelt(q, mode):
-    TH["gdelt"].wait()
-    d = jget("https://api.gdeltproject.org/api/v2/doc/doc?query=%s&mode=%s&timespan=35d&format=json" % (Q(q), mode), timeout=40)
+def _gdelt(q, mode, span="35d"):
+    url = "https://api.gdeltproject.org/api/v2/doc/doc?query=%s&mode=%s&timespan=%s&format=json" % (Q(q), mode, span)
+    for attempt in (0, 1):
+        TH["gdelt"].wait()
+        try: txt = get(url, timeout=40, tries=1)
+        except Exception as e:
+            if attempt == 0 and "429" in str(e): time.sleep(15); continue
+            raise
+        if txt.lstrip().startswith("{"): d = json.loads(txt); break
+        if attempt == 0: time.sleep(15); continue
+        raise RuntimeError("non-JSON response (rate limited?): " + txt[:60].replace("\n", " "))
     acc = {}
     for s in d.get("timeline", [])[:1]:
         for p in s["data"]:
@@ -125,9 +145,12 @@ def _gdelt(q, mode):
 def src_gdelt(t):
     acc = _gdelt(t["news_query"], "timelinevol")
     if not acc: raise RuntimeError("empty timeline")
-    z = zstat([sum(acc[d]) / len(acc[d]) if d in acc else 0.0 for d in DAYS31], "cont")
+    if END not in acc: raise RuntimeError("no GDELT data for the last complete day")
+    present = [sum(acc[d]) / len(acc[d]) for d in DAYS31 if d in acc]       # only days GDELT actually reported
+    if len(present) < 15: raise RuntimeError("only %d of 31 days present" % len(present))
+    z = zstat(present, "cont", min_len=12)
     try:
-        tone = _gdelt(t["news_query"], "timelinetone"); vals = [v for d in sorted(tone)[-3:] for v in tone[d]]
+        tone = _gdelt(t["news_query"], "timelinetone", "7d"); vals = [v for d in sorted(tone)[-3:] for v in tone[d]]
         if z and vals: z["tone"] = round(sum(vals) / len(vals), 2)
     except Exception as e: note("gdelt_tone", False, e)
     return z
@@ -139,18 +162,35 @@ def _sec_weeks(q, forms):
         d = jget("https://efts.sec.gov/LATEST/search-index?q=%s&dateRange=custom&startdt=%s&enddt=%s&forms=%s" % (Q(q), s, e, forms), headers={"User-Agent": SEC_UA})
         out.append(d["hits"]["total"]["value"])
     return out
-def _weekly_z(vals):
+_ctrl = {}; _clock = threading.Lock()
+def sec_control(forms):
+    """weekly count for a ubiquitous word: tracks total filing volume so earnings-season seasonality cancels out"""
+    with _clock:
+        if forms not in _ctrl: _ctrl[forms] = _sec_weeks("revenue", forms)
+        return _ctrl[forms]
+def _weekly_z(vals, raw=None):
     base, last = vals[:-1], vals[-1]; mean = sum(base) / len(base); sd = statistics.stdev(base) if len(base) > 1 else 0
-    return {"z": round(max(-5, min(8, (last - mean) / max(sd, math.sqrt(max(mean, .25))))), 2), "last": last, "mean": round(mean, 2), "sd": round(sd, 2), "series": vals, "weekly": True}
-def src_sec(t): return _weekly_z(_sec_weeks(t["query"], "10-K,10-Q,8-K,S-1"))
-def src_formd(t): return _weekly_z(_sec_weeks(t["query"], "D"))
+    z = max(-5, min(8, (last - mean) / max(sd, 0.15 * mean if raw else math.sqrt(max(mean, .25)))))
+    r = raw or vals
+    return {"z": round(z, 2), "last": r[-1], "mean": round(sum(r[:-1]) / len(r[:-1]), 2), "sd": round(sd, 2), "series": [round(v, 3) for v in vals], "weekly": True, "normalized": bool(raw)}
+def src_sec(t):
+    forms = "10-K,10-Q,8-K,S-1"; v = _sec_weeks(t["query"], forms); c = sec_control(forms)
+    return _weekly_z([a / max(b, 1) * 1000 for a, b in zip(v, c)], raw=v)       # share of filings mentioning the theme
+def src_formd(t):
+    v = _sec_weeks(t["query"], "D")
+    if sum(v) == 0: raise RuntimeError("no Form D hits (SEC full-text search does not index Form D text)")
+    return _weekly_z(v)
 
 NARR_SOURCES = {"hn": src_hn, "reddit": src_reddit, "github": src_github, "arxiv": src_arxiv, "wiki": src_wiki, "gdelt": src_gdelt, "sec": src_sec, "formd": src_formd}
 def run_source(name, trends):
-    res = {}
+    res = {}; streak = 0
     for t in trends:
-        try: res[t["id"]] = NARR_SOURCES[name](t); note(name, res[t["id"]] is not None, None if res[t["id"]] else "no data")
-        except Exception as e: res[t["id"]] = None; note(name, False, "%s: %s" % (t["id"], e))
+        if streak >= 3: res[t["id"]] = None; continue          # circuit breaker: stop hammering a blocked / rate-limited source
+        try:
+            res[t["id"]] = NARR_SOURCES[name](t); ok = res[t["id"]] is not None; note(name, ok, None if ok else "no data"); streak = 0 if ok else streak + 1
+        except Exception as e:
+            res[t["id"]] = None; streak += 1; note(name, False, "%s: %s" % (t["id"], e))
+            if streak >= 3: note(name, False, "aborted after 3 consecutive failures (remaining trends skipped)")
     return name, res
 
 # ------------------------------------------------------------------ market data (Yahoo chart API, keyless)
@@ -226,6 +266,8 @@ def yahoo_session():
         _sess["v"] = (op, crumb)
     except Exception as e: note("yahoo_crumb", False, e); _sess["v"] = None
     return _sess["v"]
+ETFS = {"GDX", "SMH", "URA", "COPX", "GLD", "XBI", "QTUM", "BOTZ", "GRID", "NLR", "IBIT", "ARKK", "XLF", "KRE", "SPY", "QQQ", "VNQ"}
+BASE = {"etf": 0.45, "stock": 0.62}      # typical call share of option volume: ETFs skew put-heavy (hedging), single stocks call-heavy
 def options_skew(sym):
     s = yahoo_session()
     if not s: raise RuntimeError("no yahoo session")
@@ -243,13 +285,17 @@ def inst_change(sym):
     if not pos or tot <= 0: raise RuntimeError("no holder data")
     return sum(p * c for p, c in pos) / tot
 def flow_proxies(t):
-    out = {"skew": None, "f13": None, "skew_sym": None}
-    sym = t.get("etf") or next((x for x in t["tickers"] if re.match(r"^[A-Z]{1,5}$", x)), None)
-    if sym:
-        try: sh = options_skew(sym); out["skew"] = {"call_share": round(sh, 3), "score": round(clamp((sh - 0.3) / 0.4 * 100), 1), "symbol": sym}; note("options", True)
+    out = {"skew": None, "f13": None}
+    plain = [x for x in t["tickers"] if re.match(r"^[A-Z]{1,5}$", x)]; stocks = [x for x in plain if x not in ETFS]
+    cands = ([t["etf"]] if t.get("etf") else []) + stocks[:3]; devs, used = [], []
+    for sym in cands:
+        try:
+            sh = options_skew(sym); base = BASE["etf"] if sym in ETFS else BASE["stock"]; devs.append(sh - base); used.append({"symbol": sym, "call_share": round(sh, 3), "baseline": base}); note("options", True)
         except Exception as e: note("options", False, "%s: %s" % (sym, e))
+    if devs:
+        dv = sum(devs) / len(devs); out["skew"] = {"call_share": round(sum(u["call_share"] for u in used) / len(used), 3), "vs_baseline": round(dv, 3), "score": round(clamp(50 + 250 * dv), 1), "symbols": used, "symbol": ",".join(u["symbol"] for u in used)}
     chg = []
-    for x in [x for x in t["tickers"] if re.match(r"^[A-Z]{1,5}$", x)][:4]:
+    for x in stocks[:4]:
         try: chg.append(inst_change(x)); note("inst13f", True)
         except Exception as e: note("inst13f", False, "%s: %s" % (x, e))
     if chg: v = sum(chg) / len(chg); out["f13"] = {"weighted_pct_change": round(v, 4), "score": round(clamp(50 + 500 * v), 1), "n": len(chg)}
@@ -315,7 +361,9 @@ def yc_clusters(trends):
     for c in data:
         k = key(c.get("batch"))
         if k: batches.setdefault(k, []).append((" ".join([str(c.get("one_liner") or ""), str(c.get("long_description") or ""), " ".join(c.get("tags") or [])])).lower())
-    order = sorted(batches); recent, prior = order[-2:], order[-8:-2]
+    start_m = {0: 1, 1: 4, 2: 6, 3: 9}; today = NOW.date()
+    order = sorted(b for b in batches if dt.date(b[0], start_m[b[1]], 1) <= today and len(batches[b]) >= 50)   # drop future-labelled / partial batches
+    recent, prior = order[-2:], order[-8:-2]
     if len(order) < 6: note("yc", False, "too few batches parsed"); return {}
     nr = sum(len(batches[b]) for b in recent); npr = sum(len(batches[b]) for b in prior); res = {}
     for t in trends:
@@ -407,7 +455,7 @@ def make_signals(trs, tapes, defi_out, flows_by, yc, srcs):
         cm = ((t.get("capital") or {}).get("tape") or {}).get("cmf20"); rs = ((t.get("capital") or {}).get("tape") or {}).get("rs_3m")
         if cm is not None and cm >= 0.15 and rs is not None and rs > 0: add("tape", t, "Accumulation footprint in the %s basket" % t["name"], "20-day Chaikin money flow %+.2f with %.1f%% 3M outperformance versus SPY." % (cm, rs * 100), "Medium" if cm < 0.25 else "High", LEAD["tape"], "Yahoo Finance daily bars", "proxy")
         sk = (t["smii"] or {}).get("skew_detail")
-        if sk and sk["call_share"] >= 0.65: add("options", t, "Call-heavy options flow in %s" % sk["symbol"], "Calls are %.0f%% of nearest-expiry option volume." % (sk["call_share"] * 100), "High" if sk["call_share"] >= 0.75 else "Medium", LEAD["options"], "Yahoo Finance options chain", "proxy")
+        if sk and sk["vs_baseline"] >= 0.12: add("options", t, "Call-heavy options flow (%s)" % sk["symbol"], "Calls are %.0f%% of nearest-expiry option volume, %.0f points above the typical baseline for these instruments." % (sk["call_share"] * 100, sk["vs_baseline"] * 100), "High" if sk["vs_baseline"] >= 0.2 else "Medium", LEAD["options"], "Yahoo Finance options chain", "proxy")
         f13 = (t["smii"] or {}).get("f13_detail")
         if f13 and f13["weighted_pct_change"] >= 0.05: add("13f", t, "Institutional accumulation in top holders", "Position-weighted change across top reported holders: %+.1f%% (13F-derived, quarterly, lagged)." % (f13["weighted_pct_change"] * 100), "High" if f13["weighted_pct_change"] >= 0.10 else "Medium", LEAD["f13"], "Yahoo Finance institutional ownership (SEC 13F)")
         sec = (t["narrative_sources"] or {}).get("sec")
