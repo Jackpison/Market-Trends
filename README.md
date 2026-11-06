@@ -28,6 +28,18 @@ GitHub Actions (weekdays, UTC evening)            Static site (GitHub Pages, no 
 ## Speculative-trend intelligence (Trends tabs)
 `scripts/fetch_trends.py` (every 6 hours via `.github/workflows/update_trends.yml`) measures narrative velocity (NVS), infiltration stage, Smart Money Inflow Index (SMII), DeFi liquidity, VC clusters and smart-money signals for 13 editorial trend definitions in `config/trends.json`, writing `data/macro_data.json`. Methodology, formulas and an honest list of what is measured vs proxied vs unavailable: `docs/07-narrative-engine.md`. Chart.js, Vis Network and JetBrains Mono are vendored in `vendor/` (licenses in `vendor/LICENSES.md`).
 
+## Design system (2026 refresh)
+`css/theme.css` is loaded last and defines the tokens for both themes (layered surfaces, one accent, semantic ok/warn/bad colours). Status is never colour-only: every state has a label and a distinct shape. All text pairs are at least WCAG AA (4.5:1). Fonts (Inter variable, JetBrains Mono) and icons (an inlined Lucide subset in `js/icons.js`) are vendored, so the site makes no third-party requests. Motion respects `prefers-reduced-motion`.
+
+## Single-file build
+`python3 scripts/build_single.py` writes `dist/market-trends.html` (about 1.8 MB): the whole site with fonts, libraries and current data embedded. It works offline and from `file://`. Needs Node at build time only (esbuild). The output is git-ignored.
+
+## Dashboard prototype (`dashboard/`)
+Standalone radar + stress simulator. It loads `data/indicators/*.json` (live indicators, real month-end yield curves, stress baseline) and falls back to simulated values if they cannot be fetched. The asset heatmap and stress sensitivities are always simulated/stylized.
+
+## Optional sources
+Reddit narrative data needs a free app: add repo secrets `REDDIT_CLIENT_ID` and `REDDIT_CLIENT_SECRET`. Without them the source shows as `unconfigured` (not `failed`) on the Data & sources tab.
+
 ## Layout
 - `config/indicators.json`: the 17 indicators, thresholds and historical notes (generated from `scripts/_indicator_defs.py`)
 - `data/indicators/`: `latest.json`, `heatmap.json`, `yield_curve.json`, `stress.json` (computed)
@@ -51,6 +63,9 @@ python3 scripts/build_indicators.py    # indicators, heatmap, yield curve, stres
 python3 -m http.server                 # then open http://localhost:8000
 python3 scripts/build_yearly.py        # rebuilds data/yearly/overview.json
 python3 scripts/build_monthly.py       # rebuilds monthly files
+python3 tests/test_pipeline_fixes.py   # offline tests for source health
+TRENDS_OUT=/tmp/t/data python3 tests/selftest_trends.py   # always set TRENDS_OUT, or it overwrites data/
+python3 scripts/build_single.py        # one-file offline build -> dist/
 ```
 
 ## Method and honesty rules

@@ -12,7 +12,8 @@ function curveAt(pos) {
 
 function draw() {
   const y = curveAt(t);
-  const s2s10 = (y[7] - y[3]) * 100, s3m10 = (y[7] - y[0]) * 100;
+  const at = (m) => y[MATURITIES.indexOf(m)];
+  const s2s10 = (at('10Y') - at('2Y')) * 100, s3m10 = (at('10Y') - at('3M')) * 100;
   const inv = s2s10 < 0 || s3m10 < 0;
   const col = inv ? cssVar('--red') : cssVar('--green');
   const ds = chart.data.datasets[0];
@@ -45,7 +46,7 @@ export function initYield() {
     data: { labels: MATURITIES, datasets: [{ label: 'Treasury yield (%)', data: [], borderWidth: 3, tension: 0.35, fill: true, pointRadius: 4 }] },
     options: {
       maintainAspectRatio: false, animation: false,
-      scales: { y: { min: 0, max: 6, title: { display: true, text: 'Yield %' }, grid: { color: cssVar('--border') } }, x: { grid: { color: cssVar('--border') } } },
+      scales: { y: { min: 0, max: Math.ceil(Math.max(...CURVES.flatMap((c) => c.y))) + 0.5, title: { display: true, text: 'Yield %' }, grid: { color: cssVar('--border') } }, x: { grid: { color: cssVar('--border') } } },
       plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => ` ${c.parsed.y.toFixed(2)}%` } } },
     },
   });

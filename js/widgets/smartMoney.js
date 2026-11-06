@@ -1,7 +1,8 @@
+import { icon } from '../icons.js';
 import { $, esc, onTab } from '../util.js';
 import { loadTrends, NO_DATA } from '../trendsData.js';
 const TYPES = { tape: 'Tape footprint', options: 'Options flow', '13f': '13F accumulation', sec: 'SEC filings', vc: 'VC cluster', defi: 'DeFi / on-chain flow', narrative: 'Composite' };
-const ICON = { tape: '&#9650;', options: '&#9878;', '13f': '&#9638;', sec: '&#9993;', vc: '&#9672;', defi: '&#9939;', narrative: '&#9733;' };
+const ICON = { tape: 'trending-up', options: 'scale', '13f': 'landmark', sec: 'building-2', vc: 'rocket', defi: 'coins', narrative: 'radio' };
 let loaded = false, D, F = { type: 'all', strength: 'all' };
 async function load() {
   if (loaded) return; loaded = true; const root = $('#view-smart'); D = await loadTrends();
@@ -16,7 +17,7 @@ async function load() {
 }
 function draw() {
   const l = D.signals.filter(s => (F.type === 'all' || s.type === F.type) && (F.strength === 'all' || s.strength === F.strength));
-  $('#sigs').innerHTML = l.map(s => `<div class="sig sig-${s.strength}"><div class="sig-ic">${ICON[s.type] || '&#9679;'}</div><div class="sig-body"><div class="sig-top"><b>${esc(s.title)}</b><span class="pill st-${s.strength}">${s.strength}</span></div>
+  $('#sigs').innerHTML = l.map(s => `<div class="sig sig-${s.strength}"><div class="sig-ic">${icon(ICON[s.type] || 'activity', 20)}</div><div class="sig-body"><div class="sig-top"><b>${esc(s.title)}</b><span class="pill st-${s.strength}">${s.strength}</span></div>
     <div class="muted small">${esc(s.trend_name)} &middot; ${esc(TYPES[s.type] || s.type)}</div><p>${esc(s.detail)}</p><div class="sig-foot small muted">Source: ${esc(s.source)} &middot; <span class="pill basis-${s.basis}">${s.basis}</span> &middot; est. lead ${esc(s.lead)}</div></div></div>`).join('') || '<div class="notice">No signals match. A quiet stream is a valid result: signals only fire on measurable outliers.</div>';
 }
 export function initSmartMoney() { onTab('smart', load); }

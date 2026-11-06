@@ -3,18 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#080b12">
 <title>Market Trends: early-warning and speculative-trend intelligence</title>
 <meta name="description" content="Interactive 100-year timeline of market cycles, bubbles, crashes and technology waves (1926-2026).">
 <link rel="stylesheet" href="assets/style.css">
 <link rel="stylesheet" href="css/terminal.css">
 <link rel="stylesheet" href="css/trends.css">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="preload" href="vendor/fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body>
 <header class="top">
   <div class="wrap">
-    <div class="brand"><span class="logo">&#128200;</span><div><h1>Market Trends</h1><p>Early-warning macro intelligence + 100 years of cycles</p></div></div>
+    <div class="brand"><span class="logo" aria-hidden="true"><i data-icon="activity" data-size="22"></i></span><div><h1>Market Trends</h1><p>Early-warning macro intelligence + 100 years of cycles</p></div></div>
     <nav id="tabs" aria-label="Sections"></nav>
-    <button id="themeBtn" class="ghost" title="Toggle light / dark">Theme</button>
+    <button id="themeBtn" class="ghost" title="Toggle light / dark" aria-label="Toggle light or dark theme">Theme</button>
   </div>
 <div id="subnav" class="subnav wrap"></div>
 </header>
@@ -22,14 +26,14 @@
 <main class="wrap">
   <div class="stats" id="stats"></div>
 
-  <section id="view-radar" class="view"><div class="panel">Loading...</div></section>
-  <section id="view-yield" class="view"><div class="panel">Loading...</div></section>
-  <section id="view-stress" class="view"><div class="panel">Loading...</div></section>
+  <section id="view-radar" class="view"><div class="panel"><div class="skeleton" role="status" aria-label="Loading"><i></i><i></i><i></i><i></i></div></div></section>
+  <section id="view-yield" class="view"><div class="panel"><div class="skeleton" role="status" aria-label="Loading"><i></i><i></i><i></i><i></i></div></div></section>
+  <section id="view-stress" class="view"><div class="panel"><div class="skeleton" role="status" aria-label="Loading"><i></i><i></i><i></i><i></i></div></div></section>
 
-  <section id="view-narratives" class="view"><div class="panel">Loading...</div></section>
-  <section id="view-capital" class="view"><div class="panel">Loading...</div></section>
-  <section id="view-network" class="view"><div class="panel">Loading...</div></section>
-  <section id="view-smart" class="view"><div class="panel">Loading...</div></section>
+  <section id="view-narratives" class="view"><div class="panel"><div class="skeleton" role="status" aria-label="Loading"><i></i><i></i><i></i><i></i></div></div></section>
+  <section id="view-capital" class="view"><div class="panel"><div class="skeleton" role="status" aria-label="Loading"><i></i><i></i><i></i><i></i></div></div></section>
+  <section id="view-network" class="view"><div class="panel"><div class="skeleton" role="status" aria-label="Loading"><i></i><i></i><i></i><i></i></div></div></section>
+  <section id="view-smart" class="view"><div class="panel"><div class="skeleton" role="status" aria-label="Loading"><i></i><i></i><i></i><i></i></div></div></section>
 
   <section id="view-timeline" class="view">
     <div class="panel">
@@ -91,7 +95,7 @@
     <div class="panel prose" id="about"></div>
   </section>
 </main>
-<footer class="wrap foot">Research and education only. Not financial advice. Entries are curated summaries; verify against primary sources. <a href="https://github.com/Jackpison/Market-Trends" target="_blank" rel="noopener">Source on GitHub</a></footer>
+<footer class="wrap foot"><i data-icon="shield-alert" data-size="14"></i> Research and education only. Not financial advice. Entries are curated summaries; verify against primary sources. <a href="https://github.com/Jackpison/Market-Trends" target="_blank" rel="noopener">Source on GitHub</a></footer>
 <div id="tip" class="tip" hidden></div>
 <script src="assets/app.js"></script>
 <script type="module" src="js/main.js"></script>

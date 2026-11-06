@@ -55,8 +55,10 @@ export const CATEGORIES = ['Curve', 'Liquidity', 'Credit', 'FX & Commodities', '
 
 /** Stress score: 0 = safe-edge, 0.5 = warn, 1 = crit (can exceed 1). Works for either direction. */
 export function stress(i) {
+  // Same scoring as scripts/build_indicators.py: distance from `center` (or |v| when two-sided) for non-monotonic series.
+  const x = i.center != null ? Math.abs(i.value - i.center) : i.twoSided ? Math.abs(i.value) : i.value;
   const safe = 2 * i.warn - i.crit;
-  return clamp((i.value - safe) / (i.crit - safe), 0, 1.5);
+  return clamp((x - safe) / (i.crit - safe), 0, 1.5);
 }
 export function status(i) {
   const s = stress(i);
@@ -76,9 +78,12 @@ export const CURVES = [
   { label: 'Illustrative "now" — un-inverting', y: [4.2, 4.1, 3.9, 3.8, 3.8, 3.9, 4.1, 4.2, 4.7, 4.7] },
 ];
 
+/** Baseline macro levels for the stress test; overwritten with the repo's data/indicators/stress.json when available. */
+export const BASELINE = { cpi: 3.0, wage: 3.8, mort: 6.5, y10: 4.2, delinq: 3.2 };
+
 /** Stress-test sensitivities. Stylized elasticities, NOT calibrated regressions. See docs/BLUEPRINT.md. */
 export const SHOCKS = [
-  { id: 'infl', label: 'Inflation shift', unit: 'pp', min: -2, max: 5, step: 0.1, value: 0, hint: 'Change in CPI YoY vs baseline 3.0%' },
+  { id: 'infl', label: 'Inflation shift', unit: 'pp', min: -2, max: 5, step: 0.1, value: 0, hint: 'Change in CPI YoY vs the baseline shown below' },
   { id: 'cuts', label: 'Fed cuts (12m cumulative)', unit: 'bp', min: -200, max: 400, step: 25, value: 0, hint: '+ = cuts, − = hikes' },
   { id: 'oil', label: 'Oil shock', unit: '%', min: -30, max: 120, step: 5, value: 0, hint: 'Brent price change' },
   { id: 'credit', label: 'Credit-spread widening', unit: 'bp', min: 0, max: 600, step: 25, value: 0, hint: 'Change in HY OAS' },
