@@ -72,7 +72,7 @@
    "horizon": "1-5 Years",
    "hypothesis": "AI load growth strains grids; firm power and grid equipment become the constraint.",
    "query": "\"data center\" power",
-   "news_query": "(\"data center\" AND (electricity OR \"power demand\" OR \"power grid\"))",
+   "news_query": "\"data center\" (electricity OR \"power demand\" OR \"power grid\")",
    "wiki": [
     "Data_center",
     "Electric_power_transmission"
@@ -128,7 +128,7 @@
    "horizon": "3-12 Months",
    "hypothesis": "Reactor restarts and new builds meet constrained mining and enrichment supply.",
    "query": "uranium",
-   "news_query": "(uranium AND (price OR supply OR enrichment))",
+   "news_query": "uranium (price OR supply OR enrichment)",
    "wiki": [
     "Uranium",
     "Enriched_uranium"
@@ -150,7 +150,7 @@
    "horizon": "3-12 Months",
    "hypothesis": "Electrification, grids and data centers raise copper intensity faster than mine supply.",
    "query": "\"copper\" shortage",
-   "news_query": "(copper AND (shortage OR deficit OR \"supply\"))",
+   "news_query": "copper (shortage OR deficit OR supply)",
    "wiki": [
     "Copper"
    ],

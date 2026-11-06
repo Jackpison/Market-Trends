@@ -1,4 +1,4 @@
-import { SHOCKS, PRESETS } from './data.js';
+import { SHOCKS, PRESETS, BASELINE } from './data.js';
 import { cssVar, onThemeChange, chartDefaults } from './theme.js';
 
 // Stylized first-order sensitivities (per unit shock). Educational, NOT calibrated regressions.
@@ -10,7 +10,7 @@ const BETA = {
 };
 // Horizon scalars: equity-type shocks partly mean-revert; CPI level shifts persist longer.
 const HORIZON = { 1: { mkt: 1, cpi: 1 }, 5: { mkt: 0.8, cpi: 0.7 }, 10: { mkt: 0.6, cpi: 0.45 }, 20: { mkt: 0.4, cpi: 0.3 } };
-const BASE = { cpi: 3.0, wage: 3.8, mort: 6.5, delinq: 3.2, y10: 4.2 };
+const BASE = BASELINE;   // mutated in place by live.js when real data is available
 
 export function model(s, horizon = 1) {
   const h = HORIZON[horizon];
@@ -19,7 +19,7 @@ export function model(s, horizon = 1) {
   const tail = 1 + Math.max(0, (s.credit - 250) / 600) * 0.6 + Math.max(0, (s.infl - 3) / 5) * 0.3;
   const eq = (b) => { const v = lin(b); return (v < 0 ? v * tail : v) * h.mkt; };
   const cpiDelta = (s.infl + s.oil * 0.025 + (s.cuts / 100) * 0.15) * h.cpi;
-  const dy10 = s.infl * 35 - s.cuts * 0.25 + s.credit * -0.05; // bp
+  const dy10 = s.infl * 35 - s.cuts * 0.25 - s.credit * 0.05; // bp
   const cpi = BASE.cpi + cpiDelta;
   return {
     spy: eq(BETA.spy), banks: eq(BETA.banks), reits: eq(BETA.reits),
@@ -43,6 +43,7 @@ function render() {
   const f = (v, d = 1, u = '%') => `${v >= 0 ? '+' : ''}${v.toFixed(d)}${u}`;
   const cell = (label, val, cls = '') => `<div class="kpi"><span>${label}</span><b class="${cls}">${val}</b></div>`;
   const c = (v) => (v >= 0 ? 'green-t' : 'red-t');
+  const bl = document.getElementById('stress-base'); if (bl) bl.textContent = `CPI ${BASE.cpi.toFixed(1)}%, wages ${BASE.wage.toFixed(1)}%, mortgage ${BASE.mort.toFixed(2)}%, 10Y ${BASE.y10.toFixed(2)}%`;
   document.getElementById('stress-kpis').innerHTML = [
     cell('SPY (price)', f(m.spy), c(m.spy)), cell('Banks (KBW-style)', f(m.banks), c(m.banks)),
     cell('Real estate (REITs)', f(m.reits), c(m.reits)), cell('Headline CPI YoY', `${m.cpi.toFixed(1)}%`, m.cpiDelta > 0.5 ? 'red-t' : ''),

@@ -1,3 +1,4 @@
+import { icon } from '../icons.js';
 import { $, $$, esc, getJSON, onTab, RUN_HINT, signed } from '../util.js';
 import { draw2D, drawRidge, scaleFor } from '../charts/yieldchart.js';
 
@@ -10,7 +11,7 @@ async function load() {
   try { D = await getJSON('data/indicators/yield_curve.json'); if (!D.dates.length) throw 0; } catch (e) { root.innerHTML = `<div class="panel"><h2>Yield curve</h2><div class="notice">${RUN_HINT}</div></div>`; return; }
   sc = scaleFor(D.curves); idx = D.dates.length - 1;
   root.innerHTML = `<div class="panel"><div class="listhead"><h2>US Treasury yield curve through time</h2>
-    <div class="controls"><button class="ghost" id="ycPlay">&#9654; Play</button><label>Speed <select id="ycSpeed"><option value="140">Fast</option><option value="260" selected>Normal</option><option value="500">Slow</option></select></label>
+    <div class="controls"><button class="ghost" id="ycPlay">${icon('play', 14)} Play</button><label>Speed <select id="ycSpeed"><option value="140">Fast</option><option value="260" selected>Normal</option><option value="500">Slow</option></select></label>
     <label>View <select id="ycMode"><option value="2d">2D curve</option><option value="ridge">3D ridges</option></select></label>
     <label><input type="checkbox" id="ycGhost" checked> Compare to 1 year earlier</label></div></div>
     <div id="ycPresets" class="chips">${PRESETS.map(([d, n]) => `<button class="chip" data-d="${d}">${esc(n)} (${d})</button>`).join('')}<button class="chip" data-d="latest">Latest</button></div>
@@ -32,6 +33,6 @@ function show(i) {
   $('#ycInfo').innerHTML = `<div class="kpi"><span>Date</span><b>${D.dates[idx]}</b></div><div class="kpi"><span>10Y-2Y</span><b>${signed(s2, 2, 'pp')}</b></div><div class="kpi"><span>10Y-3M</span><b>${signed(s3, 2, 'pp')}</b></div><div class="kpi"><span>Shape</span><b style="color:${st[1]}">${st[0]}</b></div>`;
   if (mode === 'ridge') drawRidge($('#yc'), L, D.dates, D.curves, idx); else draw2D($('#yc'), L, c, g, sc);
 }
-function play() { if (idx >= D.dates.length - 1) idx = 0; $('#ycPlay').innerHTML = '&#10074;&#10074; Pause'; timer = setInterval(() => { if (idx >= D.dates.length - 1) return stop(); show(idx + 1); }, +$('#ycSpeed').value); }
-function stop() { clearInterval(timer); timer = null; const b = $('#ycPlay'); if (b) b.innerHTML = '&#9654; Play'; }
+function play() { if (idx >= D.dates.length - 1) idx = 0; $('#ycPlay').innerHTML = icon('pause', 14) + ' Pause'; timer = setInterval(() => { if (idx >= D.dates.length - 1) return stop(); show(idx + 1); }, +$('#ycSpeed').value); }
+function stop() { clearInterval(timer); timer = null; const b = $('#ycPlay'); if (b) b.innerHTML = icon('play', 14) + ' Play'; }
 export function initYieldCurve() { onTab('yield', load); document.addEventListener('tabchange', e => { if (e.detail !== 'yield') stop(); }); }

@@ -6,7 +6,12 @@ export const num = (v, d = 2) => { if (v == null || !isFinite(v)) return '–'; 
 export const signed = (v, d = 2, suf = '') => v == null || !isFinite(v) ? '–' : (v >= 0.5 / Math.pow(10, d) ? '+' : '') + num(v, d) + suf;
 export const unitFmt = (v, u) => v == null ? '–' : u === '%' ? num(v, 2) + '%' : u === 'pp' ? num(v, 2) + 'pp' : u === '$bn' ? '$' + num(v, 1) + 'bn' : num(v, 1);
 export const STATUS = { green: 'var(--ok)', yellow: 'var(--warn)', red: 'var(--bad)', nodata: 'var(--muted)', stale: 'var(--muted)' };
-export const scoreColor = s => s == null ? 'var(--line)' : `hsl(${Math.round(125 - 1.25 * Math.max(0, Math.min(100, s)))} 68% ${document.documentElement.dataset.mode === 'light' ? 48 : 46}%)`;
+/** Score (0-100) -> semantic status colour from the theme tokens: calm green, amber warning, red critical, blended in OKLab between bands. */
+export const scoreColor = s => {
+  if (s == null) return 'var(--line)';
+  const v = Math.max(0, Math.min(100, s)), mix = (a, b, p) => `color-mix(in oklab, var(${b}) ${Math.round(p)}%, var(${a}))`;
+  return v <= 35 ? 'var(--ok)' : v <= 50 ? mix('--ok', '--warn', (v - 35) / 15 * 100) : v <= 65 ? 'var(--warn)' : v <= 90 ? mix('--warn', '--bad', (v - 65) / 25 * 100) : 'var(--bad)';
+};
 const tipEl = () => document.getElementById('tip');
 export const tip = {
   show(html, e) { const t = tipEl(); if (!t) return; t.innerHTML = html; t.hidden = false; const w = t.offsetWidth, x = Math.min(e.clientX + 14, innerWidth - w - 10); t.style.left = Math.max(8, x) + 'px'; t.style.top = (e.clientY + 16) + 'px'; },
@@ -21,5 +26,5 @@ export function emptyNotice(msg) { return `<div class="notice">${msg}</div>`; }
 export const RUN_HINT = 'No data yet. Open the repo <b>Actions</b> tab, choose <b>Update data</b> and press <b>Run workflow</b>; refresh this page after it finishes (about 2 minutes).';
 
 const _scripts = {};
-export function loadScript(src) { return _scripts[src] || (_scripts[src] = new Promise((res, rej) => { const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = () => rej(new Error('failed to load ' + src)); document.head.appendChild(s); })); }
+export function loadScript(src) { if (window.__MT_INLINE) return Promise.resolve(); /* single-file build: libraries are already inlined */ return _scripts[src] || (_scripts[src] = new Promise((res, rej) => { const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = () => rej(new Error('failed to load ' + src)); document.head.appendChild(s); })); }
 export const cssVar = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();

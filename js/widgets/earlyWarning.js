@@ -1,3 +1,4 @@
+import { icon } from '../icons.js';
 import { $, $$, esc, getJSON, num, signed, unitFmt, STATUS, scoreColor, onTab, RUN_HINT } from '../util.js';
 import { drawRadar } from '../charts/radar.js';
 import { drawHeatmap } from '../charts/heatmap.js';
@@ -53,7 +54,7 @@ function render(root) {
 function renderRows() {
   const rows = D.indicators.filter(r => filter === 'all' || r.cat === filter);
   $('#mbody').innerHTML = rows.map(r => {
-    const st = r.status, flag = (r.flags || []).length ? ' <span class="flag" title="' + esc(r.flags.join('; ')) + '">&#9873;</span>' : '';
+    const st = r.status, flag = (r.flags || []).length ? ' <span class="flag" title="' + esc(r.flags.join('; ')) + '">' + icon('flag', 13) + '</span>' : '';
     return `<tr data-id="${r.id}" class="${selId === r.id ? 'sel' : ''}"><td><span class="dot" style="background:${STATUS[st]}" title="${STATUS_LABEL[st]}"></span></td>
       <td><b>${esc(r.name)}</b>${flag}<div class="muted small">${esc(r.cat)} &middot; ${esc(r.freq)}${r.weight === 0 ? ' &middot; unscored' : ''}</div></td>
       <td class="n">${st === 'nodata' ? '<span class="muted">no data</span>' : unitFmt(r.value, r.unit)}</td>
@@ -69,7 +70,7 @@ function select(id) {
   const r = D.indicators.find(x => x.id === id), el = $('#ewDetail'); el.hidden = false;
   const dirTxt = r.direction === 'higher_worse' ? 'higher is worse' : 'lower is worse';
   el.innerHTML = `<div class="listhead"><h3>${esc(r.name)} <span class="badge" style="background:${STATUS[r.status]}">${STATUS_LABEL[r.status]}</span></h3><button class="ghost" id="closeD">Close</button></div>
-   ${(r.flags || []).map(f => `<div class="notice">&#9873; ${esc(f)}</div>`).join('')}
+   ${(r.flags || []).map(f => `<div class="notice">${icon('triangle-alert', 14)} ${esc(f)}</div>`).join('')}
    <div class="split"><div><p><b>Trigger logic.</b> ${esc(r.logic)}</p><p><b>Why it matters.</b> ${esc(r.why)}</p>
      <p class="muted"><b>Thresholds:</b> warn ${r.center != null ? 'beyond ' + r.warn + ' from ' + r.center : r.two_sided ? '|x| > ' + r.warn : r.warn}, critical ${r.center != null ? 'beyond ' + r.crit : r.two_sided ? '|x| > ' + r.crit : r.crit} (${dirTxt}).<br><b>Tracking:</b> ${esc(r.track || '')}<br><b>Sources:</b> ${(r.sources || []).map(esc).join('; ')}</p></div>
      <div><h4>Historical relevance</h4><ul class="eps">${Object.entries(r.history || {}).map(([k, v]) => `<li><b>${esc(k)}</b> ${esc(v)}</li>`).join('')}</ul></div></div>

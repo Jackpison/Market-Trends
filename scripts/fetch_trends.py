@@ -64,6 +64,12 @@ def bucket(dates_iter):
 def parse_day(s): return dt.date.fromisoformat(s[:10])
 
 # ------------------------------------------------------------------ narrative sources (per trend -> zstat dict or None)
+def source_state(v):
+    """live = every call worked; partial = some failed; unconfigured = only missing optional credentials (not an outage); failed = all calls failed."""
+    if v["ok"]: return "live" if not v["fail"] else "partial"
+    miss = v["errors"] and all(e.split(": ", 1)[-1].startswith("no REDDIT_CLIENT_ID") for e in v["errors"])
+    return "unconfigured" if miss else "failed"
+
 def src_hn(t):
     start = int(dt.datetime.combine(DAYS31[0], dt.time()).replace(tzinfo=dt.timezone.utc).timestamp()); end = start + 31 * 86400
     hq = t["query"] if '"' in t["query"] else '"%s"' % t["query"]     # quoted = exact word/phrase (Algolia otherwise prefix-matches, e.g. DeFi -> define)
@@ -128,15 +134,18 @@ def src_wiki(t):
 
 def _gdelt(q, mode, span="35d"):
     url = "https://api.gdeltproject.org/api/v2/doc/doc?query=%s&mode=%s&timespan=%s&format=json" % (Q(q), mode, span)
-    for attempt in (0, 1):
+    d = None
+    for attempt in range(4):                      # GDELT answers 429 / plain-text errors when throttled: back off 20s, 40s, 60s
         TH["gdelt"].wait()
         try: txt = get(url, timeout=40, tries=1)
         except Exception as e:
-            if attempt == 0 and "429" in str(e): time.sleep(15); continue
+            if attempt < 3 and "429" in str(e): time.sleep(20 * (attempt + 1)); continue
             raise
         if txt.lstrip().startswith("{"): d = json.loads(txt); break
-        if attempt == 0: time.sleep(15); continue
-        raise RuntimeError("non-JSON response (rate limited?): " + txt[:60].replace("\n", " "))
+        if "rate" in txt.lower() or "limit" in txt.lower():
+            if attempt < 3: time.sleep(20 * (attempt + 1)); continue
+        raise RuntimeError("GDELT rejected the query: " + txt[:80].replace("\n", " "))
+    if d is None: raise RuntimeError("GDELT still rate limited after retries")
     acc = {}
     for s in d.get("timeline", [])[:1]:
         for p in s["data"]:
@@ -500,7 +509,7 @@ def main():
         L = json.load(open(P("data", "indicators", "latest.json"))); pick = {r["id"]: r.get("value") for r in L["indicators"] if r["id"] in ("t10y2y", "t10y3m", "hyoas", "vix", "move", "sahm")}
         macro = {"composite": L.get("composite"), "regime": L.get("regime"), "asof": L.get("generated"), "readings": pick}
     except Exception: pass
-    status = {k: dict(v, state=("live" if v["ok"] and not v["fail"] else "partial" if v["ok"] else "failed")) for k, v in sorted(STATUS.items())}
+    status = {k: dict(v, state=source_state(v)) for k, v in sorted(STATUS.items())}
     doc = {"schema": 1, "generated": NOW.strftime("%Y-%m-%dT%H:%MZ"), "window_end": END.isoformat(), "runtime_s": round(time.time() - t0, 1),
            "method": {"nvs": "NVS = 100*(1-exp(-max(z*S,0)/3)); z = weighted mean of per-source z-scores (last complete day vs prior 30 days, floored sigma); S = 1 + 0.5*sentiment (GDELT tone/5, clamped to [-1,1]).",
                       "smii": "0.4*VC cluster + 0.4*options call skew + 0.2*13F net change, renormalised over available components; coverage reported.",
