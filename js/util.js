@@ -19,3 +19,7 @@ export function onTab(name, cb) {
 }
 export function emptyNotice(msg) { return `<div class="notice">${msg}</div>`; }
 export const RUN_HINT = 'No data yet. Open the repo <b>Actions</b> tab, choose <b>Update data</b> and press <b>Run workflow</b>; refresh this page after it finishes (about 2 minutes).';
+
+const _scripts = {};
+export function loadScript(src) { return _scripts[src] || (_scripts[src] = new Promise((res, rej) => { const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = () => rej(new Error('failed to load ' + src)); document.head.appendChild(s); })); }
+export const cssVar = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();

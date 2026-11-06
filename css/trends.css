@@ -1,0 +1,40 @@
+/* Speculative-trend intelligence: terminal look. Tokens come from assets/style.css + css/terminal.css */
+@font-face{font-family:'JetBrains Mono';font-weight:400;font-style:normal;font-display:swap;src:url(../vendor/fonts/jetbrains-mono-400.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-weight:700;font-style:normal;font-display:swap;src:url(../vendor/fonts/jetbrains-mono-700.woff2) format('woff2')}
+:root{--mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+:root[data-mode=dark]{--bg:#0a0e14;--card:#10161f;--line:#1f2937;--acc2:#16233a;--glass:rgba(22,30,43,.72)}
+:root[data-mode=light]{--glass:rgba(255,255,255,.78)}
+.glass{background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-color:color-mix(in srgb,var(--acc) 22%,var(--line))}
+.top .brand h1,.gnum,.kpi b,.out b,.sv,table.matrix .n,.tk-track,.stagebar span{font-family:var(--mono)}
+h1{letter-spacing:.02em}
+.subnav{display:flex;gap:2px;padding:0 18px 6px;overflow-x:auto}.subnav button{border:0;background:none;color:var(--muted);font:600 13px var(--mono);padding:6px 12px;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap}
+.subnav button:hover{color:var(--ink)}.subnav button.on{color:var(--acc);border-bottom-color:var(--acc)}
+nav button{font-family:var(--mono);font-size:13px;letter-spacing:.03em;text-transform:uppercase}
+.top{position:sticky}.tickerbar{background:#05080d;color:#c9d4e3;border-bottom:1px solid var(--line);display:flex;align-items:center;overflow:hidden;font-size:12.5px}
+:root[data-mode=light] .tickerbar{background:#101722}
+.tk-track{display:flex;flex:1;overflow:hidden;white-space:nowrap;mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent)}
+.tk-set{display:flex;gap:26px;padding:7px 13px;animation:tk 70s linear infinite;flex-shrink:0}.tk-track:hover .tk-set{animation-play-state:paused}
+@keyframes tk{to{transform:translateX(-100%)}}@media (prefers-reduced-motion:reduce){.tk-set{animation:none}.tk-track{overflow-x:auto}}
+.tk b{color:#8fa3bd;font-weight:700;margin-right:5px}.tk i{font-style:normal;margin-left:4px}.tk i.up{color:#2ec98a}.tk i.dn{color:#ff5d62}
+.tk-asof{color:#6b7c93;font-size:11px;padding:0 14px;white-space:nowrap}@media (max-width:760px){.tk-asof{display:none}}
+.chartwrap{position:relative;height:430px}.chartwrap.tall{height:380px}.chartwrap canvas{max-width:100%}
+.nt th[data-s]{cursor:pointer}.nt th[data-s]:hover{color:var(--acc)}.nt tbody tr{cursor:pointer}.nt tbody tr:hover,.nt tbody tr.sel{background:var(--acc2)}
+.bcell{min-width:104px;white-space:nowrap}.bcell b{font:700 12.5px var(--mono);margin-left:6px}.mini{display:inline-block;width:56px;height:7px;border-radius:4px;background:var(--bg);border:1px solid var(--line);overflow:hidden;vertical-align:middle}.mini i{display:block;height:100%}
+.sec{border-left:3px solid var(--c);padding-left:7px;font-size:12.5px}.sdots{display:inline-flex;gap:3px}.sdots i{width:9px;height:9px;border-radius:50%;background:var(--line)}.sdots i.on{background:var(--acc)}
+.pill{display:inline-block;border-radius:5px;padding:2px 8px;font:700 11px var(--mono);letter-spacing:.03em;border:1px solid var(--line)}
+.q-stealth{background:rgba(46,201,138,.16);color:var(--ok);border-color:var(--ok)}.q-main{background:rgba(75,134,224,.16);color:#6ea8fe;border-color:#6ea8fe}.q-hype{background:rgba(229,72,77,.16);color:var(--bad);border-color:var(--bad)}.q-dormant{background:rgba(140,150,165,.14);color:var(--muted)}
+.st-live,.st-High{background:rgba(46,201,138,.16);color:var(--ok);border-color:var(--ok)}.st-partial,.st-Medium{background:rgba(226,163,44,.16);color:var(--warn);border-color:var(--warn)}.st-failed{background:rgba(229,72,77,.16);color:var(--bad);border-color:var(--bad)}.st-Speculative{color:var(--muted)}
+.basis-measured{color:var(--ok)}.basis-proxy{color:var(--warn)}.basis-composite{color:var(--muted)}
+.stagebar{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:10px 0}.stagebar span{font-size:10.5px;text-align:center;padding:5px 2px;border:1px solid var(--line);border-radius:5px;color:var(--muted)}.stagebar span.on{background:var(--acc2);color:var(--acc);border-color:var(--acc)}
+.hot{color:var(--bad);font-weight:700}.pos{color:var(--ok)}.neg{color:var(--bad)}.split3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:12px 0}@media (max-width:900px){.split3{grid-template-columns:1fr}}
+.mini-sig{border-left:3px solid var(--line);padding:4px 10px;margin:6px 0}.sig-High{border-left-color:var(--ok)}.sig-Medium{border-left-color:var(--warn)}.sig-Speculative{border-left-color:var(--muted)}
+.sig{display:flex;gap:12px;border:1px solid var(--line);border-left:4px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0;background:var(--bg)}.sig.sig-High{border-left-color:var(--ok)}.sig.sig-Medium{border-left-color:var(--warn)}
+.sig-ic{font-size:20px;color:var(--acc);width:24px;text-align:center}.sig-body{flex:1}.sig-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.sig-body p{margin:4px 0}
+.vis{height:540px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}.nsplit{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}@media (max-width:900px){.nsplit{grid-template-columns:1fr}.vis{height:440px}}
+.nside{max-height:540px;overflow:auto;font-size:13.5px}.rolehead{border-left:4px solid;padding:2px 8px;margin:12px 0 4px;font:700 11.5px var(--mono);text-transform:uppercase;letter-spacing:.04em}
+.nitem{padding:5px 0;border-bottom:1px solid var(--line)}.tkchip{display:inline-block;font:600 11px var(--mono);border:1px solid var(--line);border-radius:5px;padding:1px 6px;margin:2px 2px 0 0}.tkchip.up{color:var(--ok);border-color:var(--ok)}.tkchip.dn{color:var(--bad);border-color:var(--bad)}
+.nlegend{display:flex;gap:14px;flex-wrap:wrap;margin:6px 0 10px}.nlegend span{display:inline-flex;align-items:center;gap:5px}.nlegend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+details.panel summary{cursor:pointer}.small{font-size:12.5px}
+.top .subnav{justify-content:flex-start;gap:2px}
+.controls select{min-width:0;max-width:100%}
+@media (max-width:760px){.controls label{flex:1 1 100%;flex-wrap:wrap}.controls label select,.controls label input[type=range]{flex:1;min-width:0;width:100%}.listhead{flex-wrap:wrap;gap:8px}}

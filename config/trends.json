@@ -1,0 +1,478 @@
+{
+ "version": 1,
+ "note": "Editorial definitions: edit and rerun scripts/fetch_trends.py. Queries, baskets and horizons are my classification, not measured facts.",
+ "weights": {
+  "smii": {
+   "vc": 0.4,
+   "skew": 0.4,
+   "f13": 0.2
+  },
+  "nvs_sources": {
+   "hn": 1.0,
+   "reddit": 1.0,
+   "github": 1.0,
+   "arxiv": 0.5,
+   "wiki": 1.0,
+   "gdelt": 1.0,
+   "sec": 0.5
+  }
+ },
+ "tiers": {
+  "t1": [
+   "github",
+   "arxiv"
+  ],
+  "t2": [
+   "hn",
+   "reddit"
+  ],
+  "t3": [
+   "sec",
+   "tape"
+  ],
+  "t4": [
+   "gdelt",
+   "wiki"
+  ]
+ },
+ "trends": [
+  {
+   "id": "ai_infra",
+   "name": "Generative AI infrastructure",
+   "sector": "Equities",
+   "horizon": "1-5 Years",
+   "hypothesis": "Accelerator, networking and memory demand from frontier-model training and inference.",
+   "query": "\"AI data center\"",
+   "news_query": "(\"AI data center\" OR \"AI infrastructure\" OR \"GPU cluster\")",
+   "wiki": [
+    "Generative_artificial_intelligence",
+    "Data_center"
+   ],
+   "arxiv": "\"large language model\"",
+   "vc_terms": [
+    "gpu",
+    "inference",
+    "ai infrastructure",
+    "llm infrastructure",
+    "ai chip"
+   ],
+   "tickers": [
+    "NVDA",
+    "AVGO",
+    "TSM",
+    "AMD",
+    "MU"
+   ],
+   "etf": "SMH"
+  },
+  {
+   "id": "ai_power",
+   "name": "AI data-center power crunch",
+   "sector": "Equities",
+   "horizon": "1-5 Years",
+   "hypothesis": "AI load growth strains grids; firm power and grid equipment become the constraint.",
+   "query": "\"data center\" power",
+   "news_query": "(\"data center\" AND (electricity OR \"power demand\" OR \"power grid\"))",
+   "wiki": [
+    "Data_center",
+    "Electric_power_transmission"
+   ],
+   "arxiv": "\"data center\" energy",
+   "vc_terms": [
+    "data center",
+    "power",
+    "energy"
+   ],
+   "tickers": [
+    "VST",
+    "CEG",
+    "GEV",
+    "ETN",
+    "PWR",
+    "VRT"
+   ],
+   "etf": "GRID"
+  },
+  {
+   "id": "smr_nuclear",
+   "name": "Small modular reactors & nuclear revival",
+   "sector": "Equities",
+   "horizon": "3-12 Months",
+   "hypothesis": "Utilities and hyperscalers contract for firm low-carbon power; SMR developers re-rate.",
+   "query": "\"small modular reactor\"",
+   "news_query": "(\"small modular reactor\" OR \"advanced nuclear\")",
+   "wiki": [
+    "Small_modular_reactor",
+    "Nuclear_power"
+   ],
+   "arxiv": "\"small modular reactor\"",
+   "vc_terms": [
+    "nuclear",
+    "fusion",
+    "fission",
+    "reactor"
+   ],
+   "tickers": [
+    "SMR",
+    "OKLO",
+    "NNE",
+    "BWXT",
+    "CCJ"
+   ],
+   "etf": "NLR"
+  },
+  {
+   "id": "uranium",
+   "name": "Uranium supply squeeze",
+   "sector": "Commodities",
+   "horizon": "3-12 Months",
+   "hypothesis": "Reactor restarts and new builds meet constrained mining and enrichment supply.",
+   "query": "uranium",
+   "news_query": "(uranium AND (price OR supply OR enrichment))",
+   "wiki": [
+    "Uranium",
+    "Enriched_uranium"
+   ],
+   "arxiv": "uranium enrichment",
+   "vc_terms": [],
+   "tickers": [
+    "CCJ",
+    "UEC",
+    "NXE",
+    "UUUU"
+   ],
+   "etf": "URA"
+  },
+  {
+   "id": "copper",
+   "name": "Copper shortage thesis",
+   "sector": "Commodities",
+   "horizon": "3-12 Months",
+   "hypothesis": "Electrification, grids and data centers raise copper intensity faster than mine supply.",
+   "query": "\"copper\" shortage",
+   "news_query": "(copper AND (shortage OR deficit OR \"supply\"))",
+   "wiki": [
+    "Copper"
+   ],
+   "arxiv": "copper mining",
+   "vc_terms": [],
+   "tickers": [
+    "FCX",
+    "SCCO",
+    "TECK",
+    "HG=F"
+   ],
+   "etf": "COPX"
+  },
+  {
+   "id": "gold",
+   "name": "Gold safe-haven bid",
+   "sector": "Commodities",
+   "horizon": "1-30 Days",
+   "hypothesis": "Monetary and geopolitical stress shifts flows into gold.",
+   "query": "\"gold price\"",
+   "news_query": "(\"gold price\" OR \"gold prices\")",
+   "wiki": [
+    "Gold_as_an_investment",
+    "Gold"
+   ],
+   "arxiv": "gold price",
+   "vc_terms": [],
+   "tickers": [
+    "GC=F",
+    "GDX",
+    "NEM"
+   ],
+   "etf": "GLD"
+  },
+  {
+   "id": "grid_storage",
+   "name": "Grid-scale energy storage",
+   "sector": "Equities",
+   "horizon": "1-5 Years",
+   "hypothesis": "Batteries firm renewables and absorb data-center peaks; storage integrators and cell makers scale.",
+   "query": "\"battery storage\"",
+   "news_query": "(\"battery storage\" OR \"energy storage\" OR \"grid storage\")",
+   "wiki": [
+    "Grid_energy_storage"
+   ],
+   "arxiv": "\"grid-scale\" battery storage",
+   "vc_terms": [
+    "battery",
+    "energy storage",
+    "grid"
+   ],
+   "tickers": [
+    "FLNC",
+    "EOSE",
+    "ETN",
+    "PWR",
+    "ENPH"
+   ],
+   "etf": "GRID"
+  },
+  {
+   "id": "quantum",
+   "name": "Quantum computing",
+   "sector": "Equities",
+   "horizon": "1-5 Years",
+   "hypothesis": "Error-correction milestones pull forward commercial timelines; speculative equities react to news flow.",
+   "query": "\"quantum computing\"",
+   "news_query": "(\"quantum computing\" OR \"quantum computer\")",
+   "wiki": [
+    "Quantum_computing"
+   ],
+   "arxiv": "\"quantum error correction\"",
+   "vc_terms": [
+    "quantum"
+   ],
+   "tickers": [
+    "IONQ",
+    "RGTI",
+    "QBTS"
+   ],
+   "etf": "QTUM"
+  },
+  {
+   "id": "humanoid",
+   "name": "Humanoid robots & physical AI",
+   "sector": "Equities",
+   "horizon": "1-5 Years",
+   "hypothesis": "Foundation models plus cheaper actuators move robots from demos to pilots.",
+   "query": "\"humanoid robot\"",
+   "news_query": "(\"humanoid robot\" OR \"humanoid robots\" OR \"physical AI\")",
+   "wiki": [
+    "Humanoid_robot"
+   ],
+   "arxiv": "\"humanoid robot\"",
+   "vc_terms": [
+    "humanoid",
+    "robot",
+    "robotics"
+   ],
+   "tickers": [
+    "TSLA",
+    "ISRG",
+    "SYM",
+    "TER"
+   ],
+   "etf": "BOTZ"
+  },
+  {
+   "id": "glp1",
+   "name": "GLP-1 & next-gen biotech",
+   "sector": "Equities",
+   "horizon": "3-12 Months",
+   "hypothesis": "Obesity and metabolic drugs expand addressable markets and pull in follow-on pipelines.",
+   "query": "GLP-1",
+   "news_query": "(\"GLP-1\" OR semaglutide OR tirzepatide)",
+   "wiki": [
+    "Semaglutide",
+    "GLP-1_receptor_agonist"
+   ],
+   "arxiv": "\"GLP-1\"",
+   "vc_terms": [
+    "glp-1",
+    "obesity",
+    "metabolic",
+    "biotech"
+   ],
+   "tickers": [
+    "LLY",
+    "NVO",
+    "VKTX",
+    "AMGN"
+   ],
+   "etf": "XBI"
+  },
+  {
+   "id": "crypto_defi",
+   "name": "Crypto & DeFi risk-on",
+   "sector": "Crypto/DeFi",
+   "horizon": "1-30 Days",
+   "hypothesis": "Liquidity and stablecoin issuance lead crypto risk appetite.",
+   "query": "DeFi",
+   "news_query": "(DeFi OR \"decentralized finance\" OR bitcoin)",
+   "wiki": [
+    "Decentralized_finance",
+    "Bitcoin"
+   ],
+   "arxiv": "decentralized finance",
+   "vc_terms": [
+    "defi",
+    "crypto",
+    "blockchain",
+    "web3"
+   ],
+   "tickers": [
+    "BTC-USD",
+    "ETH-USD",
+    "SOL-USD",
+    "COIN",
+    "MSTR"
+   ],
+   "etf": "IBIT",
+   "capital_mode": "defi+tape"
+  },
+  {
+   "id": "stablecoins",
+   "name": "Stablecoins & tokenized assets",
+   "sector": "Crypto/DeFi",
+   "horizon": "3-12 Months",
+   "hypothesis": "Regulated stablecoins and tokenized assets become settlement rails; issuers and exchanges benefit.",
+   "query": "stablecoin",
+   "news_query": "(stablecoin OR stablecoins OR \"tokenized assets\")",
+   "wiki": [
+    "Stablecoin"
+   ],
+   "arxiv": "stablecoin",
+   "vc_terms": [
+    "stablecoin",
+    "payments",
+    "tokenization"
+   ],
+   "tickers": [
+    "COIN",
+    "HOOD",
+    "ETH-USD",
+    "SOL-USD"
+   ],
+   "etf": "",
+   "capital_mode": "defi+tape"
+  },
+  {
+   "id": "agentic_ai",
+   "name": "Agentic AI infrastructure (seed / Series A)",
+   "sector": "Private VC",
+   "horizon": "3-12 Months",
+   "hypothesis": "Autonomous AI agents spawn a tooling, orchestration and evaluation layer funded first at seed and Series A.",
+   "query": "\"AI agents\"",
+   "news_query": "(\"AI agents\" OR \"agentic AI\")",
+   "wiki": [
+    "Intelligent_agent"
+   ],
+   "arxiv": "\"LLM agents\"",
+   "vc_terms": [
+    "agent",
+    "agentic"
+   ],
+   "tickers": [
+    "PLTR",
+    "NOW",
+    "CRM"
+   ],
+   "etf": "",
+   "capital_mode": "vc"
+  }
+ ],
+ "benchmarks": [
+  {
+   "id": "ev_spac_2020",
+   "name": "2020-21 EV / SPAC / clean-energy craze",
+   "day0": "2020-04-01",
+   "days": 730,
+   "tickers": [
+    "TSLA",
+    "NIO",
+    "PLUG",
+    "ARKK"
+   ],
+   "note": "Equal-weight TSLA, NIO, PLUG, ARKK from the COVID low."
+  },
+  {
+   "id": "crypto_2020_21",
+   "name": "2020-21 crypto / DeFi cycle",
+   "day0": "2020-06-01",
+   "days": 730,
+   "tickers": [
+    "BTC-USD",
+    "ETH-USD"
+   ],
+   "note": "Equal-weight BTC and ETH from DeFi Summer; peak in Nov 2021."
+  },
+  {
+   "id": "genai_2023",
+   "name": "2023 generative-AI infrastructure spike",
+   "day0": "2022-11-30",
+   "days": 900,
+   "tickers": [
+    "NVDA",
+    "SMH",
+    "AVGO"
+   ],
+   "note": "Equal-weight NVDA, SMH, AVGO from ChatGPT's launch."
+  },
+  {
+   "id": "gfc_2008",
+   "name": "2007-09 GFC liquidity drain",
+   "day0": "2007-08-09",
+   "days": 730,
+   "tickers": [
+    "SPY",
+    "XLF",
+    "KRE"
+   ],
+   "note": "Equal-weight SPY, XLF, KRE from BNP Paribas freezing funds."
+  },
+  {
+   "id": "dotcom_1999",
+   "name": "1998-2002 dot-com bubble",
+   "day0": "1998-10-01",
+   "days": 1400,
+   "tickers": [
+    "^IXIC"
+   ],
+   "note": "Nasdaq Composite from the Oct 1998 low."
+  }
+ ],
+ "ticker": [
+  [
+   "^GSPC",
+   "S&P 500"
+  ],
+  [
+   "^IXIC",
+   "Nasdaq"
+  ],
+  [
+   "^VIX",
+   "VIX"
+  ],
+  [
+   "^TNX",
+   "US 10Y"
+  ],
+  [
+   "DX-Y.NYB",
+   "DXY"
+  ],
+  [
+   "GC=F",
+   "Gold"
+  ],
+  [
+   "CL=F",
+   "WTI"
+  ],
+  [
+   "HG=F",
+   "Copper"
+  ],
+  [
+   "BTC-USD",
+   "Bitcoin"
+  ],
+  [
+   "ETH-USD",
+   "Ether"
+  ],
+  [
+   "NVDA",
+   "NVDA"
+  ],
+  [
+   "URA",
+   "Uranium ETF"
+  ]
+ ]
+}

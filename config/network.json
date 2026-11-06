@@ -1,0 +1,468 @@
+{
+ "note": "Editorial hypothesis maps, not computed causality. Live quotes are overlaid from data/macro_data.json.",
+ "graphs": [
+  {
+   "id": "ai_energy",
+   "name": "AI data-center energy crunch",
+   "blurb": "Hypothesis map: compute demand pulls on power, which pulls on fuel, copper and grid equipment.",
+   "nodes": [
+    {
+     "id": "capex",
+     "label": "Hyperscaler capex",
+     "role": "driver",
+     "tickers": [
+      "MSFT",
+      "GOOGL",
+      "AMZN",
+      "META"
+     ],
+     "note": "Spending plans fund data-center build-outs."
+    },
+    {
+     "id": "gpu",
+     "label": "AI accelerator demand",
+     "role": "driver",
+     "tickers": [
+      "NVDA",
+      "AVGO"
+     ],
+     "note": "More watts per rack with each hardware generation."
+    },
+    {
+     "id": "core",
+     "label": "AI data-center energy crunch",
+     "role": "core",
+     "tickers": [],
+     "note": "Load growth outpaces new firm power and grid capacity."
+    },
+    {
+     "id": "smr",
+     "label": "SMR / advanced nuclear",
+     "role": "enabler",
+     "tickers": [
+      "OKLO",
+      "SMR",
+      "NNE"
+     ],
+     "note": "Firm, low-carbon power for campuses."
+    },
+    {
+     "id": "grid",
+     "label": "Grid & electrical equipment",
+     "role": "enabler",
+     "tickers": [
+      "GEV",
+      "ETN",
+      "PWR",
+      "VRT"
+     ],
+     "note": "Turbines, transformers, switchgear, cooling and power systems."
+    },
+    {
+     "id": "ipp",
+     "label": "Independent power producers",
+     "role": "beneficiary",
+     "tickers": [
+      "VST",
+      "CEG"
+     ],
+     "note": "Long-term contracts and capacity pricing."
+    },
+    {
+     "id": "dcreit",
+     "label": "Data-center REITs",
+     "role": "beneficiary",
+     "tickers": [
+      "EQIX",
+      "DLR"
+     ],
+     "note": "Scarce powered land and shells."
+    },
+    {
+     "id": "uranium",
+     "label": "Uranium & enrichment",
+     "role": "bottleneck",
+     "tickers": [
+      "CCJ",
+      "UEC",
+      "URA"
+     ],
+     "note": "Fuel supply is slow to expand."
+    },
+    {
+     "id": "copper",
+     "label": "Copper & cable",
+     "role": "bottleneck",
+     "tickers": [
+      "FCX",
+      "COPX"
+     ],
+     "note": "Grid and data-center buildouts are copper-intensive."
+    },
+    {
+     "id": "xfmr",
+     "label": "Transformer / switchgear lead times",
+     "role": "bottleneck",
+     "tickers": [],
+     "note": "Multi-year equipment queues limit speed."
+    },
+    {
+     "id": "queue",
+     "label": "Interconnection queues & permitting",
+     "role": "bottleneck",
+     "tickers": [],
+     "note": "Regulatory process gates new generation."
+    },
+    {
+     "id": "rates",
+     "label": "Utility rate inflation",
+     "role": "risk",
+     "tickers": [
+      "XLU"
+     ],
+     "note": "Capex is recovered from ratepayers; affordability and political backlash."
+    },
+    {
+     "id": "reit",
+     "label": "Rate-sensitive REITs",
+     "role": "risk",
+     "tickers": [
+      "VNQ"
+     ],
+     "note": "Higher power and capital costs without data-center exposure."
+    }
+   ],
+   "edges": [
+    {
+     "from": "capex",
+     "to": "core",
+     "label": "funds demand"
+    },
+    {
+     "from": "gpu",
+     "to": "core",
+     "label": "raises MW per rack"
+    },
+    {
+     "from": "core",
+     "to": "smr",
+     "label": "needs firm clean power"
+    },
+    {
+     "from": "core",
+     "to": "grid",
+     "label": "needs transmission and equipment"
+    },
+    {
+     "from": "core",
+     "to": "ipp",
+     "label": "long-term contracts"
+    },
+    {
+     "from": "core",
+     "to": "dcreit",
+     "label": "demand for powered space"
+    },
+    {
+     "from": "smr",
+     "to": "uranium",
+     "label": "fuel demand"
+    },
+    {
+     "from": "grid",
+     "to": "copper",
+     "label": "copper intensity"
+    },
+    {
+     "from": "grid",
+     "to": "xfmr",
+     "label": "lead-time constraint"
+    },
+    {
+     "from": "smr",
+     "to": "queue",
+     "label": "licensing and siting"
+    },
+    {
+     "from": "core",
+     "to": "rates",
+     "label": "load growth lifts rate base"
+    },
+    {
+     "from": "rates",
+     "to": "reit",
+     "label": "higher-for-longer pressure"
+    }
+   ]
+  },
+  {
+   "id": "agentic",
+   "name": "Agentic AI stack",
+   "blurb": "Hypothesis map: capable models create demand for agent tooling; hardware and incumbents are the chokepoints.",
+   "nodes": [
+    {
+     "id": "llm",
+     "label": "Frontier-model capability gains",
+     "role": "driver",
+     "tickers": [],
+     "note": "Tool use and long-horizon reliability improve."
+    },
+    {
+     "id": "core",
+     "label": "Agentic AI adoption",
+     "role": "core",
+     "tickers": [],
+     "note": "Software that plans and acts, not just answers."
+    },
+    {
+     "id": "cloud",
+     "label": "Hyperscaler platforms",
+     "role": "enabler",
+     "tickers": [
+      "MSFT",
+      "GOOGL",
+      "AMZN"
+     ],
+     "note": "Distribution, models and compute."
+    },
+    {
+     "id": "tools",
+     "label": "Orchestration, evaluation & data tooling",
+     "role": "enabler",
+     "tickers": [
+      "PLTR",
+      "SNOW",
+      "DDOG"
+     ],
+     "note": "The new middleware layer."
+    },
+    {
+     "id": "hbm",
+     "label": "HBM memory & accelerators",
+     "role": "bottleneck",
+     "tickers": [
+      "MU",
+      "NVDA"
+     ],
+     "note": "Inference at scale is memory- and compute-bound."
+    },
+    {
+     "id": "power",
+     "label": "Data-center power",
+     "role": "bottleneck",
+     "tickers": [
+      "VST",
+      "CEG"
+     ],
+     "note": "Inference demand needs firm power."
+    },
+    {
+     "id": "saas",
+     "label": "Workflow software",
+     "role": "beneficiary",
+     "tickers": [
+      "NOW",
+      "CRM"
+     ],
+     "note": "Agents embedded in systems of record."
+    },
+    {
+     "id": "seat",
+     "label": "Seat-based SaaS pricing",
+     "role": "risk",
+     "tickers": [],
+     "note": "Fewer human seats can compress revenue models."
+    },
+    {
+     "id": "bpo",
+     "label": "IT services & outsourcing",
+     "role": "risk",
+     "tickers": [
+      "ACN",
+      "EPAM"
+     ],
+     "note": "Task automation pressures labor-based models."
+    },
+    {
+     "id": "reg",
+     "label": "Safety and liability regulation",
+     "role": "risk",
+     "tickers": [],
+     "note": "Rules may slow high-autonomy deployments."
+    }
+   ],
+   "edges": [
+    {
+     "from": "llm",
+     "to": "core",
+     "label": "unlocks use cases"
+    },
+    {
+     "from": "core",
+     "to": "cloud",
+     "label": "consumes models and compute"
+    },
+    {
+     "from": "core",
+     "to": "tools",
+     "label": "creates new tooling demand"
+    },
+    {
+     "from": "cloud",
+     "to": "hbm",
+     "label": "buys accelerators"
+    },
+    {
+     "from": "hbm",
+     "to": "power",
+     "label": "adds load"
+    },
+    {
+     "from": "core",
+     "to": "saas",
+     "label": "embeds in workflows"
+    },
+    {
+     "from": "core",
+     "to": "seat",
+     "label": "changes pricing"
+    },
+    {
+     "from": "core",
+     "to": "bpo",
+     "label": "automates tasks"
+    },
+    {
+     "from": "core",
+     "to": "reg",
+     "label": "raises oversight"
+    }
+   ]
+  },
+  {
+   "id": "stablecoin_rails",
+   "name": "Stablecoin & tokenization rails",
+   "blurb": "Hypothesis map: regulated digital dollars become settlement infrastructure; banks and card networks are the incumbents at risk.",
+   "nodes": [
+    {
+     "id": "clarity",
+     "label": "Regulatory clarity",
+     "role": "driver",
+     "tickers": [],
+     "note": "Rules lower the barrier for banks and corporates."
+    },
+    {
+     "id": "core",
+     "label": "Stablecoin & tokenization adoption",
+     "role": "core",
+     "tickers": [],
+     "note": "On-chain settlement of dollars and assets."
+    },
+    {
+     "id": "l1",
+     "label": "Settlement chains",
+     "role": "enabler",
+     "tickers": [
+      "ETH-USD",
+      "SOL-USD"
+     ],
+     "note": "Fees and activity accrue to base layers."
+    },
+    {
+     "id": "exch",
+     "label": "Exchanges & brokers",
+     "role": "beneficiary",
+     "tickers": [
+      "COIN",
+      "HOOD"
+     ],
+     "note": "Custody, trading and distribution."
+    },
+    {
+     "id": "issuer",
+     "label": "Stablecoin issuers",
+     "role": "beneficiary",
+     "tickers": [],
+     "note": "Float income on reserves."
+    },
+    {
+     "id": "bank",
+     "label": "Bank access & reserves",
+     "role": "bottleneck",
+     "tickers": [
+      "KRE"
+     ],
+     "note": "Banking and Treasury-market plumbing gate scale."
+    },
+    {
+     "id": "deposit",
+     "label": "Bank deposit outflows",
+     "role": "risk",
+     "tickers": [
+      "KRE"
+     ],
+     "note": "Deposits migrate to tokenized dollars."
+    },
+    {
+     "id": "cards",
+     "label": "Card and payment networks",
+     "role": "risk",
+     "tickers": [
+      "V",
+      "MA"
+     ],
+     "note": "Cheaper rails pressure fees."
+    },
+    {
+     "id": "depeg",
+     "label": "De-peg / run risk",
+     "role": "risk",
+     "tickers": [],
+     "note": "Reserve quality and redemption mechanics."
+    }
+   ],
+   "edges": [
+    {
+     "from": "clarity",
+     "to": "core",
+     "label": "enables"
+    },
+    {
+     "from": "core",
+     "to": "l1",
+     "label": "needs settlement layer"
+    },
+    {
+     "from": "core",
+     "to": "exch",
+     "label": "needs on/off ramps"
+    },
+    {
+     "from": "core",
+     "to": "issuer",
+     "label": "expands supply"
+    },
+    {
+     "from": "issuer",
+     "to": "bank",
+     "label": "needs reserve banking"
+    },
+    {
+     "from": "core",
+     "to": "deposit",
+     "label": "competes for balances"
+    },
+    {
+     "from": "core",
+     "to": "cards",
+     "label": "bypasses rails"
+    },
+    {
+     "from": "issuer",
+     "to": "depeg",
+     "label": "redemption risk"
+    }
+   ]
+  }
+ ]
+}

@@ -3,34 +3,33 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Market Trends: 100 Years of Cycles</title>
+<title>Market Trends: early-warning and speculative-trend intelligence</title>
 <meta name="description" content="Interactive 100-year timeline of market cycles, bubbles, crashes and technology waves (1926-2026).">
 <link rel="stylesheet" href="assets/style.css">
 <link rel="stylesheet" href="css/terminal.css">
+<link rel="stylesheet" href="css/trends.css">
 </head>
 <body>
 <header class="top">
   <div class="wrap">
     <div class="brand"><span class="logo">&#128200;</span><div><h1>Market Trends</h1><p>Early-warning macro intelligence + 100 years of cycles</p></div></div>
-    <nav id="tabs">
-      <button data-tab="radar">Radar</button>
-      <button data-tab="yield">Yield curve</button>
-      <button data-tab="stress">Stress test</button>
-      <button data-tab="timeline">History</button>
-      <button data-tab="months">Monthly</button>
-      <button data-tab="markets">Markets</button>
-      <button data-tab="learn">Learn</button>
-      <button data-tab="about">Data</button>
-    </nav>
+    <nav id="tabs" aria-label="Sections"></nav>
     <button id="themeBtn" class="ghost" title="Toggle light / dark">Theme</button>
   </div>
+<div id="subnav" class="subnav wrap"></div>
 </header>
+<div id="tickerbar" class="tickerbar" hidden></div>
 <main class="wrap">
   <div class="stats" id="stats"></div>
 
   <section id="view-radar" class="view"><div class="panel">Loading...</div></section>
   <section id="view-yield" class="view"><div class="panel">Loading...</div></section>
   <section id="view-stress" class="view"><div class="panel">Loading...</div></section>
+
+  <section id="view-narratives" class="view"><div class="panel">Loading...</div></section>
+  <section id="view-capital" class="view"><div class="panel">Loading...</div></section>
+  <section id="view-network" class="view"><div class="panel">Loading...</div></section>
+  <section id="view-smart" class="view"><div class="panel">Loading...</div></section>
 
   <section id="view-timeline" class="view">
     <div class="panel">
