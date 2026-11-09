@@ -36,7 +36,13 @@ function beta(key) {
   if (key === 'banks') { b = find('Regional banks'); name = 'Regional banks'; }
   if (key === 'reits') { b = find('REITs'); name = 'REITs'; }
   const pr = M.priors[key];
-  return b ? { name, y10: b.coef[0], oil: b.coef[1], hy: pr.hy_per_100bp, r2: b.r2, src: 'estimated' } : { name, y10: pr.d10y_pp, oil: pr.oil_pct, hy: pr.hy_per_100bp, r2: null, src: 'prior' };
+  return b ? { name, y10: b.coef[0], oil: b.coef[1], hy: pr.hy_per_100bp, r2: b.r2, se: b.se || null, sd: b.resid_sd || null, src: 'estimated' } : { name, y10: pr.d10y_pp, oil: pr.oil_pct, hy: pr.hy_per_100bp, r2: null, src: 'prior' };
+}
+/** Honest uncertainty: parameter error on the rate and oil effects (95%), the typical unexplained 12M swing, and a low-fit flag. */
+function fitNote(a) {
+  const b = a.b; if (b.r2 == null) return '<br><span class="pill st-unconfigured">prior assumption, not estimated</span>';
+  const low = b.r2 < 0.1;
+  return `<br>${low ? `<span class="pill st-failed">low fit &middot; R&sup2; ${num(b.r2, 2)}</span> ` : `R&sup2; ${num(b.r2, 2)} `}${a.u == null ? '' : `&middot; model &plusmn;${num(1.96 * a.u, 1)}pp (95%) `}${b.sd == null ? '' : `&middot; unexplained 12M swing &plusmn;${num(b.sd * Math.sqrt(12), 0)}%`}`;
 }
 const pmt = (L, r) => { const i = r / 1200, n = 360; return i === 0 ? L / n : L * i / (1 - Math.pow(1 + i, -n)); };
 function calc() {
@@ -52,12 +58,13 @@ function calc() {
   const card = (t, v, sub, cls = '') => `<div class="out ${cls}"><span>${t}</span><b>${v}</b><small>${sub}</small></div>`;
   const cl = v => v < -0.05 ? 'neg' : v > 0.05 ? 'pos' : '';
   $('#outs').innerHTML = `<div class="outs">
-   ${assets.map(a => card(a.b.name, signed(a.tot, 1, '%'), `rates ${signed(a.rates, 1)} &middot; oil ${signed(a.oil, 1)} &middot; credit ${signed(a.credit, 1)}${a.b.src === 'prior' ? ' (prior)' : ''}`, cl(a.tot))).join('')}
+   ${assets.map(a => card(a.b.name, signed(a.tot, 1, '%'), `rates ${signed(a.rates, 1)} &middot; oil ${signed(a.oil, 1)} &middot; credit ${signed(a.credit, 1)}${a.b.src === 'prior' ? ' (prior)' : ''}${fitNote(a)}`, cl(a.tot))).join('')}
    ${card('10Y Treasury yield', y100 == null ? signed(d10, 2, 'pp') : num(y100 + d10, 2) + '%', `change ${signed(d10, 2, 'pp')}`)}
    ${card('30Y mortgage rate', num(mort1, 2) + '%', `monthly P&I on $${(T.loan / 1000).toFixed(0)}k: $${num(p1, 0)} (${p1 - p0 >= 0 ? '+' : '-'}$${num(Math.abs(p1 - p0), 0)})`, cl(-(p1 - p0)))}
    ${card('Headline CPI (YoY)', num(cpi1, 1) + '%', `from ${num(cpi0, 1)}% &middot; oil pass-through ${signed(pas * st.oil, 2, 'pp')}`)}
    ${card('Real wage growth', signed(real1, 1, '%'), `from ${signed(real0, 1, '%')} (wages assumed to follow ${Math.round(T.wage_stickiness * 100)}% of inflation shift)`, cl(real1 - real0))}
    ${card('Bank securities mark-to-market', signed(mtm, 1, '% of book'), `duration ${st.dur}y x 10Y change; negative = unrealised losses (SVB-type risk)`, cl(mtm))}</div>
+   ${assets.some(a => a.b.r2 != null && a.b.r2 < 0.1) ? `<div class="notice warn"><b>Low explanatory power.</b> Rates and oil explain under 10% of monthly returns for ${assets.filter(a => a.b.r2 != null && a.b.r2 < 0.1).map(a => esc(a.b.name)).join(', ')}. Treat the point estimates as directional scenarios: the unexplained swing is far larger than the modelled effect.</div>` : ''}
    <div class="notice"><b>Rotation read:</b> ${tilt}</div>`;
 }
 const f2 = v => v == null ? 'n/a' : num(v, 2);

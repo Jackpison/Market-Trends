@@ -27,7 +27,7 @@ def inline_css(path):
 def embedded_files():
     """Every file the app fetch()es at runtime, keyed by the exact relative URL it requests."""
     out = {}
-    for d, exts in (("data", (".json", ".csv")), ("docs", (".md",)), ("config", (".json",))):
+    for d, exts in (("data", (".json", ".csv", ".xml")), ("docs", (".md",)), ("config", (".json",))):
         for dp, dirs, fs in os.walk(P(d)):
             dirs[:] = [x for x in dirs if not (d == "data" and x == "macro")]     # raw series CSVs are build inputs; the app never fetches them
             for f in sorted(fs):
@@ -45,7 +45,7 @@ def main():
     files = embedded_files()
     shim = ("window.__MT_INLINE=true;window.__MT_FILES=%s;(function(){var o=window.fetch.bind(window);window.fetch=function(u,i){"
             "var k=String(u).replace(/^\\.\\//,'').split('?')[0];if(Object.prototype.hasOwnProperty.call(window.__MT_FILES,k)){"
-            "var t=window.__MT_FILES[k];return Promise.resolve(new Response(t,{status:200,headers:{'Content-Type':k.slice(-4)==='.csv'?'text/csv':k.slice(-3)==='.md'?'text/markdown':'application/json'}}))}"
+            "var t=window.__MT_FILES[k];return Promise.resolve(new Response(t,{status:200,headers:{'Content-Type':k.slice(-4)==='.csv'?'text/csv':k.slice(-3)==='.md'?'text/markdown':k.slice(-4)==='.xml'?'application/atom+xml':'application/json'}}))}"
             "return location.protocol==='file:'?Promise.resolve(new Response('',{status:404})):o(u,i)}})();") % json.dumps(files, separators=(",", ":")).replace("<", "\\u003c")
     html = re.sub(r'<link rel="(?:stylesheet|preload)"[^>]*>\s*', "", html)
     html = re.sub(r'<script src="assets/app\.js"></script>\s*<script type="module" src="js/main\.js"></script>', "", html)

@@ -15,8 +15,8 @@ export function initNav() {
   $('#subnav').addEventListener('click', e => { const t = e.target.closest('[data-tab]')?.dataset.tab; if (t) location.hash = '#' + t; });
   const sync = () => {
     const tab = (location.hash || '#radar').slice(1), grp = GROUPS.find(g => g.tabs.some(t => t[0] === tab)) || GROUPS[0]; last[grp.id] = tab;
-    $$('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.group === grp.id));
-    $('#subnav').innerHTML = grp.tabs.map(([id, n]) => `<button data-tab="${id}" class="${id === tab ? 'on' : ''}">${icon(TI[id], 14)}${esc(n)}</button>`).join('');
+    $$('#tabs button').forEach(b => { const on = b.dataset.group === grp.id; b.classList.toggle('on', on); on ? b.setAttribute('aria-current', 'true') : b.removeAttribute('aria-current'); });
+    $('#subnav').innerHTML = grp.tabs.map(([id, n]) => `<button data-tab="${id}" class="${id === tab ? 'on' : ''}"${id === tab ? ' aria-current="page"' : ''}>${icon(TI[id], 14)}${esc(n)}</button>`).join('');
   };
   addEventListener('hashchange', () => { sync(); requestAnimationFrame(() => scrollTo({ top: 0 })); }); sync();
 }

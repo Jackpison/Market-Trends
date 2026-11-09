@@ -53,6 +53,8 @@ async function drawScatter() {
   if (scatter) scatter.destroy(); const ax = t => ({ min: 0, max: 100, title: { display: true, text: t, color: mut }, grid: { color: ln }, ticks: { color: mut } });
   scatter = new Chart($('#scatter'), { type: 'scatter', data: { datasets: ds }, plugins: [quadrants], options: { responsive: true, maintainAspectRatio: false, animation: false, scales: { x: ax('Narrative velocity score (NVS)'), y: ax('Capital backing and smart-money flow') },
     plugins: { legend: { labels: { color: mut } }, tooltip: { callbacks: { label: c => `${c.raw.name}: NVS ${c.raw.x.toFixed(0)}, capital ${c.raw.y.toFixed(0)} (${c.raw.stage})` } } }, onClick: (e, els) => { if (els.length) select(scatter.data.datasets[els[0].datasetIndex].data[els[0].index].id); } } });
+  const qc = {}; filtered().forEach(t => { if (t.quadrant) qc[t.quadrant] = (qc[t.quadrant] || 0) + 1; });
+  $('#scatter').setAttribute('role', 'img'); $('#scatter').setAttribute('aria-label', 'Scatter of narrative velocity (x) against capital score (y). Trends per quadrant: ' + (Object.entries(qc).map(([k, n]) => `${k} ${n}`).join(', ') || 'none') + '. The table above lists every trend with its scores.');
   const miss = filtered().length - items.length; $('#qnote').textContent = `Bubble size = SMII. ${miss ? miss + ' trend(s) hidden because a score is unavailable. ' : ''}Quadrant lines at 50 on both axes.`;
 }
 function select(id) {

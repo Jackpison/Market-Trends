@@ -41,7 +41,7 @@ Real daily price history, equal-weight baskets rebased to 100 at each cycle's st
 | Hacker News, Wikipedia, GitHub, arXiv, SEC filing mentions | Measured (free APIs) |
 | GDELT news volume and tone | Measured, but the free API rate-limits aggressively; some trends may be missing in a run |
 | Reddit | Needs free API credentials (`REDDIT_CLIENT_ID`, `REDDIT_CLIENT_SECRET` repo secrets); unauthenticated requests are blocked from cloud servers |
-| SEC Form D | Unavailable (not indexed by EDGAR full-text search) |
+| SEC Form D | Proxy: weekly count of new Form D filers (EDGAR daily index, amendments excluded) whose *name* contains a trend keyword. Names are coarse; reported as partial when a trend has no matching filers |
 | X / FinTwit | Unavailable (no free API); stage inferred |
 | Dark-pool prints | Unavailable per ticker; options skew used as a proxy |
 | 13F | Proxy via Yahoo institutional-ownership changes |

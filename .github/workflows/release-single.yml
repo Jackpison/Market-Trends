@@ -1,0 +1,39 @@
+name: Publish single-file snapshot
+
+# Builds dist/market-trends.html (the whole site plus current data in one offline-capable file) and attaches it to a rolling
+# release named "snapshot". Download it from the Releases page: it opens from disk with no server.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 23 * * 1-5'     # an hour after the weekday data refresh
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-single
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build
+        run: python scripts/build_single.py
+      - name: Publish to the rolling "snapshot" release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view snapshot >/dev/null 2>&1 || gh release create snapshot --title "Latest single-file snapshot" --notes "Self-contained, offline-capable build of the site with the data as of the last refresh. Replaced automatically." --target main
+          gh release upload snapshot dist/market-trends.html --clobber
+          gh release edit snapshot --notes "Self-contained, offline-capable build of the site with data as of $(date -u +'%Y-%m-%d %H:%M UTC'). Replaced automatically."

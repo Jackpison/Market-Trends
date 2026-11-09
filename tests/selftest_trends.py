@@ -32,6 +32,10 @@ def fake_get(url, headers=None, timeout=25, tries=2, opener=None):
     if "gdeltproject" in url:
         base = NOW.date() - dt.timedelta(days=34); mode = "tone" if "timelinetone" in url else "vol"
         return json.dumps({"timeline": [{"series": "x", "data": [{"date": (base + dt.timedelta(days=i)).strftime("%Y%m%dT000000Z"), "value": (random.gauss(2.0, .5) if mode == "tone" else 0.02 + random.random() * .004 + (0.01 if i == 34 else 0))} for i in range(35)]}]})
+    if "sec.gov/Archives/edgar/daily-index" in url:
+        names = ["Fusion Energy Fund LP", "Nuclear Reactor Ventures LLC", "AI Infrastructure Partners", "Uranium Royalty Holdings", "Smith Family Trust", "Copper Basin Mining", "Quantum Computing Capital", "GLP-1 Biotech Fund"]
+        rows = ["D           %-60s  %-10d  %s    edgar/data/1/0001.txt" % (random.choice(names) + " %d" % i, 100000 + i, url.split("form.")[1][:8]) for i in range(random.randint(30, 90))]
+        return "Form Type   Company Name                                                  CIK         Date Filed  File Name\n" + "-" * 110 + "\n" + "\n".join(rows) + "\n"
     if "efts.sec.gov" in url:
         if "forms=D" in url: return json.dumps({"hits": {"total": {"value": 0}}})
         return json.dumps({"hits": {"total": {"value": random.randint(20, 60) + (80 if "startdt=%s" % (F.END - dt.timedelta(days=6)) in url else 0)}}})

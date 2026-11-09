@@ -9,6 +9,8 @@ import { initNarratives } from './widgets/narratives.js';
 import { initCapital } from './widgets/capitalFlows.js';
 import { initNetwork } from './widgets/network.js';
 import { initSmartMoney } from './widgets/smartMoney.js';
+import { initHealth } from './health.js';
+import { initA11y } from './a11y.js';
 
 function initTheme() {
   const root = document.documentElement; let saved = null;
@@ -18,3 +20,4 @@ function initTheme() {
   $('#themeBtn').onclick = () => { const n = root.dataset.mode === 'dark' ? 'light' : 'dark'; apply(n); try { localStorage.setItem('mt-theme', n); } catch (e) {} };
 }
 hydrateIcons(); initTheme(); initNav(); initTicker(); initEarlyWarning(); initYieldCurve(); initStressTest(); initNarratives(); initCapital(); initNetwork(); initSmartMoney();
+initA11y(); initHealth();

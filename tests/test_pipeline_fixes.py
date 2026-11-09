@@ -39,6 +39,16 @@ def test_gdelt_backoff():
     finally: F.get, F.time.sleep = og, os_
     assert len(calls) == 3 and sleeps == [20, 40] and acc, (calls, sleeps)
 
+def test_form_idx_parser():
+    fx = ("Form Type   Company Name                                                  CIK         Date Filed  File Name\n" + "-" * 100 + "\n"
+          "10-K        ACME CORP                                                     12345       20261105    edgar/data/12345/0001.txt\n"
+          "D           Fusion Energy Fund I LP                                       1999999     20261105    edgar/data/1999999/0002.txt\n"
+          "D/A         Nuclear Ventures LLC                                          2000000     20261105    edgar/data/2000000/0003.txt\n")
+    rows = F.parse_form_idx(fx)
+    assert [r[1] for r in rows] == ["Fusion Energy Fund I LP"], rows                 # amendments and other forms excluded
+    rx = F.formd_terms({"query": '"copper" shortage', "vc_terms": []})
+    assert any(r.search("Copper Basin Mining LP") for r in rx) and not any(r.search("Copperfield Estates") for r in rx)   # whole-word match, generic words dropped
+
 if __name__ == "__main__":
     for n, f in list(globals().items()):
         if n.startswith("test_"): f(); print("ok", n)

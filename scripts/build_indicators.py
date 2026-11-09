@@ -139,7 +139,7 @@ def ols(X, y):
     b = [sum(Inv[i][j] * Xty[j] for j in range(k)) for i in range(k)]
     res = [y[t] - sum(Z[t][i] * b[i] for i in range(k)) for t in range(n)]
     s2 = sum(r * r for r in res) / (n - k); my = sum(y) / n; sst = sum((v - my) ** 2 for v in y)
-    return {"b": b, "t": [b[i] / math.sqrt(s2 * Inv[i][i]) if s2 * Inv[i][i] > 0 else 0 for i in range(k)], "r2": 1 - sum(r * r for r in res) / sst if sst else 0, "n": n, "Inv": Inv, "s2": s2}
+    return {"b": b, "t": [b[i] / math.sqrt(s2 * Inv[i][i]) if s2 * Inv[i][i] > 0 else 0 for i in range(k)], "r2": 1 - sum(r * r for r in res) / sst if sst else 0, "n": n, "Inv": Inv, "s2": s2, "se": [math.sqrt(s2 * Inv[i][i]) if s2 * Inv[i][i] > 0 else 0 for i in range(k)]}
 
 def monthend(s):
     out = {}
@@ -165,7 +165,7 @@ def fit(name, X, y, names, period, extra=None):
     if len(y) < 36: return None
     r = ols(X, y)
     if not r: return None
-    out = {"target": name, "factors": names, "coef": [round(x, 4) for x in r["b"][1:]], "t": [round(x, 2) for x in r["t"][1:]], "alpha_monthly": round(r["b"][0], 4), "r2": round(r["r2"], 4), "n": r["n"], "period": period, "source": "estimated"}
+    out = {"target": name, "factors": names, "coef": [round(x, 4) for x in r["b"][1:]], "t": [round(x, 2) for x in r["t"][1:]], "alpha_monthly": round(r["b"][0], 4), "se": [round(x, 4) for x in r["se"][1:]], "resid_sd": round(math.sqrt(r["s2"]), 3), "r2": round(r["r2"], 4), "n": r["n"], "period": period, "source": "estimated"}
     if extra: out.update(extra)
     return out
 

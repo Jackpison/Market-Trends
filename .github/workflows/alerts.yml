@@ -1,0 +1,51 @@
+name: Alerts
+
+# Runs after either data workflow finishes. A single writer for alerts.json / feed.xml avoids merge conflicts between the two data jobs.
+on:
+  workflow_run:
+    workflows: ["Update data", "Update trends"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: alerts
+  cancel-in-progress: false
+
+jobs:
+  alerts:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Detect changes
+        id: alerts
+        env:
+          ALERTS_ISSUE_BODY: ${{ runner.temp }}/alert-body.md
+        run: python scripts/alerts.py
+      - name: Open an issue for notification-worthy changes
+        if: steps.alerts.outputs.notify == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ALERT_TITLE: ${{ steps.alerts.outputs.title }}
+          ALERT_BODY: ${{ runner.temp }}/alert-body.md
+        run: |
+          gh label create alert --color D93F0B --description "Automated market-regime alert" 2>/dev/null || true
+          gh issue create --title "Alert: $ALERT_TITLE" --body-file "$ALERT_BODY" --label alert
+      - name: Commit alert log and feed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/alerts.json data/alerts_state.json data/feed.xml
+          git diff --staged --quiet || git commit -m "Update alerts $(date -u +%FT%H:%MZ)"
+          git pull --rebase -q
+          git push
