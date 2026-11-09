@@ -32,10 +32,23 @@ GitHub Actions (weekdays, UTC evening)            Static site (GitHub Pages, no 
 `css/theme.css` is loaded last and defines the tokens for both themes (layered surfaces, one accent, semantic ok/warn/bad colours). Status is never colour-only: every state has a label and a distinct shape. All text pairs are at least WCAG AA (4.5:1). Fonts (Inter variable, JetBrains Mono) and icons (an inlined Lucide subset in `js/icons.js`) are vendored, so the site makes no third-party requests. Motion respects `prefers-reduced-motion`.
 
 ## Single-file build
-`python3 scripts/build_single.py` writes `dist/market-trends.html` (about 1.8 MB): the whole site with fonts, libraries and current data embedded. It works offline and from `file://`. Needs Node at build time only (esbuild). The output is git-ignored.
+`python3 scripts/build_single.py` writes `dist/market-trends.html` (about 1.8 MB): the whole site with fonts, libraries and current data embedded. It works offline and from `file://`. Needs Node at build time only (esbuild). The output is git-ignored; `.github/workflows/release-single.yml` also publishes it to a rolling `snapshot` release each weekday.
 
-## Dashboard prototype (`dashboard/`)
-Standalone radar + stress simulator. It loads `data/indicators/*.json` (live indicators, real month-end yield curves, stress baseline) and falls back to simulated values if they cannot be fetched. The asset heatmap and stress sensitivities are always simulated/stylized.
+## Track record (backtest)
+`scripts/backtest.py` scores every indicator at each month-end since 1990 with the live scoring rules and measures it against NBER recessions and S&P 500 bear markets: AUC (0.5 = coin flip), hit rate, median lead time and false-alarm share. Results are written to `data/indicators/backtest.json` and shown in the Radar tab. Read `docs/08-backtest.md` for method and limits: there are only four recessions in the sample, so treat every rate as a sanity check, not proof of skill.
+
+## Alerts
+`scripts/alerts.py` runs after each data workflow (`.github/workflows/alerts.yml`). It logs regime changes, indicators turning red and trend quadrant moves to `data/alerts.json`, publishes an Atom feed at `data/feed.xml`, and opens a GitHub issue (label `alert`) for warnings and critical changes, so repository watchers get an email. The first run only records state.
+
+## Data health and tests
+The site shows a banner when its data is stale or sources are failing. CI (`.github/workflows/ci.yml`) runs the Python tests, validates all data and config structure, checks WCAG contrast of the design tokens and runs a browser smoke test over every tab (dark/light, desktop/phone, no console errors, no horizontal overflow on phones).
+
+## Known limitations
+- GDELT (news volume and tone) is rate-limited from GitHub-hosted runner IPs; retries with backoff are in place but it can still report `failed`. The narrative score falls back to the other sources.
+- Form D uses EDGAR's daily index and matches filer *names* to trend keywords, a coarse proxy (Form D has no business description). It needs a real contact address in the repository variable `SEC_CONTACT`.
+- FRED serves only about 3 years of credit-spread data, so HY/IG OAS cannot be backtested.
+- Stress-test sensitivities have low explanatory power (R-squared roughly 0.02 to 0.27); the page shows model uncertainty and a low-fit flag.
+- Every scheduled data commit lands on `main`; this grows git history over time (a dedicated `data` branch would avoid it but changes how Pages serves the data).
 
 ## Optional sources
 Reddit narrative data needs a free app: add repo secrets `REDDIT_CLIENT_ID` and `REDDIT_CLIENT_SECRET`. Without them the source shows as `unconfigured` (not `failed`) on the Data & sources tab.
@@ -64,6 +77,11 @@ python3 -m http.server                 # then open http://localhost:8000
 python3 scripts/build_yearly.py        # rebuilds data/yearly/overview.json
 python3 scripts/build_monthly.py       # rebuilds monthly files
 python3 tests/test_pipeline_fixes.py   # offline tests for source health
+python3 tests/test_alerts.py           # alert detection
+python3 tests/validate_data.py         # structure of every data/config file the site reads
+python3 tests/check_contrast.py        # WCAG AA gate for css/theme.css
+python3 scripts/backtest.py            # indicator track record -> data/indicators/backtest.json
+python3 scripts/alerts.py              # regime / indicator / quadrant change log + feed
 TRENDS_OUT=/tmp/t/data python3 tests/selftest_trends.py   # always set TRENDS_OUT, or it overwrites data/
 python3 scripts/build_single.py        # one-file offline build -> dist/
 ```

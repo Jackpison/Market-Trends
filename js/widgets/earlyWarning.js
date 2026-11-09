@@ -5,7 +5,7 @@ import { drawHeatmap } from '../charts/heatmap.js';
 import { lineChart } from '../charts/linechart.js';
 import { spark } from '../charts/spark.js';
 
-let loaded = false, D = null, HM = null, filter = 'all', selId = null;
+let loaded = false, D = null, HM = null, BT = null, AL = null, filter = 'all', selId = null;
 const STATUS_LABEL = { green: 'OK', yellow: 'WARN', red: 'ALERT', nodata: 'NO DATA', stale: 'STALE' };
 
 async function load() {
@@ -13,6 +13,8 @@ async function load() {
   const root = $('#view-radar');
   try { D = await getJSON('data/indicators/latest.json'); } catch (e) { root.innerHTML = `<div class="panel"><h2>Early-warning radar</h2><div class="notice">${RUN_HINT}</div></div>`; return; }
   try { HM = await getJSON('data/indicators/heatmap.json'); } catch (e) { HM = null; }
+  try { BT = await getJSON('data/indicators/backtest.json'); } catch (e) { BT = null; }
+  try { AL = await getJSON('data/alerts.json'); } catch (e) { AL = null; }
   render(root);
 }
 
@@ -28,6 +30,7 @@ function render(root) {
     </div>
     ${cov.with_data < 8 ? `<div class="notice">Only ${cov.with_data} of ${cov.total} indicators have data, so the composite is incomplete. ${RUN_HINT}</div>` : ''}
   </div>
+  ${AL ? alertsPanel() : ''}
   <div class="split">
     <div class="panel"><h3>Risk radar by category</h3><svg id="radar" class="radar" role="img" aria-label="Category risk radar"></svg>
       <div class="legend"><i class="lg"></i>0-49 normal <i class="ly"></i>50-99 warning <i class="lr"></i>100 critical</div></div>
@@ -37,18 +40,47 @@ function render(root) {
   <div class="panel"><div class="listhead"><h3>Indicator matrix</h3><div id="catchips" class="chips"></div></div>
     <div class="tw"><table class="matrix"><thead><tr><th></th><th>Indicator</th><th class="n">Latest</th><th class="n">1M chg</th><th class="n">3M chg</th><th class="n">10Y pctile</th><th>Risk</th><th>3Y trend</th></tr></thead><tbody id="mbody"></tbody></table></div></div>
   <div id="ewDetail" class="panel" hidden></div>
+  ${BT ? trackPanel() : ''}
   ${HM ? `<div class="panel"><h3>Risk heatmap, last 15 years</h3><p class="muted small">Each cell is the indicator's risk score at month end. Grey = no data. Credit-spread history on FRED is limited to roughly 3 years (license).</p><svg id="hm" class="hm"></svg>
-  <h3 style="margin-top:18px">Composite risk history</h3><svg id="comp" class="lc"></svg></div>` : ''}`;
+  <h3 style="margin-top:18px">Composite risk history${BT ? ' (since 1990)' : ''}</h3><svg id="comp" class="lc"></svg></div>` : ''}`;
   drawRadar($('#radar'), D.categories);
+  $('#radar').setAttribute('aria-label', 'Category risk radar. ' + D.categories.map(k => `${k.name} ${k.score == null ? 'no data' : Math.round(k.score)}`).join(', ') + '. Scale 0 to 100.');
   $('#catlist').innerHTML = D.categories.map(k => `<div class="catrow"><span>${esc(k.name)}</span><div class="bar"><i style="width:${k.score ?? 0}%;background:${scoreColor(k.score)}"></i></div><b>${k.score == null ? '–' : k.score.toFixed(0)}</b></div>`).join('');
   $('#catchips').innerHTML = [['all', 'All'], ...D.categories.map(k => [k.id, k.name.split(',')[0]])].map(([id, n]) => `<button class="chip${filter === id ? ' on' : ''}" data-f="${id}">${esc(n)}</button>`).join('');
   $('#catchips').onclick = e => { const f = e.target.dataset?.f; if (!f) return; filter = f; $$('#catchips .chip').forEach(b => b.classList.toggle('on', b.dataset.f === f)); renderRows(); };
   renderRows();
   if (HM) {
     drawHeatmap($('#hm'), HM);
-    const pts = HM.months.map((m, i) => [m, HM.composite[i]]).filter(p => p[1] != null);
+    $('#hm').setAttribute('role', 'img'); $('#hm').setAttribute('aria-label', `Risk heatmap of ${HM.rows.length} indicators over the last ${HM.months.length} months; darker red means higher risk. The indicator table above has the same latest values as text.`);
+    const pts = BT && BT.composite_series.length > 24 ? BT.composite_series : HM.months.map((m, i) => [m, HM.composite[i]]).filter(p => p[1] != null);
+    $('#comp').setAttribute('role', 'img'); $('#comp').setAttribute('aria-label', `Composite risk score history from ${pts[0][0]} to ${pts[pts.length - 1][0]}; latest ${Math.round(pts[pts.length - 1][1])} of 100.`);
     lineChart($('#comp'), pts, { lines: [{ y: 25, cls: 'ok' }, { y: 45, cls: 'warn' }, { y: 65, cls: 'bad' }], fmt: v => String(Math.round(v) || 0), height: 200 });
   }
+}
+
+function alertsPanel() {
+  const ev = (AL.events || []).slice(0, 5), SEV = { critical: 'st-failed', warning: 'st-partial', info: 'st-unconfigured' };
+  return `<div class="panel"><div class="listhead"><h3>Recent alerts</h3><a class="small" href="data/feed.xml">${icon('radio', 13)} Atom feed</a></div>
+   ${ev.length ? ev.map(x => `<div class="sig alert-${esc(x.severity)}"><div class="sig-body"><div class="sig-top"><b>${esc(x.title)}</b><span class="pill ${SEV[x.severity] || ''}">${esc(x.severity)}</span></div><p class="muted small">${esc(x.ts)} UTC &middot; ${esc(x.detail)}</p></div></div>`).join('')
+     : '<p class="muted small">No regime changes, indicator breaches or quadrant moves recorded yet. Alerts are logged after each scheduled data run; serious ones also open a GitHub issue.</p>'}</div>`;
+}
+/** Verdict from backtest AUC: skill is judged against 0.5 (coin flip). Wording is deliberately cautious: very few independent events. */
+const verdict = a => a == null ? ['n/a', 'st-unconfigured'] : a >= 0.65 ? ['Useful', 'st-live'] : a >= 0.55 ? ['Weak', 'st-partial'] : ['No skill', 'st-failed'];
+function trackPanel() {
+  const cell = (r, k) => { const t = r.recession[k]; return t.hit_rate == null ? '<span class="muted">n/a</span>' : `${Math.round(t.hit_rate * 100)}% <span class="muted">(${t.hits}/${t.events_covered})</span>`; };
+  const row = (r, k) => {
+    if (!r.recession) return `<tr><td><b>${esc(r.name)}</b></td><td colspan="7" class="muted">Not enough history to backtest${r.note ? ' (' + esc(r.note) + ')' : ''}. FRED serves only ~3 years of credit-spread data.</td></tr>`;
+    const a = r.recession, b = r.drawdown, [vt, vc] = verdict(a.auc), t = a[k];
+    return `<tr><td><b>${esc(r.name)}</b></td><td class="n">${esc(r.coverage_from)}</td><td class="n">${a.auc == null ? '–' : a.auc.toFixed(2)}</td><td class="n">${cell(r, k)}</td>
+      <td class="n">${t.median_lead_months == null ? '–' : t.median_lead_months + ' mo'}</td><td class="n">${t.false_alarm_share == null ? '–' : Math.round(t.false_alarm_share * 100) + '%'}</td>
+      <td class="n">${b.auc == null ? '–' : b.auc.toFixed(2)}</td><td><span class="pill ${vc}">${vt}</span></td></tr>`;
+  };
+  const rows = [row(BT.composite, 't45'), ...BT.indicators.map(r => row(r, 't50'))].join('');
+  return `<div class="panel"><h3>Track record: did each signal fire before downturns?</h3>
+   <p class="muted small">Backtest on month-end data (${esc(BT.sample)}). Recessions began ${BT.targets.recession.events.map(esc).join(', ')}; S&amp;P 500 bear markets peaked ${BT.targets.drawdown.events.map(esc).join(', ')}.
+   <b>AUC</b> 0.5 = coin flip, 1.0 = perfect. <b>Hit rate</b>: share of recessions preceded by a warning (score &ge; 50; composite &ge; 45) in the prior 18 months. <b>False alarms</b>: share of warning episodes not followed by a recession within 18 months.</p>
+   <div class="tw"><table class="matrix"><thead><tr><th>Signal</th><th class="n">Data from</th><th class="n">Recession AUC</th><th class="n">Hit rate</th><th class="n">Median lead</th><th class="n">False alarms</th><th class="n">Bear-mkt AUC</th><th>Verdict</th></tr></thead><tbody>${rows}</tbody></table></div>
+   <div class="notice warn"><b>Read with care.</b> ${BT.caveats.map(esc).join(' ')}</div></div>`;
 }
 
 function renderRows() {

@@ -185,9 +185,43 @@ def _weekly_z(vals, raw=None):
 def src_sec(t):
     forms = "10-K,10-Q,8-K,S-1"; v = _sec_weeks(t["query"], forms); c = sec_control(forms)
     return _weekly_z([a / max(b, 1) * 1000 for a, b in zip(v, c)], raw=v)       # share of filings mentioning the theme
+_FORMD = {}; _FLOCK = threading.Lock()
+_IDX_ROW = re.compile(r"^(D|D/A)\s{2,}(.+?)\s{2,}(\d{1,10})\s+(\d{8})\s+(\S+)\s*$")
+def parse_form_idx(text):
+    """EDGAR daily form index (fixed-width: Form Type | Company Name | CIK | Date Filed | File Name) -> [(form, company, cik, date)] for Form D only."""
+    out = []
+    for line in text.splitlines():
+        m = _IDX_ROW.match(line)
+        if m and m.group(1) == "D": out.append((m.group(1), m.group(2).strip(), m.group(3), dt.datetime.strptime(m.group(4), "%Y%m%d").date()))
+    return out
+def formd_filings(weeks=8):
+    """All Form D filings (new offerings, not amendments) over the last `weeks` weeks, from SEC's daily index. Weekends/holidays 404 and are skipped."""
+    with _FLOCK:
+        if "rows" in _FORMD: return _FORMD["rows"]
+        rows, got, miss = [], 0, 0
+        for back in range(weeks * 7 - 1, -1, -1):
+            d = END - dt.timedelta(days=back)
+            if d.weekday() >= 5: continue
+            url = "https://www.sec.gov/Archives/edgar/daily-index/%d/QTR%d/form.%s.idx" % (d.year, (d.month - 1) // 3 + 1, d.strftime("%Y%m%d"))
+            TH["sec"].wait()
+            try: rows += parse_form_idx(get(url, headers={"User-Agent": SEC_UA}, tries=2)); got += 1
+            except Exception as e:
+                if "404" in str(e): miss += 1; continue        # market holiday: no index published
+                raise
+        if got < weeks * 3: raise RuntimeError("only %d daily indexes retrieved (%d holidays)" % (got, miss))
+        _FORMD["rows"] = rows; return rows
+def formd_terms(t):
+    generic = {"shortage", "squeeze", "crunch", "thesis", "demand", "supply", "price", "prices", "bid", "revival", "boom", "rally", "risk"}
+    terms = t.get("vc_terms") or [w for w in re.findall(r"[A-Za-z][A-Za-z\-]{3,}", t["query"]) if w.lower() not in generic]
+    return [re.compile(r"(?<![A-Za-z])" + re.escape(x.strip()) + r"(?![A-Za-z])", re.I) for x in terms]
 def src_formd(t):
-    v = _sec_weeks(t["query"], "D")
-    if sum(v) == 0: raise RuntimeError("no Form D hits (SEC full-text search does not index Form D text)")
+    """Weekly count of new Form D filers whose NAME contains a trend keyword (e.g. 'Fusion Energy Fund LP'). Names are a coarse proxy: Form D carries no business description."""
+    rx = formd_terms(t); rows = formd_filings()
+    v = []
+    for w in range(7, -1, -1):
+        e = END - dt.timedelta(days=7 * w); s0 = e - dt.timedelta(days=6)
+        v.append(sum(1 for _, name, _, d in rows if s0 <= d <= e and any(r.search(name) for r in rx)))
+    if sum(v) == 0: raise RuntimeError("no Form D filer names match this trend's keywords")
     return _weekly_z(v)
 
 NARR_SOURCES = {"hn": src_hn, "reddit": src_reddit, "github": src_github, "arxiv": src_arxiv, "wiki": src_wiki, "gdelt": src_gdelt, "sec": src_sec, "formd": src_formd}

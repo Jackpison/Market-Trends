@@ -1,0 +1,20 @@
+{
+ "regime": "Watch",
+ "composite": 28.5,
+ "red": [],
+ "quads": {
+  "ai_infra": "Dormant / Seed",
+  "ai_power": "Dormant / Seed",
+  "smr_nuclear": "Dormant / Seed",
+  "uranium": "Smart Money Stealth",
+  "copper": "Smart Money Stealth",
+  "gold": "Smart Money Stealth",
+  "grid_storage": "Dormant / Seed",
+  "quantum": "Dormant / Seed",
+  "humanoid": "Dormant / Seed",
+  "glp1": "Smart Money Stealth",
+  "crypto_defi": "Dormant / Seed",
+  "stablecoins": "Dormant / Seed",
+  "agentic_ai": "Dormant / Seed"
+ }
+}

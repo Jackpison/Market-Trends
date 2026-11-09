@@ -10,6 +10,8 @@ async function load() {
    <div class="split nsplit"><div id="vis" class="vis"></div><div id="nSide" class="nside"></div></div>
    <p class="muted small">These are <b>editorial hypothesis maps</b> of how a trend could propagate, not computed causal links. Live quotes are overlaid from the latest run. Click a node to highlight its upstream drivers and downstream effects.</p></div>`;
   $('#nSel').onchange = e => build(e.target.value); $('#nClear').onclick = () => select(null); document.addEventListener('themechange', () => { if (net && $('#view-network').classList.contains('on')) build(gid); });
+  $('#vis').setAttribute('role', 'img'); $('#vis').setAttribute('aria-label', 'Asset connectivity network graph. Use the list beside it (Tab, then Enter) to explore nodes by keyboard.');
+  $('#nSide').addEventListener('click', e => { const it = e.target.closest('.nitem[data-node]'); if (it && G) select(it.dataset.node); });
   await loadScript('vendor/vis-network.min.js'); build(N.graphs[0].id);
 }
 function levels(g) {
@@ -30,7 +32,7 @@ function build(id) {
 }
 function reach(start, dir) { const seen = new Set(), st = [start]; while (st.length) { const c = st.pop(); G.edges.forEach(e => { const [a, b] = dir === 'down' ? [e.from, e.to] : [e.to, e.from]; if (a === c && !seen.has(b)) { seen.add(b); st.push(b); } }); } return seen; }
 const chip = s => { const x = q(s); return `<span class="tkchip ${x && x.ret_3m != null ? (x.ret_3m >= 0 ? 'up' : 'dn') : ''}" title="${x ? 'last ' + x.last : 'no quote'}">${esc(s)}${x && x.ret_3m != null ? ' ' + signed(x.ret_3m * 100, 0, '%') : ''}</span>`; };
-const item = n => `<div class="nitem"><b>${esc(n.label)}</b><div class="muted small">${esc(n.note)}</div>${n.tickers.length ? '<div>' + n.tickers.map(chip).join(' ') + '</div>' : ''}</div>`;
+const item = n => `<div class="nitem" data-node="${esc(n.id)}" tabindex="0" role="button" aria-label="Highlight ${esc(n.label)} and its connections"><b>${esc(n.label)}</b><div class="muted small">${esc(n.note)}</div>${n.tickers.length ? '<div>' + n.tickers.map(chip).join(' ') + '</div>' : ''}</div>`;
 function select(id) {
   const side = $('#nSide'), byId = Object.fromEntries(G.nodes.map(n => [n.id, n]));
   if (!id) { nodes.update(G.nodes.map(n => ({ id: n.id, opacity: 1 }))); edges.update(G.edges.map((e, i) => ({ id: i, label: '', color: { color: cssVar('--muted'), opacity: .6 } })));
