@@ -1,12 +1,12 @@
 {
- "generated": "2026-11-10T04:12Z",
+ "generated": "2026-11-11T02:00Z",
  "baseline": {
-  "cpi_yoy": 4.02,
+  "cpi_yoy": 4.08,
   "wage_yoy": 3.12,
   "fed_funds": 3.88,
-  "y10": 4.86,
+  "y10": 4.88,
   "mortgage30": 7.18,
-  "hy_oas": 3.42,
+  "hy_oas": 3.34,
   "unemployment": 4.1
  },
  "betas": [
@@ -139,9 +139,9 @@
  "cpi_passthrough": {
   "target": "CPI pass-through (pp CPI level per 1% oil, cumulative 3 months)",
   "coef": 0.0233,
-  "t": 15.25,
+  "t": 15.26,
   "r2": 0.37,
-  "n": 487,
+  "n": 488,
   "source": "estimated"
  },
  "mortgage_beta": {
