@@ -49,6 +49,18 @@ def test_form_idx_parser():
     rx = F.formd_terms({"query": '"copper" shortage', "vc_terms": []})
     assert any(r.search("Copper Basin Mining LP") for r in rx) and not any(r.search("Copperfield Estates") for r in rx)   # whole-word match, generic words dropped
 
+def test_formd_failure_is_cached():
+    calls = []
+    def deny(url, **kw): calls.append(url); raise RuntimeError("HTTP Error 403: Forbidden")
+    og = F.get; F.get = deny; F._FORMD.clear()
+    for v in F.TH.values(): v.i = 0
+    try:
+        for _ in range(3):
+            try: F.formd_filings(); assert False, "should have raised"
+            except RuntimeError as e: assert "403" in str(e)
+    finally: F.get = og; F._FORMD.clear()
+    assert len(calls) == 1, "a refusing source must be tried once per run, got %d calls" % len(calls)
+
 if __name__ == "__main__":
     for n, f in list(globals().items()):
         if n.startswith("test_"): f(); print("ok", n)

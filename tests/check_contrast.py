@@ -25,9 +25,7 @@ for name, t in THEMES.items():
         for bg in BG:
             r = ratio(t[fg], t[bg])
             if r < 4.5: print("FAIL %s: --%s on --%s = %.2f (< 4.5)" % (name, fg, bg, r)); bad += 1
-    onacc = t["bg"]                                   # text on filled accent buttons/chips uses --bg (dark) or white (light)
-    onacc = "#ffffff" if name == "light" else t["bg"]
-    r = ratio(onacc, t["acc"])
+    r = ratio(t.get("on-acc", t["bg"]), t["acc"])      # text on filled accent buttons / active chips / skip link
     if r < 4.5: print("FAIL %s: text on --acc = %.2f" % (name, r)); bad += 1
     print("%s theme: lowest text pair %.2f:1" % (name, min(ratio(t[f], t[b]) for f in FG for b in BG)))
 sys.exit(1 if bad else 0)

@@ -198,6 +198,11 @@ def formd_filings(weeks=8):
     """All Form D filings (new offerings, not amendments) over the last `weeks` weeks, from SEC's daily index. Weekends/holidays 404 and are skipped."""
     with _FLOCK:
         if "rows" in _FORMD: return _FORMD["rows"]
+        if "err" in _FORMD: raise RuntimeError(_FORMD["err"])         # one failed attempt per run: do not re-hit a source that is refusing us
+        try: _FORMD["rows"] = _formd_fetch(weeks); return _FORMD["rows"]
+        except Exception as e: _FORMD["err"] = str(e); raise
+def _formd_fetch(weeks):
+    if True:
         rows, got, miss = [], 0, 0
         for back in range(weeks * 7 - 1, -1, -1):
             d = END - dt.timedelta(days=back)
@@ -209,7 +214,7 @@ def formd_filings(weeks=8):
                 if "404" in str(e): miss += 1; continue        # market holiday: no index published
                 raise
         if got < weeks * 3: raise RuntimeError("only %d daily indexes retrieved (%d holidays)" % (got, miss))
-        _FORMD["rows"] = rows; return rows
+        return rows
 def formd_terms(t):
     generic = {"shortage", "squeeze", "crunch", "thesis", "demand", "supply", "price", "prices", "bid", "revival", "boom", "rally", "risk"}
     terms = t.get("vc_terms") or [w for w in re.findall(r"[A-Za-z][A-Za-z\-]{3,}", t["query"]) if w.lower() not in generic]
