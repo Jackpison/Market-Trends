@@ -3,18 +3,18 @@
  "composite": 26.8,
  "red": [],
  "quads": {
-  "ai_infra": "Dormant / Seed",
+  "ai_infra": "Smart Money Stealth",
   "ai_power": "Dormant / Seed",
   "smr_nuclear": "Dormant / Seed",
-  "uranium": "Smart Money Stealth",
-  "copper": "Smart Money Stealth",
+  "uranium": "Dormant / Seed",
+  "copper": "Dormant / Seed",
   "gold": "Smart Money Stealth",
-  "grid_storage": "Dormant / Seed",
+  "grid_storage": "Smart Money Stealth",
   "quantum": "Dormant / Seed",
   "humanoid": "Smart Money Stealth",
   "glp1": "Smart Money Stealth",
-  "crypto_defi": "Dormant / Seed",
+  "crypto_defi": "Smart Money Stealth",
   "stablecoins": "Dormant / Seed",
-  "agentic_ai": "Dormant / Seed"
+  "agentic_ai": "Mainstream Trend"
  }
 }
