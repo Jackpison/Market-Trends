@@ -1,6 +1,13 @@
 {
- "generated": "2026-11-12T03:11Z",
+ "generated": "2026-11-13T02:44Z",
  "events": [
+  {
+   "ts": "2026-11-13T02:44Z",
+   "kind": "regime",
+   "severity": "info",
+   "title": "Risk regime eased: Watch -> Calm",
+   "detail": "Composite risk score 24.2 (was 26.4). Open the Radar tab for the indicator breakdown."
+  },
   {
    "ts": "2026-11-12T00:28Z",
    "kind": "quadrant",
