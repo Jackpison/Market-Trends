@@ -1,6 +1,20 @@
 {
- "generated": "2026-11-14T05:04Z",
+ "generated": "2026-11-14T13:04Z",
  "events": [
+  {
+   "ts": "2026-11-14T13:04Z",
+   "kind": "quadrant",
+   "severity": "info",
+   "title": "Uranium supply squeeze: Smart Money Stealth -> Dormant / Seed",
+   "detail": "Narrative velocity vs capital score moved the trend between quadrants."
+  },
+  {
+   "ts": "2026-11-14T13:04Z",
+   "kind": "quadrant",
+   "severity": "warning",
+   "title": "Copper shortage thesis: Dormant / Seed -> Smart Money Stealth",
+   "detail": "Narrative velocity vs capital score moved the trend between quadrants."
+  },
   {
    "ts": "2026-11-14T05:04Z",
    "kind": "quadrant",
