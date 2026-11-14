@@ -1,6 +1,27 @@
 {
- "generated": "2026-11-14T02:32Z",
+ "generated": "2026-11-14T05:04Z",
  "events": [
+  {
+   "ts": "2026-11-14T05:04Z",
+   "kind": "quadrant",
+   "severity": "warning",
+   "title": "Uranium supply squeeze: Dormant / Seed -> Smart Money Stealth",
+   "detail": "Narrative velocity vs capital score moved the trend between quadrants."
+  },
+  {
+   "ts": "2026-11-14T05:04Z",
+   "kind": "quadrant",
+   "severity": "info",
+   "title": "Grid-scale energy storage: Smart Money Stealth -> Dormant / Seed",
+   "detail": "Narrative velocity vs capital score moved the trend between quadrants."
+  },
+  {
+   "ts": "2026-11-14T05:04Z",
+   "kind": "quadrant",
+   "severity": "info",
+   "title": "Crypto & DeFi risk-on: Smart Money Stealth -> Dormant / Seed",
+   "detail": "Narrative velocity vs capital score moved the trend between quadrants."
+  },
   {
    "ts": "2026-11-13T02:44Z",
    "kind": "regime",
